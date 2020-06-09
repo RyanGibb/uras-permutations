@@ -2,16 +2,15 @@
 #include <stdlib.h>
 
 /**
- * Calculates and returns z = xy. The arrays x and y must of size n.
+ * Calculates z = xy, overwriting z. All the arrays must of size n.
  * */
-unsigned long long* permutation_composition(int n,
+void permutation_composition(int n,
 		unsigned long long x[],
-		unsigned long long y[]) {
-	unsigned long long* z = malloc(n * sizeof(unsigned long long));
+		unsigned long long y[],
+		unsigned long long z[]) {
 	for (int i = 0; i < n; i++) {
 		z[i] = y[x[i]];
 	}
-	return z;
 }
 
 /**
@@ -25,16 +24,17 @@ int main(int argc, char *argv[]) {
 		printf("Please enter n greater or equal to 1\n");
 		return -1;
 	}
+	// Dynamically allocated to avoid overflowing the stack for large n's
 	unsigned long long* x = malloc(n * sizeof(unsigned long long));
 	unsigned long long* y = malloc(n * sizeof(unsigned long long));
+	unsigned long long* z = malloc(n * sizeof(unsigned long long));
 	for (int i = 0; i < n; i++) {
 		scanf("%llu", &x[i]);
 	}
 	for (int i = 0; i < n; i++) {
 		scanf("%llu", &y[i]);
 	}
-	unsigned long long* z;
-	z = permutation_composition(n, x, y);
+	permutation_composition(n, x, y, z);
 	printf("%llu", z[0]);
 	for (int i = 1; i < n; i++) {
 		printf(" %llu", z[i]);
