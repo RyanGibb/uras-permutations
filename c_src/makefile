@@ -4,7 +4,7 @@ CFLAGS=-g -Wall
 all: composition_naive
 
 composition_naive:
-	$(CC) $(CFLAGS) composition_naive.c -o composition_naive
+	$(CC) $(CFLAGS) composition_naive.c -o composition_naive_c
 
 clean:
-	rm *.o composition_naive
+	rm *.o composition_naive_c
