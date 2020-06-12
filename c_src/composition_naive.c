@@ -11,7 +11,8 @@ unsigned long long get_elapsed_ns(struct timespec* start, struct timespec* end) 
 }
 
 /*
- * Calculates z = xy, overwriting z. All the arrays must of size n.
+ * Calculates z = xy, overwriting z. All of x, y, and z must of size n,
+ * with x and y containing values from 0 to n - 1.
  */
 void permutation_composition(int n, size_t x[], size_t y[], size_t z[]) {
 	for (int i = 0; i < n; i++) {

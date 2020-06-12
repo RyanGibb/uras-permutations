@@ -1,5 +1,5 @@
 use std::io::{Error, Result};
-use std::time::{Duration};
+use std::time::Duration;
 use std::env;
 
 use text_io::try_read;
@@ -16,10 +16,15 @@ fn get_cpu_time() -> Result<Duration> {
     Ok(Duration::new(time.tv_sec as u64, time.tv_nsec as u32))
 }
 
-// Calculates z = xy, overwriting z. All of x, y, and z must of size n.
+// Calculates z = xy, overwriting z. All of x, y, and z must of size n,
+// with x and y containing values from 0 to n - 1.
 fn permutation_composition(n: usize, x: &[usize], y: &[usize], z: &mut [usize]) {
     for i in 0..n {
-        z[i] = y[x[i]];
+        unsafe {
+            let j = *x.get_unchecked(i);
+            let k = *y.get_unchecked(j);
+            *z.get_unchecked_mut(i) = k;
+        }
     }
 }
 
@@ -53,9 +58,15 @@ fn main() {
         let mut y: Vec<usize> = vec![0; n];
         for i in 0..n {
             x[i] = try_read!().expect("Invalid input");
+            if x[i] >= n {
+                panic!("Invalid input");
+            }
         }
         for i in 0..n {
             y[i] = try_read!().expect("Invalid input");
+            if x[i] >= n {
+                panic!("Invalid input");
+            }
         }
         let start_cpu_time = get_cpu_time().expect("Failed to get CPU start time");
         for _ in 0..iterations {
@@ -64,10 +75,11 @@ fn main() {
         let end_cpu_time = get_cpu_time().expect("Failed to get CPU end time");
         cpu_time = end_cpu_time.checked_sub(start_cpu_time).unwrap();
     }
-    println!("{}", cpu_time.as_nanos());
+    let cpu_time_ns = cpu_time.as_nanos();
+    println!("{}", cpu_time_ns);
     print!("{}", z[0]);
     for i in 1..n {
         print!(" {}", z[i]);
     }
-    println!();
+    println!();    
 }
