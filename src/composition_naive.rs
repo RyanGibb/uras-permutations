@@ -1,7 +1,8 @@
 use std::io::{Error, Result};
 use std::time::{Duration};
-use text_io::try_read;
+use std::env;
 
+use text_io::try_read;
 use libc::{clock_gettime, timespec, CLOCK_PROCESS_CPUTIME_ID};
 
 fn get_cpu_time() -> Result<Duration> {
@@ -26,6 +27,13 @@ fn permutation_composition(n: usize, x: &[usize], y: &[usize], z: &mut [usize]) 
 // The composition of these two permutations z=xy is printed to stdout.
 // The input and output format is described in README.md.
 fn main() {
+    let args: Vec<String> = env::args().collect();
+    let repetitions: u64;
+    if args.len() > 1 {
+        repetitions = args[1].parse::<u64>().expect("Please enter a postive integer");
+    } else {
+        repetitions = 1;
+    }
     // If 64bit then usize is 8 bytes
     let n: usize = try_read!().expect("Invalid input");
     if n < 1 {
@@ -43,9 +51,11 @@ fn main() {
         y[i] = try_read!().expect("Invalid input");
     }
     let start_cpu_time = get_cpu_time().expect("Failed to get CPU start time");
-    permutation_composition(n, &x, &y, &mut z);
+    for _ in 0..repetitions {
+        permutation_composition(n, &x, &y, &mut z);
+    }
     let end_cpu_time = get_cpu_time().expect("Failed to get CPU end time");
-    let cpu_time = start_cpu_time.checked_sub(end_cpu_time).unwrap();
+    let cpu_time = end_cpu_time.checked_sub(start_cpu_time).unwrap();
     println!("{}", cpu_time.as_nanos());
     print!("{}", z[0]);
     for i in 1..n {
