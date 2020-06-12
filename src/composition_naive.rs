@@ -28,11 +28,14 @@ fn permutation_composition(n: usize, x: &[usize], y: &[usize], z: &mut [usize]) 
 // The input and output format is described in README.md.
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let repetitions: u64;
+    let iterations: i64;
     if args.len() > 1 {
-        repetitions = args[1].parse::<u64>().expect("Please enter a postive integer");
+        iterations = match args[1].parse::<i64>() {
+            Ok(num) => if num < 1 { 1 } else {num},
+            Err(_) => 1,
+        };
     } else {
-        repetitions = 1;
+        iterations = 1;
     }
     // If 64bit then usize is 8 bytes
     let n: usize = try_read!().expect("Invalid input");
@@ -40,22 +43,25 @@ fn main() {
         println!("Please enter n greater or equal to 1");
         return;
     }
-    // Vectors stored on the heap
-    let mut x: Vec<usize> = vec![0; n];
-    let mut y: Vec<usize> = vec![0; n];
+    let cpu_time;
     let mut z: Vec<usize> = vec![0; n];
-    for i in 0..n {
-        x[i] = try_read!().expect("Invalid input");
+    {
+        // Vectors stored on the heap
+        let mut x: Vec<usize> = vec![0; n];
+        let mut y: Vec<usize> = vec![0; n];
+        for i in 0..n {
+            x[i] = try_read!().expect("Invalid input");
+        }
+        for i in 0..n {
+            y[i] = try_read!().expect("Invalid input");
+        }
+        let start_cpu_time = get_cpu_time().expect("Failed to get CPU start time");
+        for _ in 0..iterations {
+            permutation_composition(n, &x, &y, &mut z);
+        }
+        let end_cpu_time = get_cpu_time().expect("Failed to get CPU end time");
+        cpu_time = end_cpu_time.checked_sub(start_cpu_time).unwrap();
     }
-    for i in 0..n {
-        y[i] = try_read!().expect("Invalid input");
-    }
-    let start_cpu_time = get_cpu_time().expect("Failed to get CPU start time");
-    for _ in 0..repetitions {
-        permutation_composition(n, &x, &y, &mut z);
-    }
-    let end_cpu_time = get_cpu_time().expect("Failed to get CPU end time");
-    let cpu_time = end_cpu_time.checked_sub(start_cpu_time).unwrap();
     println!("{}", cpu_time.as_nanos());
     print!("{}", z[0]);
     for i in 1..n {

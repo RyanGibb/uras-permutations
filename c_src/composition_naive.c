@@ -25,11 +25,14 @@ void permutation_composition(int n, size_t x[], size_t y[], size_t z[]) {
  * The input and output format is described in README.md.
  */
 int main(int argc, char *argv[]) {
-	int repetitions;
+	long long iterations;
 	if (argc > 1) {
-		repetitions = atoi(argv[1]);
+		iterations = strtoll(argv[1], NULL, 10);
+		if (iterations < 1) {
+			iterations = 1;
+		}
 	} else {
-		repetitions = 1;
+		iterations = 1;
 	}
     // If 64bit then size_t is 8 bytes
 	size_t n;
@@ -55,7 +58,7 @@ int main(int argc, char *argv[]) {
 		printf("Failed to get CPU start time: %s\n", strerror(errno));
 		return -1;
 	}
-	for (int i = 0; i < repetitions; i++) {
+	for (int i = 0; i < iterations; i++) {
 		permutation_composition(n, x, y, z);
 	}
 	struct timespec end_cpu_time;
@@ -65,11 +68,14 @@ int main(int argc, char *argv[]) {
 		return -1;
 	}
 	unsigned long long cpu_time_ns = get_elapsed_ns(&start_cpu_time, &end_cpu_time);
+	free(x);
+	free(y);
     printf("%llu\n", cpu_time_ns);
 	printf("%zu", z[0]);
 	for (int i = 1; i < n; i++) {
 		printf(" %zu", z[i]);
 	}
 	printf("\n");
+	free(z);
 	return 0;
 }
