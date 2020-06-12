@@ -1,5 +1,5 @@
 use std::io::{Error, Result};
-use std::time::{Duration, Instant};
+use std::time::{Duration};
 use text_io::try_read;
 
 use libc::{clock_gettime, timespec, CLOCK_PROCESS_CPUTIME_ID};
@@ -42,14 +42,11 @@ fn main() {
     for i in 0..n {
         y[i] = try_read!().expect("Invalid input");
     }
-    let wallclock_start = Instant::now();
-    let cpu_start = get_cpu_time().expect("Failed to get CPU start time");
+    let start_cpu_time = get_cpu_time().expect("Failed to get CPU start time");
     permutation_composition(n, &x, &y, &mut z);
-    let wallclock_elapsed = wallclock_start.elapsed();
-    let cpu_end = get_cpu_time().expect("Failed to get CPU end time");
-    let cpu_elapsed = cpu_end.checked_sub(cpu_start).unwrap();
-    println!("Wallclock Time (ns): {}", wallclock_elapsed.as_nanos());
-    println!("CPU Time (ns): {}", cpu_elapsed.as_nanos());
+    let end_cpu_time = get_cpu_time().expect("Failed to get CPU end time");
+    let cpu_time = start_cpu_time.checked_sub(end_cpu_time).unwrap();
+    println!("{}", cpu_time.as_nanos());
     print!("{}", z[0]);
     for i in 1..n {
         print!(" {}", z[i]);

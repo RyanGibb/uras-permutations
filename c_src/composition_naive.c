@@ -43,35 +43,21 @@ int main(int argc, char *argv[]) {
 		scanf("%zu", &y[i]);
 	}
 	int rc;
-	struct timespec wallclock_start;
-	rc = clock_gettime(CLOCK_MONOTONIC, &wallclock_start);
-	if (rc == -1) {
-		printf("Failed to get wallclock start time: %s\n", strerror(errno));
-		return -1;
-	}
-	struct timespec cpu_start;
-	rc = clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &cpu_start);
+	struct timespec start_cpu_time;
+	rc = clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &start_cpu_time);
 	if (rc == -1) {
 		printf("Failed to get CPU start time: %s\n", strerror(errno));
 		return -1;
 	}
 	permutation_composition(n, x, y, z);
-	struct timespec wallclock_end;
-	rc = clock_gettime(CLOCK_MONOTONIC, &wallclock_end);
-	if (rc == -1) {
-		printf("Failed to get wallclock end time: %s\n", strerror(errno));
-		return -1;
-	}
-	struct timespec cpu_end;
-	rc = clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &cpu_end);
+	struct timespec end_cpu_time;
+	rc = clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &end_cpu_time);
 	if (rc == -1) {
 		printf("Failed to get CPU end time: %s\n", strerror(errno));
 		return -1;
 	}
-	unsigned long long wallclock_elapsed_ns = get_elapsed_ns(&wallclock_start, &wallclock_end);
-	unsigned long long cpu_elapsed_ns = get_elapsed_ns(&cpu_start, &cpu_end);
-    printf("Wallclock Time (ns): %llu\n", wallclock_elapsed_ns);
-    printf("CPU Time (ns): %llu\n", cpu_elapsed_ns);
+	unsigned long long cpu_time_ns = get_elapsed_ns(&start_cpu_time, &end_cpu_time);
+    printf("%llu\n", cpu_time_ns);
 	printf("%zu", z[0]);
 	for (int i = 1; i < n; i++) {
 		printf(" %zu", z[i]);
