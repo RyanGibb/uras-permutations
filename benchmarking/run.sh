@@ -23,7 +23,6 @@ for executable in "$@"; do
 			iterations=$new_iterations
 			cpu_time_ns=$(get_cpu_time)
 			echo "At $iterations iterations took $cpu_time_ns (ns)"
-			#new_iterations=$(bc <<< "$iterations * 2")
 			new_iterations=$(($iterations * 2))
 		done
 		echo $(basename "$executable"),$(basename "$file" _pair.txt), 1, $cpu_time_ns, $iterations>> $out_file
