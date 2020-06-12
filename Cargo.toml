@@ -14,3 +14,7 @@ libc = "0.2"
 [[bin]]
 name = "composition_naive_rust"
 path = "src/composition_naive.rs"
+
+[[bin]]
+name = "composition_cooperman_ma_rust"
+path = "src/composition_cooperman_ma.rs"
