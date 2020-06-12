@@ -1,11 +1,10 @@
 use text_io::try_read;
 
 // Calculates z = xy, overwriting z. All of x, y, and z must of size n.
-fn permutation_composition(n: usize, x: &[usize], y: &[usize], mut z: Vec<usize>) -> Vec<usize> {
+fn permutation_composition(n: usize, x: &[usize], y: &[usize], z: &mut [usize]) {
     for i in 0..n {
         z[i] = y[x[i]];
     }
-    z
 }
 
 // From stdin inputs a positive number n, and two permutations x & y of size n.
@@ -28,7 +27,7 @@ fn main() {
     for i in 0..n {
         y[i] = try_read!().expect("Invalid input");
     }
-    z = permutation_composition(n, &x, &y, z);
+    permutation_composition(n, &x, &y, &mut z);
     print!("{}", z[0]);
     for i in 1..n {
         print!(" {}", z[i]);
