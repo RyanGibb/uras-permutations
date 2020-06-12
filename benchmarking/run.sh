@@ -10,7 +10,7 @@ fi
 echo -n > $(dirname "$0")/error_log
 
 get_cpu_time () {
-	echo $(cat "$file" | (./"$executable" $iterations 2>> $(dirname "$0")/error_log) | head -n 1)
+	echo $(cat "$file" | ./"$executable" $iterations | head -n 1)
 }
 
 for executable in "$@"; do

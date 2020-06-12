@@ -27,6 +27,8 @@ fn permutation_composition(n: usize, x: &[usize], y: &[usize], z: &mut [usize]) 
 // The composition of these two permutations z=xy is printed to stdout.
 // The input and output format is described in README.md.
 fn main() {
+    // Don't print error message on broken pipe.
+    unsafe { libc::signal(libc::SIGPIPE, libc::SIG_DFL); }
     let args: Vec<String> = env::args().collect();
     let iterations: i64;
     if args.len() > 1 {
