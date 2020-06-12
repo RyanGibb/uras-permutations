@@ -5,6 +5,13 @@
 #include <time.h>
 #include <errno.h>
 #include <string.h>
+#include <math.h>
+
+// Datatype used to store permutation indices.
+// Should be unsigned to prevent values less than 0.
+// perm_t's max value is the highest permutation degree supported.
+typedef size_t perm_t;
+#define PERM_T_FORMAT "zu"
 
 unsigned long long get_elapsed_ns(struct timespec* start, struct timespec* end) {
 	return (end->tv_sec - start->tv_sec) * 1e+9 + (end->tv_nsec - start->tv_nsec);
@@ -14,7 +21,7 @@ unsigned long long get_elapsed_ns(struct timespec* start, struct timespec* end) 
  * Calculates z = xy, overwriting z. All of x, y, and z must of size n,
  * with x and y containing values from 0 to n - 1.
  */
-void permutation_composition(int n, size_t x[], size_t y[], size_t z[]) {
+void permutation_composition(int n, perm_t x[], perm_t y[], perm_t z[]) {
 	for (int i = 0; i < n; i++) {
 		z[i] = y[x[i]];
 	}
@@ -26,37 +33,66 @@ void permutation_composition(int n, size_t x[], size_t y[], size_t z[]) {
  * The input and output format is described in README.md.
  */
 int main(int argc, char *argv[]) {
-	long long iterations;
+	unsigned long long iterations;
 	if (argc > 1) {
-		iterations = strtoll(argv[1], NULL, 10);
-		if (iterations < 1) {
-			iterations = 1;
+		errno = 0;
+		iterations = strtoull(argv[1], NULL, 10);
+		if (errno != 0) {
+			fprintf(stderr, "Invalid iterations: %s\n", strerror(errno));
+			return -1;
 		}
 	} else {
 		iterations = 1;
 	}
-    // If 64bit then size_t is 8 bytes
 	size_t n;
+	errno = 0;
 	scanf("%zu", &n);
+	if (errno != 0) {
+		fprintf(stderr, "Error reading: %s\n", strerror(errno));
+		return -1;
+	}
 	if (n < 1) {
-		printf("Please enter n greater or equal to 1\n");
+		fprintf(stderr, "Please enter n greater or equal to 1\n");
+		return -1;
+	}
+	long double max_n = powl(2, sizeof(perm_t) * 8);
+	if (n >= max_n) {
+		fprintf(stderr, "Please enter n less than %0.Lf\n", max_n);
 		return -1;
 	}
 	// Dynamically allocated to avoid overflowing the stack for large n's
-	size_t* x = malloc(n * sizeof(size_t));
-	size_t* y = malloc(n * sizeof(size_t));
-	size_t* z = malloc(n * sizeof(size_t));
+	perm_t* x = malloc(n * sizeof(perm_t));
+	perm_t* y = malloc(n * sizeof(perm_t));
+	perm_t* z = malloc(n * sizeof(perm_t));
 	for (int i = 0; i < n; i++) {
-		scanf("%zu", &x[i]);
+		errno = 0;
+		scanf("%"PERM_T_FORMAT, &x[i]);
+		if (errno != 0) {
+			fprintf(stderr, "Error reading: %s\n", strerror(errno));
+			return -1;
+		}
+		if (x[i] >= n) {
+			fprintf(stderr, "Invalid input\n");
+			return -1;
+		}
 	}
 	for (int i = 0; i < n; i++) {
-		scanf("%zu", &y[i]);
+		errno = 0;
+		scanf("%"PERM_T_FORMAT, &y[i]);
+		if (errno != 0) {
+			fprintf(stderr, "Error reading: %s\n", strerror(errno));
+			return -1;
+		}
+		if (y[i] >= n) {
+			fprintf(stderr, "Invalid input\n");
+			return -1;
+		}
 	}
 	int rc;
 	struct timespec start_cpu_time;
 	rc = clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &start_cpu_time);
 	if (rc == -1) {
-		printf("Failed to get CPU start time: %s\n", strerror(errno));
+		fprintf(stderr, "Failed to get CPU start time: %s\n", strerror(errno));
 		return -1;
 	}
 	for (int i = 0; i < iterations; i++) {
@@ -65,16 +101,16 @@ int main(int argc, char *argv[]) {
 	struct timespec end_cpu_time;
 	rc = clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &end_cpu_time);
 	if (rc == -1) {
-		printf("Failed to get CPU end time: %s\n", strerror(errno));
+		fprintf(stderr, "Failed to get CPU end time: %s\n", strerror(errno));
 		return -1;
 	}
 	unsigned long long cpu_time_ns = get_elapsed_ns(&start_cpu_time, &end_cpu_time);
 	free(x);
 	free(y);
     printf("%llu\n", cpu_time_ns);
-	printf("%zu", z[0]);
+	printf("%"PERM_T_FORMAT, z[0]);
 	for (int i = 1; i < n; i++) {
-		printf(" %zu", z[i]);
+		printf(" %"PERM_T_FORMAT, z[i]);
 	}
 	printf("\n");
 	free(z);
