@@ -3,7 +3,6 @@ name = "uras-permutations"
 version = "0.1.0"
 authors = ["RyanGibb <ryangibb321@gmail.com>"]
 edition = "2018"
-default-run = "composition_naive_rust"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -11,10 +10,6 @@ default-run = "composition_naive_rust"
 text_io = "0.1.8"
 libc = "0.2"
 
-[[bin]]
-name = "composition_naive_rust"
-path = "src/composition_naive.rs"
-
-[[bin]]
-name = "composition_cooperman_ma_rust"
-path = "src/composition_cooperman_ma.rs"
+[features]
+naive = []
+cooperman_ma = []
