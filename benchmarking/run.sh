@@ -7,11 +7,12 @@ if [ ! -f $out_file ]; then
     echo "Executable, n, Repetition, CPU Time (ns), Iterations" > $out_file
 fi
 
-echo -n > $(dirname "$0")/error_log
-
 get_cpu_time () {
-	echo $(cat "$file" | ./"$executable" $iterations | head -n 1)
+	echo $(cat "$file" | ./$executable $iterations | head -n 1)
 }
+
+make -C c || exit 1
+cargo build --release --manifest-path ./rust/Cargo.toml || exit 1
 
 for executable in "$@"; do
 	echo $executable
@@ -25,9 +26,9 @@ for executable in "$@"; do
 			echo "At $iterations iterations took $cpu_time_ns (ns)"
 			new_iterations=$(($iterations * 2))
 		done
-		echo $(basename "$executable"),$(basename "$file" _pair.txt), 1, $cpu_time_ns, $iterations>> $out_file
+		echo $(basename "$executable" .sh),$(basename "$file" _pair.txt), 1, $cpu_time_ns, $iterations>> $out_file
 		for ((repetition=2; repetition<=$REPETITIONS; repetition++)); do
-			echo $(basename "$executable"),$(basename "$file" _pair.txt), $repetition, $(get_cpu_time), $iterations >> $out_file
+			echo $(basename "$executable" .sh),$(basename "$file" _pair.txt), $repetition, $(get_cpu_time), $iterations >> $out_file
 		done
 	done
 done

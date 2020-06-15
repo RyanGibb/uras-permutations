@@ -2,7 +2,7 @@ cd $(dirname "$0")/..
 
 for executable in "$@"; do
 	echo $executable
-	out_dir=$(dirname "$0")/$(basename "$executable")
+	out_dir=$(dirname "$0")/$(basename "$executable" c)
 	mkdir -p $out_dir
 	for file in ./permutations/*; do
 		echo "$file"
