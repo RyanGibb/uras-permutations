@@ -1,0 +1,16 @@
+[package]
+name = "uras-permutations"
+version = "0.1.0"
+authors = ["RyanGibb <ryangibb321@gmail.com>"]
+edition = "2018"
+default-run = "composition_rust"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+text_io = "0.1.8"
+libc = "0.2"
+
+[[bin]]
+name = "composition_rust"
+path = "./src/main.rs"
