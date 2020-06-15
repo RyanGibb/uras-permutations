@@ -1,1 +1,1 @@
-exec ./rust/target/release/composition_rust naive $1
+exec $(dirname "$0")/../rust/target/release/composition_rust naive $1

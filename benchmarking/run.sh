@@ -1,4 +1,3 @@
-cd $(dirname "$0")/..
 
 out_file=$(dirname "$0")/benchmarks.csv
 REPETITIONS=3
@@ -11,12 +10,12 @@ get_cpu_time () {
 	echo $(cat "$file" | ./$executable $iterations | head -n 1)
 }
 
-make -C c || exit 1
-cargo build --release --manifest-path ./rust/Cargo.toml || exit 1
+make -C $(dirname "$0")/../c || exit 1
+cargo build --release --manifest-path $(dirname "$0")/../rust/Cargo.toml || exit 1
 
 for executable in "$@"; do
 	echo $executable
-	for file in ./permutations/*; do
+	for file in cd $(dirname "$0")/../permutations/*; do
 		echo "$file"
 		cpu_time_ns=0
 		new_iterations=1
