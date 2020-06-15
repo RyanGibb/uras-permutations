@@ -1,21 +1,27 @@
+use std::process;
 use std::mem::size_of;
 
-// Datatype used to store permutation indices.
-// Should be unsigned to prevent values less than 0.
-// PermT's max value is the highest permutation degree supported.
-pub type PermT = usize;
+#[path = "composition.rs"]
+mod composition;
+use composition::PermT;
 
-static CACHE_SIZE: usize = 256;
+pub static mut CACHE_SIZE: usize = 256;
 
 // Calculates z = xy, overwriting z. All of x, y, and z must of size n,
 // with x and y containing values from 0 to n - 1.
-pub fn permutation_composition(n: usize, x: &[PermT], y: &[PermT], z: &mut [PermT]) {
-    let block_length = CACHE_SIZE/2/size_of::<PermT>();
+pub fn composition_cooperman_ma(n: usize, x: &[PermT], y: &[PermT], z: &mut [PermT]) {
+    if unsafe { CACHE_SIZE } < 2 * size_of::<PermT>() {
+        eprintln!("Cache size must be large enough to fit at least two indices.");
+        process::exit(1);
+    }
+    let block_length = unsafe { CACHE_SIZE } / 2 / size_of::<PermT>();
     // Integer division rounding up
     let number_of_blocks = (n + block_length - 1) / block_length;
     let mut d: Vec<PermT> = vec![0; n];
     let mut d_ptr: Vec<*mut PermT> = Vec::with_capacity(number_of_blocks);
-    unsafe { d_ptr.set_len(number_of_blocks); };
+    unsafe {
+        d_ptr.set_len(number_of_blocks);
+    };
 
     //Phase I: distribute value, x[a], into d_ptr[block_num]
     // such that block_num == x[a] / block_length

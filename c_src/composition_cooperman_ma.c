@@ -1,17 +1,15 @@
 #include <stdio.h>
 
-#include "permutation_composition.h"
+#include "composition.h"
 
-#ifndef CACHE_SIZE
-#define CACHE_SIZE 256
-#endif
+size_t cache_size = 256;
 
 /*
  * Calculates z = xy, overwriting z. All of x, y, and z must of size n,
  * with x and y containing values from 0 to n - 1.
  */
-void permutation_composition(size_t n, perm_t x[], perm_t y[], perm_t z[]) {
-	size_t block_length = CACHE_SIZE/2/sizeof(perm_t);
+void composition_cooperman_ma(size_t n, perm_t x[], perm_t y[], perm_t z[]) {
+	size_t block_length = cache_size/2/sizeof(perm_t);
     // Integer division rounding up
 	size_t number_of_blocks = (n + block_length - 1) / block_length;
 	perm_t* d = malloc(n * sizeof(perm_t));
