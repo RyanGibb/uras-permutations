@@ -1,3 +1,2 @@
-/target
-/c_src/*_c
-/c_src/*.o
+/rust/target
+/c_src/composition_c
