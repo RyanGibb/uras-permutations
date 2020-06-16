@@ -15,7 +15,7 @@ cargo build --release --manifest-path $(dirname "$0")/../rust/Cargo.toml || exit
 
 for executable in "$@"; do
 	echo $executable
-	for file in cd $(dirname "$0")/../permutations/*; do
+	for file in $(dirname "$0")/../permutations/*; do
 		echo "$file"
 		cpu_time_ns=0
 		new_iterations=1
