@@ -67,11 +67,12 @@ int main(int argc, char *argv[]) {
 	}
 
 	// Parse permutations x & y from stdin
+	freopen(NULL, "rb", stdin);
 	size_t n;
-	errno = 0;
-	scanf("%zu", &n);
-	if (errno != 0) {
-		fprintf(stderr, "Error reading: %s\n", strerror(errno));
+   	clearerr(stdin);
+	fread(&n, 1, sizeof(size_t), stdin);
+	if (ferror(stdin)) {
+		fprintf(stderr, "Error reading n\n");
 		return 1;
 	}
 	if (n < 1) {
@@ -87,27 +88,27 @@ int main(int argc, char *argv[]) {
 	perm_t* x = malloc(n * sizeof(perm_t));
 	perm_t* y = malloc(n * sizeof(perm_t));
 	perm_t* z = malloc(n * sizeof(perm_t));
-	for (int i = 0; i < n; i++) {
-		errno = 0;
-		scanf("%"PERM_T_FORMAT, &x[i]);
-		if (errno != 0) {
-			fprintf(stderr, "Error reading: %s\n", strerror(errno));
+	for (size_t i = 0; i < n; i++) {
+   		clearerr(stdin);
+		fread(&x[i], 1, sizeof(perm_t), stdin);
+		if (ferror(stdin)) {
+			fprintf(stderr, "Error reading x[%zu]\n", i);
 			return 1;
 		}
 		if (x[i] >= n) {
-			fprintf(stderr, "Invalid input\n");
+			fprintf(stderr, "Invalid input: x[%zu]=%"PERM_T_FORMAT" not less than n=%zu\n", i, x[i], n);
 			return 1;
 		}
 	}
-	for (int i = 0; i < n; i++) {
-		errno = 0;
-		scanf("%"PERM_T_FORMAT, &y[i]);
-		if (errno != 0) {
-			fprintf(stderr, "Error reading: %s\n", strerror(errno));
+	for (size_t i = 0; i < n; i++) {
+		clearerr(stdin);
+		fread(&y[i], 1, sizeof(perm_t), stdin);
+		if (ferror(stdin)) {
+			fprintf(stderr, "Error reading y[%zu]\n", i);
 			return 1;
 		}
 		if (y[i] >= n) {
-			fprintf(stderr, "Invalid input\n");
+			fprintf(stderr, "Invalid input: y[%zu]=%"PERM_T_FORMAT" not less than n=%zu\n", i, y[i], n);
 			return 1;
 		}
 	}

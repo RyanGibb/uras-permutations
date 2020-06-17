@@ -1,11 +1,10 @@
 use std::env;
-use std::io::{Error, Result};
+use std::io::{self, Read};
 use std::process;
 use std::time::Duration;
 use std::{convert::TryInto, mem::size_of};
 
 use libc::{clock_gettime, timespec, CLOCK_PROCESS_CPUTIME_ID};
-use text_io::try_read;
 
 mod composition;
 use composition::PermT;
@@ -20,7 +19,7 @@ static USAGE: &str = "Usage: ./permutation_composition <algorithm:naive/cooperma
 // From stdin inputs a positive number n, and two permutations x & y of size n.
 // The composition of these two permutations z=xy is printed to stdout.
 // The input and output format is described in README.md.
-fn main() {
+fn main() -> io::Result<()> {
     // Don't print error message on broken pipe.
     unsafe {
         libc::signal(libc::SIGPIPE, libc::SIG_DFL);
@@ -76,13 +75,9 @@ fn main() {
     }
 
     // Parse permutations x & y from stdin
-    let n: usize = match try_read!() {
-        Ok(num) => num,
-        Err(e) => {
-            eprintln!("Invalid input n: {}", e);
-            process::exit(1);
-        }
-    };
+    let mut buffer = [0; size_of::<usize>()];
+    io::stdin().read_exact(&mut buffer)?;
+    let n = usize::from_le_bytes(buffer);
     if n < 1 {
         eprintln!("Please enter n greater or equal to 1");
         process::exit(1);
@@ -98,35 +93,20 @@ fn main() {
         // Vectors stored on the heap
         let mut x: Vec<PermT> = vec![0; n];
         let mut y: Vec<PermT> = vec![0; n];
+        let mut buffer = [0; size_of::<PermT>()];
         for i in 0..n {
-            x[i] = match try_read!() {
-                Ok(num) => num,
-                Err(e) => {
-                    eprintln!("Invalid input x[{}]: {}", i, e);
-                    process::exit(1);
-                }
-            };
+            io::stdin().read_exact(&mut buffer)?;
+            x[i] = PermT::from_le_bytes(buffer);
             if x[i] >= n.try_into().unwrap() {
-                eprintln!(
-                    "Invalid input: read index x[{}]={} not less than n={}",
-                    i, x[i], n
-                );
+                eprintln!("Invalid input: x[{}]={} not less than n={}", i, x[i], n);
                 process::exit(1);
             }
         }
         for i in 0..n {
-            y[i] = match try_read!() {
-                Ok(num) => num,
-                Err(e) => {
-                    eprintln!("Invalid input y[{}]: {}", i, e);
-                    process::exit(1);
-                }
-            };
+            io::stdin().read_exact(&mut buffer)?;
+            y[i] = PermT::from_le_bytes(buffer);
             if y[i] >= n.try_into().unwrap() {
-                eprintln!(
-                    "Invalid input: read index y[{}]={} not less than n={}",
-                    i, y[i], n
-                );
+                eprintln!("Invalid input: y[{}]={} not less than n={}", i, y[i], n);
                 process::exit(1);
             }
         }
@@ -148,15 +128,16 @@ fn main() {
         print!(" {}", z[i]);
     }
     println!();
+    Ok(())
 }
 
-fn get_cpu_time() -> Result<Duration> {
+fn get_cpu_time() -> io::Result<Duration> {
     let mut time = timespec {
         tv_sec: 0,  // seconds
         tv_nsec: 0, // nanoseconds
     };
     if unsafe { clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &mut time) } == -1 {
-        return Err(Error::last_os_error());
+        return Err(io::Error::last_os_error());
     }
     Ok(Duration::new(time.tv_sec as u64, time.tv_nsec as u32))
 }

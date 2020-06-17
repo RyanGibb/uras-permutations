@@ -1,5 +1,5 @@
-use std::process;
 use std::mem::size_of;
+use std::process;
 
 #[path = "composition.rs"]
 mod composition;
