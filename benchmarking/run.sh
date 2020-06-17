@@ -2,6 +2,7 @@
 out_file=$(dirname "$0")/benchmarks.csv
 REPETITIONS=3
 TARGET_TIME_NS=1000000000 # 1 second
+PERMUTATION_FILES=$(ls -v /cs/scratch/rtg2/permutations/*.perm)
 
 if [ ! -f $out_file ]; then
     echo "Executable, n, Repetition, CPU Time (ns), Iterations" > $out_file
@@ -14,10 +15,10 @@ get_cpu_time () {
 make -C $(dirname "$0")/../c || exit 1
 cargo build --release --manifest-path $(dirname "$0")/../rust/Cargo.toml || exit 1
 
-for executable in "$@"; do
-	echo $executable
-	for file in /cs/scratch/rtg2/permutations/*; do
-		echo "$file"
+for file in $PERMUTATION_FILES; do
+	echo "$file"
+	for executable in "$@"; do
+		echo $executable
 		cpu_time_ns=0
 		new_iterations=1
 		while [ $cpu_time_ns -le $TARGET_TIME_NS ]; do
