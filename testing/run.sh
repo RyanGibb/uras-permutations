@@ -8,6 +8,6 @@ for executable in "$@"; do
 	mkdir -p $out_dir
 	for file in $(dirname "$0")/../permutations/*; do
 		echo "$file"
-		cat "$file" | ./"$executable" | tail -n 1 > $out_dir/$(basename "$file" .txt).out
+		cat "$file" | ./"$executable" | tail -n 1 > $out_dir/$(basename "$file" .perm).out
 	done
 done
