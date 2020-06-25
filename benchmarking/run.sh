@@ -1,7 +1,7 @@
 
 out_file=$(dirname "$0")/benchmarks.csv
 REPETITIONS=3
-TARGET_TIME_NS=1000000000 # 1 second
+TARGET_TIME_NS=10000000 # 10 milliseconds
 PERMUTATION_FILES=$(ls -v /cs/scratch/rtg2/permutations/*.perm)
 
 if [ ! -f $out_file ]; then
