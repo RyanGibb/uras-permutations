@@ -1,7 +1,8 @@
-#include <stdio.h>
+#include <math.h>
 
 #include "composition.h"
 
+// Should be a power of 2
 size_t cache_size = 256;
 
 /*
@@ -9,11 +10,17 @@ size_t cache_size = 256;
  * with x and y containing values from 0 to n - 1.
  */
 void composition_cooperman_ma(size_t n, perm_t x[], perm_t y[], perm_t z[]) {
+	// block_length, and therefor cache_size, should be a power of 2
 	size_t block_length = cache_size/2/sizeof(perm_t);
-    // Integer division rounding up
-	size_t number_of_blocks = (n + block_length - 1) / block_length;
+	// Used for efficient right shift division by block_length
+	char block_length_shift = (char) floor(log2(block_length));
+	// Rounds block_length down to the nearest power of 2 (if it isn't already one)
+	block_length = (size_t) pow(2, block_length_shift);
+
+    // Integer division rounding up. Equivalent to 'ceil(n / block_length)'.
+	size_t number_of_blocks = (n + block_length - 1) >> block_length_shift;
 	perm_t* d = malloc(n * sizeof(perm_t));
-	perm_t** d_ptr = malloc(n * sizeof(perm_t));
+	perm_t** d_ptr = malloc(number_of_blocks * sizeof(perm_t*));
 
     //Phase I: distribute value, x[a], into d_ptr[block_num]
     // such that block_num == x[a] / block_length
@@ -22,7 +29,8 @@ void composition_cooperman_ma(size_t n, perm_t x[], perm_t y[], perm_t z[]) {
 		d_ptr[block_num] = &d[block_num * block_length];
 	}
 	for (i = 0; i < n; i++) {
-		block_num = x[i] / block_length;
+		// Equivalent to 'x[i] / block_length'
+		block_num = x[i] >> block_length_shift;
 		*d_ptr[block_num] = x[i];
 		d_ptr[block_num]++;
 	}
@@ -38,7 +46,8 @@ void composition_cooperman_ma(size_t n, perm_t x[], perm_t y[], perm_t z[]) {
 		d_ptr[block_num] = &d[block_num * block_length];
 	}
 	for (i = 0; i < n; i++) {
-		block_num = x[i] / block_length;
+		// Equivalent to 'x[i] / block_length'
+		block_num = x[i] >> block_length;
 		z[i] = *d_ptr[block_num];
 		d_ptr[block_num]++;
 	}

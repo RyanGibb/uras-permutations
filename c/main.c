@@ -46,6 +46,15 @@ int main(int argc, char *argv[]) {
 				fprintf(stderr, "Invalid cache size: %s\n", strerror(errno));
 				return 1;
 			}
+			if (cache_size < 2 * sizeof(perm_t)) {
+				fprintf(stderr, "Cache size must be large enough to fit at least two indices.\n");
+				return 1;
+			}
+			// Checks if cache_size is a power of 2
+			if ((cache_size & (cache_size - 1)) != 0) {
+				fprintf(stderr, "Cache size must be a power of 2.\n");
+				return 1;
+			}
 			i++;
 		}
 	} else {

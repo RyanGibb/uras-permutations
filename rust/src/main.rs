@@ -53,6 +53,15 @@ fn main() -> io::Result<()> {
                         }
                     };
                 }
+                if unsafe{ CACHE_SIZE } < 2 * size_of::<PermT>() {
+                    eprintln!("Cache size must be large enough to fit at least two indices.");
+                    process::exit(1);
+                }
+                // Checks if cache_size is a power of 2
+                if unsafe { CACHE_SIZE & (CACHE_SIZE - 1) } != 0 {
+                    eprintln!("Cache size must be a power of 2.");
+                    process::exit(1);
+                }
                 i = i + 1;
             }
         }
