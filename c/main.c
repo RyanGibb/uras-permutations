@@ -79,8 +79,9 @@ int main(int argc, char *argv[]) {
 	freopen(NULL, "rb", stdin);
 	size_t n;
    	clearerr(stdin);
-	fread(&n, 1, sizeof(size_t), stdin);
-	if (ferror(stdin)) {
+	size_t read;
+	read = fread(&n, 1, sizeof(size_t), stdin);
+	if (ferror(stdin) || read != sizeof(size_t)) {
 		fprintf(stderr, "Error reading n\n");
 		return 1;
 	}
@@ -99,8 +100,8 @@ int main(int argc, char *argv[]) {
 	perm_t* z = malloc(n * sizeof(perm_t));
 	for (size_t i = 0; i < n; i++) {
    		clearerr(stdin);
-		fread(&x[i], 1, sizeof(perm_t), stdin);
-		if (ferror(stdin)) {
+		read = fread(&x[i], 1, sizeof(perm_t), stdin);
+		if (ferror(stdin) || read != sizeof(size_t)) {
 			fprintf(stderr, "Error reading x[%zu]\n", i);
 			return 1;
 		}
@@ -111,8 +112,8 @@ int main(int argc, char *argv[]) {
 	}
 	for (size_t i = 0; i < n; i++) {
 		clearerr(stdin);
-		fread(&y[i], 1, sizeof(perm_t), stdin);
-		if (ferror(stdin)) {
+		read = fread(&y[i], 1, sizeof(perm_t), stdin);
+		if (ferror(stdin) || read != sizeof(size_t)) {
 			fprintf(stderr, "Error reading y[%zu]\n", i);
 			return 1;
 		}
