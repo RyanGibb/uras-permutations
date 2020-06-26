@@ -60,203 +60,208 @@
 	.globl	composition_cooperman_ma
 	.type	composition_cooperman_ma, @function
 composition_cooperman_ma:
-.LFB8:
+.LFB5:
 	.cfi_startproc
 	pushq	%r15	#
 	.cfi_def_cfa_offset 16
 	.cfi_offset 15, -16
 # composition_cooperman_ma.c:16: 	char block_length_shift = (char) floor(log2(block_length));
-	pxor	%xmm0, %xmm0	# tmp141
-# composition_cooperman_ma.c:14: void composition_cooperman_ma(size_t n, perm_t x[], perm_t y[], perm_t z[]) {
+	pxor	%xmm0, %xmm0	# tmp145
+# composition_cooperman_ma.c:12: void composition_cooperman_ma(size_t n, perm_t x[], perm_t y[], perm_t z[]) {
 	pushq	%r14	#
 	.cfi_def_cfa_offset 24
 	.cfi_offset 14, -24
 	pushq	%r13	#
 	.cfi_def_cfa_offset 32
 	.cfi_offset 13, -32
-	movq	%rcx, %r13	# tmp173, z
+	movq	%rcx, %r13	# tmp184, z
 	pushq	%r12	#
 	.cfi_def_cfa_offset 40
 	.cfi_offset 12, -40
-	movq	%rsi, %r12	# tmp171, x
+	movq	%rsi, %r12	# tmp182, x
 	pushq	%rbp	#
 	.cfi_def_cfa_offset 48
 	.cfi_offset 6, -48
-	movq	%rdi, %rbp	# tmp170, n
+	movq	%rdi, %rbp	# tmp181, n
 	pushq	%rbx	#
 	.cfi_def_cfa_offset 56
 	.cfi_offset 3, -56
+	movq	%rdx, %rbx	# tmp183, y
 	subq	$40, %rsp	#,
 	.cfi_def_cfa_offset 96
-# composition_cooperman_ma.c:15: 	size_t block_length = cache_size/2/sizeof(perm_t);
-	movq	cache_size(%rip), %r14	# cache_size, block_length
-# composition_cooperman_ma.c:14: void composition_cooperman_ma(size_t n, perm_t x[], perm_t y[], perm_t z[]) {
-	movq	%rdx, (%rsp)	# y, %sfp
-# composition_cooperman_ma.c:15: 	size_t block_length = cache_size/2/sizeof(perm_t);
-	shrq	$4, %r14	#, block_length
+# composition_cooperman_ma.c:14: 	size_t block_length = cache_size/2/sizeof(perm_t);
+	movq	cache_size(%rip), %rax	# cache_size, block_length
+	shrq	$4, %rax	#, block_length
 # composition_cooperman_ma.c:16: 	char block_length_shift = (char) floor(log2(block_length));
-	cvtsi2sdq	%r14, %xmm0	# block_length, tmp141
+	cvtsi2sdq	%rax, %xmm0	# block_length, tmp145
 	call	log2	#
-	movsd	.LC1(%rip), %xmm2	#, tmp146
-	movq	(%rsp), %r9	# %sfp, y
-	movsd	.LC0(%rip), %xmm4	#, tmp142
-	movapd	%xmm0, %xmm3	# _3, tmp144
-	andpd	%xmm2, %xmm3	# tmp146, tmp144
-	ucomisd	%xmm3, %xmm4	# tmp144, tmp142
+	movsd	.LC1(%rip), %xmm2	#, tmp150
+	movsd	.LC0(%rip), %xmm4	#, tmp146
+	movapd	%xmm0, %xmm3	# _3, tmp148
+	andpd	%xmm2, %xmm3	# tmp150, tmp148
+	ucomisd	%xmm3, %xmm4	# tmp148, tmp146
 	jbe	.L2	#,
-	cvttsd2siq	%xmm0, %rax	# _3, tmp147
-	pxor	%xmm3, %xmm3	# tmp144
-	movapd	%xmm0, %xmm1	# tmp174, _3
-	andnpd	%xmm1, %xmm2	# _3, tmp151
-	cvtsi2sdq	%rax, %xmm3	# tmp147, tmp144
-	movapd	%xmm3, %xmm4	# tmp144, tmp149
-	cmpnlesd	%xmm0, %xmm4	#, _3, tmp149
-	movsd	.LC2(%rip), %xmm0	#, tmp148
-	andpd	%xmm0, %xmm4	# tmp148, tmp149
-	subsd	%xmm4, %xmm3	# tmp149, tmp144
-	movapd	%xmm3, %xmm0	# tmp144, _3
-	orpd	%xmm2, %xmm0	# tmp151, _3
+	cvttsd2siq	%xmm0, %rax	# _3, tmp151
+	pxor	%xmm3, %xmm3	# tmp148
+	movapd	%xmm0, %xmm1	# tmp185, _3
+	andnpd	%xmm1, %xmm2	# _3, tmp155
+	cvtsi2sdq	%rax, %xmm3	# tmp151, tmp148
+	movapd	%xmm3, %xmm4	# tmp148, tmp153
+	cmpnlesd	%xmm0, %xmm4	#, _3, tmp153
+	movsd	.LC2(%rip), %xmm0	#, tmp152
+	andpd	%xmm0, %xmm4	# tmp152, tmp153
+	subsd	%xmm4, %xmm3	# tmp153, tmp148
+	movapd	%xmm3, %xmm0	# tmp148, _3
+	orpd	%xmm2, %xmm0	# tmp155, _3
 .L2:
 # composition_cooperman_ma.c:16: 	char block_length_shift = (char) floor(log2(block_length));
-	cvttsd2sil	%xmm0, %ecx	# _3, tmp153
-# composition_cooperman_ma.c:18: 	size_t number_of_blocks = (n + block_length - 1) >> block_length_shift;
-	leaq	-1(%r14,%rbp), %r15	#, tmp155
-	movq	%r9, 16(%rsp)	# y, %sfp
-# composition_cooperman_ma.c:19: 	perm_t* d = malloc(n * sizeof(perm_t));
-	leaq	0(,%rbp,8), %r8	#, _8
-	movq	%r8, %rdi	# _8,
-	movq	%r8, (%rsp)	# _8, %sfp
-# composition_cooperman_ma.c:18: 	size_t number_of_blocks = (n + block_length - 1) >> block_length_shift;
-	movsbl	%cl, %r10d	# tmp153, _7
-# composition_cooperman_ma.c:18: 	size_t number_of_blocks = (n + block_length - 1) >> block_length_shift;
-	shrq	%cl, %r15	# tmp153, number_of_blocks
-# composition_cooperman_ma.c:18: 	size_t number_of_blocks = (n + block_length - 1) >> block_length_shift;
-	movl	%r10d, 12(%rsp)	# _7, %sfp
-# composition_cooperman_ma.c:19: 	perm_t* d = malloc(n * sizeof(perm_t));
-	call	malloc	#
-# composition_cooperman_ma.c:20: 	perm_t** d_ptr = malloc(number_of_blocks * sizeof(perm_t*));
-	leaq	0(,%r15,8), %rcx	#, _9
-	movq	%rcx, %rdi	# _9,
-	movq	%rcx, 24(%rsp)	# _9, %sfp
-# composition_cooperman_ma.c:19: 	perm_t* d = malloc(n * sizeof(perm_t));
-	movq	%rax, %rbx	# tmp175, d
-# composition_cooperman_ma.c:20: 	perm_t** d_ptr = malloc(number_of_blocks * sizeof(perm_t*));
-	call	malloc	#
-# composition_cooperman_ma.c:25: 	for (block_num= 0; block_num < number_of_blocks; block_num++) {
-	testq	%r15, %r15	# number_of_blocks
-	movq	(%rsp), %r8	# %sfp, _8
-	movl	12(%rsp), %r10d	# %sfp, _7
-	movq	16(%rsp), %r9	# %sfp, y
-# composition_cooperman_ma.c:20: 	perm_t** d_ptr = malloc(number_of_blocks * sizeof(perm_t*));
-	movq	%rax, %rsi	# tmp176, d_ptr
-# composition_cooperman_ma.c:25: 	for (block_num= 0; block_num < number_of_blocks; block_num++) {
-	je	.L3	#,
-	movq	24(%rsp), %rcx	# %sfp, _9
-	leaq	0(,%r14,8), %rdi	#, _155
-	movq	%rbx, %rdx	# d, ivtmp.37
-	addq	%rax, %rcx	# d_ptr, _147
-	.p2align 4,,10
-	.p2align 3
+	cvttsd2sil	%xmm0, %ecx	# _3, tmp156
+# composition_cooperman_ma.c:18: 	block_length = (size_t) pow(2, block_length_shift);
+	pxor	%xmm1, %xmm1	#
+	movsd	.LC3(%rip), %xmm0	#,
+	movsbl	%cl, %ecx	# tmp156, _9
+	cvtsi2sdl	%ecx, %xmm1	# _9,
+	movl	%ecx, (%rsp)	# _9, %sfp
+	call	pow	#
+# composition_cooperman_ma.c:18: 	block_length = (size_t) pow(2, block_length_shift);
+	movsd	.LC4(%rip), %xmm1	#, tmp160
+	movl	(%rsp), %ecx	# %sfp, _9
+	comisd	%xmm1, %xmm0	# tmp160, _6
+	jnb	.L3	#,
+	cvttsd2siq	%xmm0, %r14	# _6, block_length
 .L4:
-# composition_cooperman_ma.c:26: 		d_ptr[block_num] = &d[block_num * block_length];
-	movq	%rdx, (%rax)	# ivtmp.37, MEM[base: _150, offset: 0B]
-# composition_cooperman_ma.c:25: 	for (block_num= 0; block_num < number_of_blocks; block_num++) {
-	addq	$8, %rax	#, ivtmp.38
-	addq	%rdi, %rdx	# _155, ivtmp.37
-	cmpq	%rax, %rcx	# ivtmp.38, _147
-	jne	.L4	#,
-# composition_cooperman_ma.c:28: 	for (i = 0; i < n; i++) {
-	testq	%rbp, %rbp	# n
-	je	.L13	#,
-.L14:
-	movq	%r12, %rdx	# x, ivtmp.32
-	leaq	(%r8,%r12), %r11	#, _169
+# composition_cooperman_ma.c:22: 	perm_t* d = malloc(n * sizeof(perm_t));
+	leaq	0(,%rbp,8), %r8	#, _10
+# composition_cooperman_ma.c:21: 	size_t number_of_blocks = (n + block_length - 1) >> block_length_shift;
+	leaq	-1(%r14,%rbp), %r15	#, tmp165
+# composition_cooperman_ma.c:21: 	size_t number_of_blocks = (n + block_length - 1) >> block_length_shift;
+	movl	%ecx, 20(%rsp)	# _9, %sfp
+	shrq	%cl, %r15	# _9, number_of_blocks
+# composition_cooperman_ma.c:22: 	perm_t* d = malloc(n * sizeof(perm_t));
+	movq	%r8, %rdi	# _10,
+	movq	%r8, 8(%rsp)	# _10, %sfp
+	call	malloc	#
+# composition_cooperman_ma.c:23: 	perm_t** d_ptr = malloc(number_of_blocks * sizeof(perm_t*));
+	leaq	0(,%r15,8), %rdi	#, _11
+# composition_cooperman_ma.c:22: 	perm_t* d = malloc(n * sizeof(perm_t));
+	movq	%rax, (%rsp)	# d, %sfp
+# composition_cooperman_ma.c:23: 	perm_t** d_ptr = malloc(number_of_blocks * sizeof(perm_t*));
+	movq	%rdi, 24(%rsp)	# _11, %sfp
+	call	malloc	#
+# composition_cooperman_ma.c:28: 	for (block_num= 0; block_num < number_of_blocks; block_num++) {
+	testq	%r15, %r15	# number_of_blocks
+	movq	(%rsp), %r9	# %sfp, d
+	movl	20(%rsp), %ecx	# %sfp, _9
+	movq	8(%rsp), %r8	# %sfp, _10
+# composition_cooperman_ma.c:23: 	perm_t** d_ptr = malloc(number_of_blocks * sizeof(perm_t*));
+	movq	%rax, %rsi	# tmp188, d_ptr
+# composition_cooperman_ma.c:28: 	for (block_num= 0; block_num < number_of_blocks; block_num++) {
+	je	.L5	#,
+	movq	24(%rsp), %rdi	# %sfp, _11
+	leaq	0(,%r14,8), %r10	#, _159
+	movq	%r9, %rdx	# d, ivtmp.37
+	addq	%rax, %rdi	# d_ptr, _151
 	.p2align 4,,10
 	.p2align 3
 .L6:
-# composition_cooperman_ma.c:30: 		block_num = x[i] >> block_length_shift;
-	movq	(%rdx), %rdi	# MEM[base: _172, offset: 0B], _18
-# composition_cooperman_ma.c:30: 		block_num = x[i] >> block_length_shift;
-	movl	%r10d, %ecx	# _7, tmp182
-# composition_cooperman_ma.c:28: 	for (i = 0; i < n; i++) {
-	addq	$8, %rdx	#, ivtmp.32
-# composition_cooperman_ma.c:30: 		block_num = x[i] >> block_length_shift;
-	movq	%rdi, %rax	# _18, tmp158
-	shrq	%cl, %rax	# tmp182, tmp158
-# composition_cooperman_ma.c:31: 		*d_ptr[block_num] = x[i];
-	cltq
-	leaq	(%rsi,%rax,8), %rcx	#, _22
-	movq	(%rcx), %rax	# *_22, _23
-# composition_cooperman_ma.c:31: 		*d_ptr[block_num] = x[i];
-	movq	%rdi, (%rax)	# _18, *_23
-# composition_cooperman_ma.c:32: 		d_ptr[block_num]++;
-	addq	$8, %rax	#, tmp161
-	movq	%rax, (%rcx)	# tmp161, *_22
-# composition_cooperman_ma.c:28: 	for (i = 0; i < n; i++) {
-	cmpq	%rdx, %r11	# ivtmp.32, _169
+# composition_cooperman_ma.c:29: 		d_ptr[block_num] = &d[block_num * block_length];
+	movq	%rdx, (%rax)	# ivtmp.37, MEM[base: _154, offset: 0B]
+# composition_cooperman_ma.c:28: 	for (block_num= 0; block_num < number_of_blocks; block_num++) {
+	addq	$8, %rax	#, ivtmp.38
+	addq	%r10, %rdx	# _159, ivtmp.37
+	cmpq	%rax, %rdi	# ivtmp.38, _151
 	jne	.L6	#,
-	movq	%rbx, %rax	# d, ivtmp.27
-	addq	%rbx, %r8	# d, _180
+# composition_cooperman_ma.c:31: 	for (i = 0; i < n; i++) {
+	testq	%rbp, %rbp	# n
+	je	.L15	#,
+.L16:
+	movq	%r12, %rdx	# x, ivtmp.32
+	leaq	(%r8,%r12), %r10	#, _173
 	.p2align 4,,10
 	.p2align 3
-.L7:
-# composition_cooperman_ma.c:38: 		d[i] = y[d[i]];
-	movq	(%rax), %rdx	# MEM[base: _184, offset: 0B], MEM[base: _184, offset: 0B]
-# composition_cooperman_ma.c:37: 	for (i = 0; i < n; i++) {
-	addq	$8, %rax	#, ivtmp.27
-# composition_cooperman_ma.c:38: 		d[i] = y[d[i]];
-	movq	(%r9,%rdx,8), %rdx	# *_30, *_30
-	movq	%rdx, -8(%rax)	# *_30, MEM[base: _184, offset: 0B]
-# composition_cooperman_ma.c:37: 	for (i = 0; i < n; i++) {
-	cmpq	%rax, %r8	# ivtmp.27, _180
-	jne	.L7	#,
-# composition_cooperman_ma.c:42: 	for (block_num = 0; block_num < number_of_blocks; block_num++) {
-	testq	%r15, %r15	# number_of_blocks
-	je	.L10	#,
-.L13:
-	leaq	0(,%r14,8), %rax	#, _202
-# composition_cooperman_ma.c:14: void composition_cooperman_ma(size_t n, perm_t x[], perm_t y[], perm_t z[]) {
-	xorl	%edx, %edx	# ivtmp.18
+.L8:
+# composition_cooperman_ma.c:33: 		block_num = x[i] >> block_length_shift;
+	movq	(%rdx), %rdi	# MEM[base: _176, offset: 0B], _20
+# composition_cooperman_ma.c:31: 	for (i = 0; i < n; i++) {
+	addq	$8, %rdx	#, ivtmp.32
+# composition_cooperman_ma.c:33: 		block_num = x[i] >> block_length_shift;
+	movq	%rdi, %rax	# _20, tmp168
+	shrq	%cl, %rax	# _9, tmp168
+# composition_cooperman_ma.c:34: 		*d_ptr[block_num] = x[i];
+	cltq
+	leaq	(%rsi,%rax,8), %r11	#, _24
+	movq	(%r11), %rax	# *_24, _25
+# composition_cooperman_ma.c:34: 		*d_ptr[block_num] = x[i];
+	movq	%rdi, (%rax)	# _20, *_25
+# composition_cooperman_ma.c:35: 		d_ptr[block_num]++;
+	addq	$8, %rax	#, tmp171
+	movq	%rax, (%r11)	# tmp171, *_24
+# composition_cooperman_ma.c:31: 	for (i = 0; i < n; i++) {
+	cmpq	%rdx, %r10	# ivtmp.32, _173
+	jne	.L8	#,
+	movq	%r9, %rax	# d, ivtmp.27
+	addq	%r9, %r8	# d, _184
 	.p2align 4,,10
 	.p2align 3
 .L9:
-# composition_cooperman_ma.c:43: 		d_ptr[block_num] = &d[block_num * block_length];
-	movq	%rbx, (%rsi,%rdx,8)	# ivtmp.21, MEM[base: d_ptr_72, index: ivtmp.18_56, step: 8, offset: 0B]
-# composition_cooperman_ma.c:42: 	for (block_num = 0; block_num < number_of_blocks; block_num++) {
-	addq	$1, %rdx	#, ivtmp.18
-	addq	%rax, %rbx	# _202, ivtmp.21
-	cmpq	%r15, %rdx	# number_of_blocks, ivtmp.18
-	jb	.L9	#,
-# composition_cooperman_ma.c:45: 	for (i = 0; i < n; i++) {
-	testq	%rbp, %rbp	# n
-	je	.L1	#,
-.L10:
-# composition_cooperman_ma.c:47: 		block_num = x[i] >> block_length;
-	movl	%r14d, %ecx	# block_length, _198
-	xorl	%edx, %edx	# ivtmp.10
+# composition_cooperman_ma.c:41: 		d[i] = y[d[i]];
+	movq	(%rax), %rdx	# MEM[base: _188, offset: 0B], MEM[base: _188, offset: 0B]
+# composition_cooperman_ma.c:40: 	for (i = 0; i < n; i++) {
+	addq	$8, %rax	#, ivtmp.27
+# composition_cooperman_ma.c:41: 		d[i] = y[d[i]];
+	movq	(%rbx,%rdx,8), %rdx	# *_32, *_32
+	movq	%rdx, -8(%rax)	# *_32, MEM[base: _188, offset: 0B]
+# composition_cooperman_ma.c:40: 	for (i = 0; i < n; i++) {
+	cmpq	%rax, %r8	# ivtmp.27, _184
+	jne	.L9	#,
+# composition_cooperman_ma.c:45: 	for (block_num = 0; block_num < number_of_blocks; block_num++) {
+	testq	%r15, %r15	# number_of_blocks
+	je	.L12	#,
+.L15:
+	leaq	0(,%r14,8), %rax	#, _206
+	movq	%r9, %rbx	# d, ivtmp.21
+# composition_cooperman_ma.c:12: void composition_cooperman_ma(size_t n, perm_t x[], perm_t y[], perm_t z[]) {
+	xorl	%edx, %edx	# ivtmp.18
 	.p2align 4,,10
 	.p2align 3
 .L11:
-# composition_cooperman_ma.c:47: 		block_num = x[i] >> block_length;
-	movq	(%r12,%rdx,8), %rax	# MEM[base: x_73(D), index: ivtmp.10_124, step: 8, offset: 0B], tmp164
-	shrq	%cl, %rax	# _198, tmp164
-# composition_cooperman_ma.c:48: 		z[i] = *d_ptr[block_num];
+# composition_cooperman_ma.c:46: 		d_ptr[block_num] = &d[block_num * block_length];
+	movq	%rbx, (%rsi,%rdx,8)	# ivtmp.21, MEM[base: d_ptr_76, index: ivtmp.18_58, step: 8, offset: 0B]
+# composition_cooperman_ma.c:45: 	for (block_num = 0; block_num < number_of_blocks; block_num++) {
+	addq	$1, %rdx	#, ivtmp.18
+	addq	%rax, %rbx	# _206, ivtmp.21
+	cmpq	%r15, %rdx	# number_of_blocks, ivtmp.18
+	jb	.L11	#,
+# composition_cooperman_ma.c:48: 	for (i = 0; i < n; i++) {
+	testq	%rbp, %rbp	# n
+	je	.L1	#,
+.L12:
+# composition_cooperman_ma.c:50: 		block_num = x[i] >> block_length;
+	movl	%r14d, %ecx	# block_length, _202
+	xorl	%edx, %edx	# ivtmp.10
+	.p2align 4,,10
+	.p2align 3
+.L13:
+# composition_cooperman_ma.c:50: 		block_num = x[i] >> block_length;
+	movq	(%r12,%rdx,8), %rax	# MEM[base: x_77(D), index: ivtmp.10_128, step: 8, offset: 0B], tmp174
+	shrq	%cl, %rax	# _202, tmp174
+# composition_cooperman_ma.c:51: 		z[i] = *d_ptr[block_num];
 	cltq
-	leaq	(%rsi,%rax,8), %rdi	#, _47
-	movq	(%rdi), %rax	# *_47, _48
-# composition_cooperman_ma.c:48: 		z[i] = *d_ptr[block_num];
-	movq	(%rax), %r8	# *_48, *_48
-# composition_cooperman_ma.c:49: 		d_ptr[block_num]++;
-	addq	$8, %rax	#, tmp169
-	movq	%rax, (%rdi)	# tmp169, *_47
-# composition_cooperman_ma.c:48: 		z[i] = *d_ptr[block_num];
-	movq	%r8, 0(%r13,%rdx,8)	# *_48, MEM[base: z_75(D), index: ivtmp.10_124, step: 8, offset: 0B]
-# composition_cooperman_ma.c:45: 	for (i = 0; i < n; i++) {
+	leaq	(%rsi,%rax,8), %rdi	#, _49
+	movq	(%rdi), %rax	# *_49, _50
+# composition_cooperman_ma.c:51: 		z[i] = *d_ptr[block_num];
+	movq	(%rax), %r8	# *_50, *_50
+# composition_cooperman_ma.c:52: 		d_ptr[block_num]++;
+	addq	$8, %rax	#, tmp179
+	movq	%rax, (%rdi)	# tmp179, *_49
+# composition_cooperman_ma.c:51: 		z[i] = *d_ptr[block_num];
+	movq	%r8, 0(%r13,%rdx,8)	# *_50, MEM[base: z_79(D), index: ivtmp.10_128, step: 8, offset: 0B]
+# composition_cooperman_ma.c:48: 	for (i = 0; i < n; i++) {
 	addq	$1, %rdx	#, ivtmp.10
 	cmpq	%rbp, %rdx	# n, ivtmp.10
-	jb	.L11	#,
+	jb	.L13	#,
 .L1:
-# composition_cooperman_ma.c:51: }
+# composition_cooperman_ma.c:54: }
 	addq	$40, %rsp	#,
 	.cfi_remember_state
 	.cfi_def_cfa_offset 56
@@ -277,12 +282,20 @@ composition_cooperman_ma:
 	.p2align 3
 .L3:
 	.cfi_restore_state
-# composition_cooperman_ma.c:28: 	for (i = 0; i < n; i++) {
+# composition_cooperman_ma.c:18: 	block_length = (size_t) pow(2, block_length_shift);
+	subsd	%xmm1, %xmm0	# tmp160, tmp161
+	cvttsd2siq	%xmm0, %r14	# tmp161, block_length
+	btcq	$63, %r14	#, block_length
+	jmp	.L4	#
+	.p2align 4,,10
+	.p2align 3
+.L5:
+# composition_cooperman_ma.c:31: 	for (i = 0; i < n; i++) {
 	testq	%rbp, %rbp	# n
-	jne	.L14	#,
+	jne	.L16	#,
 	jmp	.L1	#
 	.cfi_endproc
-.LFE8:
+.LFE5:
 	.size	composition_cooperman_ma, .-composition_cooperman_ma
 	.globl	cache_size
 	.data
@@ -308,5 +321,13 @@ cache_size:
 .LC2:
 	.long	0
 	.long	1072693248
+	.align 8
+.LC3:
+	.long	0
+	.long	1073741824
+	.align 8
+.LC4:
+	.long	0
+	.long	1138753536
 	.ident	"GCC: (GNU) 10.1.1 20200507 (Red Hat 10.1.1-1)"
 	.section	.note.GNU-stack,"",@progbits
