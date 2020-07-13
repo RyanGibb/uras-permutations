@@ -24,8 +24,8 @@ void composition_cooperman_ma(size_t n, perm_t x[], perm_t y[], perm_t z[]) {
 
     //Phase I: distribute value, x[a], into d_ptr[block_num]
     // such that block_num == x[a] / block_length
-	int block_num, i;
-	for (block_num= 0; block_num < number_of_blocks; block_num++) {
+	size_t block_num, i;
+	for (block_num = 0; block_num < number_of_blocks; block_num++) {
 		d_ptr[block_num] = &d[block_num * block_length];
 	}
 	for (i = 0; i < n; i++) {
