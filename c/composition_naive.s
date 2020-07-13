@@ -62,7 +62,7 @@
 composition_naive:
 .LFB5:
 	.cfi_startproc
-# composition_naive.c:7: void composition_naive(perm_t n, perm_t x[], perm_t y[], perm_t z[]) {
+# composition_naive.c:7: void composition_naive(size_t n, perm_t x[], perm_t y[], perm_t z[]) {
 	movq	%rdx, %r8	# tmp94, y
 # composition_naive.c:8: 	for (size_t i = 0; i < n; i++) {
 	testq	%rdi, %rdi	# n

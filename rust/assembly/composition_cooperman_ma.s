@@ -1,9 +1,9 @@
 	.text
 	.file	"composition_cooperman_ma.3a1fbbbh-cgu.0"
-	.section	.text._ZN4core3ptr13drop_in_place17h4726e1a204ecd691E,"ax",@progbits
+	.section	.text._ZN4core3ptr13drop_in_place17h1ab9af538ccbe371E,"ax",@progbits
 	.p2align	4, 0x90
-	.type	_ZN4core3ptr13drop_in_place17h4726e1a204ecd691E,@function
-_ZN4core3ptr13drop_in_place17h4726e1a204ecd691E:
+	.type	_ZN4core3ptr13drop_in_place17h1ab9af538ccbe371E,@function
+_ZN4core3ptr13drop_in_place17h1ab9af538ccbe371E:
 	.cfi_startproc
 	movq	8(%rdi), %rsi
 	testq	%rsi, %rsi
@@ -11,70 +11,48 @@ _ZN4core3ptr13drop_in_place17h4726e1a204ecd691E:
 	movq	(%rdi), %rdi
 	testq	%rdi, %rdi
 	je	.LBB0_3
-	shlq	$2, %rsi
+	shlq	$3, %rsi
 	testq	%rsi, %rsi
 	je	.LBB0_3
-	movl	$4, %edx
+	movl	$8, %edx
 	jmpq	*__rust_dealloc@GOTPCREL(%rip)
 .LBB0_3:
 	retq
 .Lfunc_end0:
-	.size	_ZN4core3ptr13drop_in_place17h4726e1a204ecd691E, .Lfunc_end0-_ZN4core3ptr13drop_in_place17h4726e1a204ecd691E
+	.size	_ZN4core3ptr13drop_in_place17h1ab9af538ccbe371E, .Lfunc_end0-_ZN4core3ptr13drop_in_place17h1ab9af538ccbe371E
 	.cfi_endproc
 
-	.section	.text._ZN4core3ptr13drop_in_place17hde34e209fddf0699E,"ax",@progbits
+	.section	".text._ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h75d484eb4b09f8f2E","ax",@progbits
 	.p2align	4, 0x90
-	.type	_ZN4core3ptr13drop_in_place17hde34e209fddf0699E,@function
-_ZN4core3ptr13drop_in_place17hde34e209fddf0699E:
-	.cfi_startproc
-	movq	8(%rdi), %rsi
-	testq	%rsi, %rsi
-	je	.LBB1_3
-	movq	(%rdi), %rdi
-	testq	%rdi, %rdi
-	je	.LBB1_3
-	shlq	$3, %rsi
-	testq	%rsi, %rsi
-	je	.LBB1_3
-	movl	$8, %edx
-	jmpq	*__rust_dealloc@GOTPCREL(%rip)
-.LBB1_3:
-	retq
-.Lfunc_end1:
-	.size	_ZN4core3ptr13drop_in_place17hde34e209fddf0699E, .Lfunc_end1-_ZN4core3ptr13drop_in_place17hde34e209fddf0699E
-	.cfi_endproc
-
-	.section	".text._ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h80b9c8488d6893f8E","ax",@progbits
-	.p2align	4, 0x90
-	.type	_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h80b9c8488d6893f8E,@function
-_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h80b9c8488d6893f8E:
+	.type	_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h75d484eb4b09f8f2E,@function
+_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h75d484eb4b09f8f2E:
 	.cfi_startproc
 	pushq	%rax
 	.cfi_def_cfa_offset 16
 	callq	*_ZN5alloc5alloc18handle_alloc_error17h4708e9620f23812bE@GOTPCREL(%rip)
 	ud2
-.Lfunc_end2:
-	.size	_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h80b9c8488d6893f8E, .Lfunc_end2-_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h80b9c8488d6893f8E
+.Lfunc_end1:
+	.size	_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h75d484eb4b09f8f2E, .Lfunc_end1-_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h75d484eb4b09f8f2E
 	.cfi_endproc
 
-	.section	".text._ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17he8440ce6627a33c0E","ax",@progbits
+	.section	".text._ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h94c6334c7c183e4eE","ax",@progbits
 	.p2align	4, 0x90
-	.type	_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17he8440ce6627a33c0E,@function
-_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17he8440ce6627a33c0E:
+	.type	_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h94c6334c7c183e4eE,@function
+_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h94c6334c7c183e4eE:
 	.cfi_startproc
 	pushq	%rax
 	.cfi_def_cfa_offset 16
 	callq	*_ZN5alloc7raw_vec17capacity_overflow17hdeab58106aa834b9E@GOTPCREL(%rip)
 	ud2
-.Lfunc_end3:
-	.size	_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17he8440ce6627a33c0E, .Lfunc_end3-_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17he8440ce6627a33c0E
+.Lfunc_end2:
+	.size	_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h94c6334c7c183e4eE, .Lfunc_end2-_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h94c6334c7c183e4eE
 	.cfi_endproc
 
-	.section	.text._ZN24composition_cooperman_ma24composition_cooperman_ma17h1e480e27682be846E,"ax",@progbits
-	.globl	_ZN24composition_cooperman_ma24composition_cooperman_ma17h1e480e27682be846E
+	.section	.text._ZN24composition_cooperman_ma24composition_cooperman_ma17h72deead023bffe8bE,"ax",@progbits
+	.globl	_ZN24composition_cooperman_ma24composition_cooperman_ma17h72deead023bffe8bE
 	.p2align	4, 0x90
-	.type	_ZN24composition_cooperman_ma24composition_cooperman_ma17h1e480e27682be846E,@function
-_ZN24composition_cooperman_ma24composition_cooperman_ma17h1e480e27682be846E:
+	.type	_ZN24composition_cooperman_ma24composition_cooperman_ma17h72deead023bffe8bE,@function
+_ZN24composition_cooperman_ma24composition_cooperman_ma17h72deead023bffe8bE:
 .Lfunc_begin0:
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.rust_eh_personality
@@ -91,243 +69,251 @@ _ZN24composition_cooperman_ma24composition_cooperman_ma17h1e480e27682be846E:
 	.cfi_def_cfa_offset 48
 	pushq	%rbx
 	.cfi_def_cfa_offset 56
-	subq	$120, %rsp
-	.cfi_def_cfa_offset 176
+	subq	$104, %rsp
+	.cfi_def_cfa_offset 160
 	.cfi_offset %rbx, -56
 	.cfi_offset %r12, -48
 	.cfi_offset %r13, -40
 	.cfi_offset %r14, -32
 	.cfi_offset %r15, -24
 	.cfi_offset %rbp, -16
-	movq	%r9, 112(%rsp)
-	movq	%r8, 56(%rsp)
-	movq	%rcx, 104(%rsp)
-	movq	%rdx, 72(%rsp)
-	movq	%rsi, 64(%rsp)
-	movl	%edi, %r15d
+	movq	%r9, 96(%rsp)
+	movq	%r8, 80(%rsp)
+	movq	%rcx, 72(%rsp)
+	movq	%rdx, %r15
+	movq	%rsi, 88(%rsp)
+	movq	%rdi, %r12
 	movq	_ZN24composition_cooperman_ma10CACHE_SIZE17h1f6e91545a796a82E@GOTPCREL(%rip), %rax
 	movq	(%rax), %rax
-	shrq	$3, %rax
+	shrq	$4, %rax
 	cvtsi2sd	%rax, %xmm0
 	callq	*log2@GOTPCREL(%rip)
 	cvttsd2si	%xmm0, %ecx
-	movzbl	%cl, %r8d
-	movl	$2, %ebp
-	movl	$1, %r12d
+	movzbl	%cl, %r13d
+	movl	$2, %ebx
+	movl	$1, %r8d
 	movl	$1, %edx
-	movl	%r8d, %esi
-	cmpb	$2, %r8b
-	jb	.LBB4_3
+	movl	%r13d, %esi
+	cmpb	$2, %r13b
+	jb	.LBB3_3
 	movl	$1, %edi
-	movl	$2, %ebp
-	movl	%r8d, %ebx
+	movl	$2, %ebx
+	movl	%r13d, %ebp
 	movl	$1, %edx
-	movl	%r8d, %esi
+	movl	%r13d, %esi
 	.p2align	4, 0x90
-.LBB4_2:
-	testb	$1, %bl
-	movq	%rbp, %rax
+.LBB3_2:
+	testb	$1, %bpl
+	movq	%rbx, %rax
 	cmoveq	%rdi, %rax
 	imulq	%rax, %rdx
 	shrl	%esi
-	imulq	%rbp, %rbp
-	cmpl	$3, %ebx
-	movl	%esi, %ebx
-	ja	.LBB4_2
-.LBB4_3:
-	movq	%r8, 48(%rsp)
+	imulq	%rbx, %rbx
+	cmpl	$3, %ebp
+	movl	%esi, %ebp
+	ja	.LBB3_2
+.LBB3_3:
 	cmpl	$1, %esi
-	cmoveq	%rbp, %r12
-	imulq	%rdx, %r12
-	movl	%r15d, %r13d
-	leaq	(%r12,%r13), %r14
+	cmoveq	%rbx, %r8
+	imulq	%rdx, %r8
+	leaq	(%r12,%r8), %r14
 	addq	$-1, %r14
 	shrq	%cl, %r14
-	leaq	(,%r13,4), %rdi
-	movl	%r15d, 36(%rsp)
-	testl	%r15d, %r15d
-	movq	%rdi, 40(%rsp)
-	je	.LBB4_4
-	movl	$4, %esi
+	movl	$8, %ecx
+	xorl	%ebx, %ebx
+	movq	%r12, %rax
+	mulq	%rcx
+	movq	%rax, %rbp
+	setno	%al
+	jo	.LBB3_61
+	movq	%r8, (%rsp)
+	movq	%r15, 64(%rsp)
+	movb	%al, %bl
+	shlq	$3, %rbx
+	testq	%rbp, %rbp
+	je	.LBB3_6
+	movq	%rbp, %rdi
+	movq	%rbx, %rsi
 	callq	*__rust_alloc_zeroed@GOTPCREL(%rip)
 	movq	%rax, %r15
-	testq	%rax, %rax
-	jne	.LBB4_6
-	movl	$4, %esi
-	movq	40(%rsp), %rdi
-	callq	_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h80b9c8488d6893f8E
-	ud2
-.LBB4_4:
-	movl	$4, %r15d
-.LBB4_6:
-	movl	$8, %ecx
+	testq	%r15, %r15
+	je	.LBB3_62
+.LBB3_8:
+	movq	%rbp, %rcx
+	shrq	$3, %rcx
+	movl	$8, %edx
 	xorl	%esi, %esi
 	movq	%r14, %rax
-	mulq	%rcx
-	setno	%cl
-	movq	%r15, 80(%rsp)
-	movq	%r13, 88(%rsp)
-	movq	%r13, 96(%rsp)
-	jo	.LBB4_7
-	movb	%cl, %sil
+	mulq	%rdx
+	setno	%dl
+	movq	%r15, 32(%rsp)
+	movq	%rcx, 40(%rsp)
+	movq	%r12, 48(%rsp)
+	jo	.LBB3_9
+	movb	%dl, %sil
 	shlq	$3, %rsi
 	testq	%rax, %rax
-	je	.LBB4_11
-	movq	%rax, %rbp
+	movq	%rsi, 56(%rsp)
+	je	.LBB3_13
+	movq	%rax, %rbx
 	movq	%rax, %rdi
-	movq	%rsi, %rbx
 	callq	*__rust_alloc@GOTPCREL(%rip)
-	jmp	.LBB4_12
-.LBB4_11:
-	movq	%rax, %rbp
-	movq	%rsi, %rbx
-	movq	%rsi, %rax
-.LBB4_12:
-	movq	72(%rsp), %r8
-	movq	64(%rsp), %r9
-	movq	48(%rsp), %r10
-	movq	56(%rsp), %r11
+	movq	(%rsp), %rsi
 	testq	%rax, %rax
-	je	.LBB4_61
-	shrq	$3, %rbp
+	je	.LBB3_63
+.LBB3_15:
+	shrq	$3, %rbx
 	movq	%rax, 8(%rsp)
-	movq	%rbp, 16(%rsp)
+	movq	%rbx, 16(%rsp)
 	movq	%r14, 24(%rsp)
 	testq	%r14, %r14
-	je	.LBB4_18
-	leaq	(,%r12,4), %rcx
+	je	.LBB3_19
+	leaq	(,%rsi,8), %rcx
 	xorl	%edi, %edi
 	xorl	%edx, %edx
 	.p2align	4, 0x90
-.LBB4_15:
-	cmpq	%r13, %rdi
-	jae	.LBB4_16
+.LBB3_17:
+	cmpq	%r12, %rdi
+	jae	.LBB3_18
 	cmpq	%rdx, %r14
-	je	.LBB4_24
+	je	.LBB3_25
 	movq	%r15, (%rax,%rdx,8)
 	addq	$1, %rdx
-	addq	%r12, %rdi
+	addq	%rsi, %rdi
 	addq	%rcx, %r15
 	cmpq	%rdx, %r14
-	jne	.LBB4_15
-.LBB4_18:
-	movl	36(%rsp), %r15d
-	testl	%r15d, %r15d
-	je	.LBB4_30
-	movl	%r10d, %ecx
-	andl	$31, %ecx
+	jne	.LBB3_17
+	jmp	.LBB3_20
+.LBB3_6:
+	movq	%rbx, %r15
+	testq	%r15, %r15
+	jne	.LBB3_8
+.LBB3_62:
+	movq	%rbp, %rdi
+	movq	%rbx, %rsi
+	callq	_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h75d484eb4b09f8f2E
+	ud2
+.LBB3_13:
+	movq	%rax, %rbx
+	movq	%rsi, %rax
+	movq	(%rsp), %rsi
+	testq	%rax, %rax
+	jne	.LBB3_15
+.LBB3_63:
+	movq	%rbx, %rdi
+	movq	56(%rsp), %rsi
+	callq	_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h75d484eb4b09f8f2E
+	ud2
+.LBB3_19:
+	testq	%r12, %r12
+	je	.LBB3_42
+.LBB3_20:
+	movq	%rbp, %r11
+	andl	$63, %r13d
+	movq	160(%rsp), %rdi
+	movq	8(%rsp), %rdx
+	movq	24(%rsp), %rsi
+	xorl	%ebp, %ebp
+	movq	64(%rsp), %r9
+	movq	88(%rsp), %r10
+	.p2align	4, 0x90
+.LBB3_21:
+	cmpq	%rbp, %r9
+	je	.LBB3_57
+	movq	(%r10,%rbp,8), %rbx
+	movq	%rbx, %rax
+	movl	%r13d, %ecx
+	shrq	%cl, %rax
+	cmpq	%rax, %rsi
+	jbe	.LBB3_23
+	addq	$1, %rbp
+	movq	(%rdx,%rax,8), %rcx
+	movq	%rbx, (%rcx)
+	addq	$8, (%rdx,%rax,8)
+	cmpq	%rbp, %r12
+	jne	.LBB3_21
+	movq	32(%rsp), %rcx
+	xorl	%edx, %edx
+	movq	80(%rsp), %rsi
+	movq	72(%rsp), %rbp
+	.p2align	4, 0x90
+.LBB3_29:
+	movq	(%rcx,%rdx,8), %rax
+	cmpq	%rsi, %rax
+	jae	.LBB3_58
+	movq	(%rbp,%rax,8), %rax
+	movq	%rax, (%rcx,%rdx,8)
+	addq	$1, %rdx
+	cmpq	%rdx, %r12
+	jne	.LBB3_29
+	testq	%r14, %r14
+	je	.LBB3_38
+	movq	8(%rsp), %rcx
+	movq	24(%rsp), %r8
+	movq	32(%rsp), %rdx
+	movq	(%rsp), %rax
+	leaq	(,%rax,8), %rbp
+	xorl	%eax, %eax
+	xorl	%esi, %esi
+	.p2align	4, 0x90
+.LBB3_33:
+	cmpq	%r12, %rax
+	jae	.LBB3_34
+	cmpq	%rsi, %r8
+	je	.LBB3_36
+	movq	%rdx, (%rcx,%rsi,8)
+	addq	$1, %rsi
+	addq	(%rsp), %rax
+	addq	%rbp, %rdx
+	cmpq	%rsi, %r14
+	jne	.LBB3_33
+.LBB3_38:
 	movq	8(%rsp), %rax
 	movq	24(%rsp), %rsi
 	xorl	%edx, %edx
+	movq	96(%rsp), %rbx
 	.p2align	4, 0x90
-.LBB4_20:
-	cmpq	%rdx, %r8
-	je	.LBB4_56
-	movl	(%r9,%rdx,4), %ebx
-	movq	%rbx, %rdi
-	shrq	%cl, %rdi
-	cmpq	%rdi, %rsi
-	jbe	.LBB4_22
+.LBB3_39:
+	cmpq	%rdx, %r9
+	je	.LBB3_59
+	movq	(%r10,%rdx,8), %rbp
+	movl	%r13d, %ecx
+	shrq	%cl, %rbp
+	cmpq	%rbp, %rsi
+	jbe	.LBB3_41
+	cmpq	%rdx, %rdi
+	je	.LBB3_60
+	movq	(%rax,%rbp,8), %rcx
+	movq	(%rcx), %rcx
+	movq	%rcx, (%rbx,%rdx,8)
 	addq	$1, %rdx
-	movq	(%rax,%rdi,8), %rbp
-	movl	%ebx, (%rbp)
-	addq	$4, (%rax,%rdi,8)
-	cmpq	%rdx, %r13
-	jne	.LBB4_20
-	testl	%r15d, %r15d
-	movq	104(%rsp), %rsi
-	je	.LBB4_30
-	movq	80(%rsp), %rax
-	xorl	%ecx, %ecx
-	.p2align	4, 0x90
-.LBB4_28:
-	movl	(%rax,%rcx,4), %edi
-	cmpq	%r11, %rdi
-	jae	.LBB4_57
-	movl	(%rsi,%rdi,4), %edx
-	movl	%edx, (%rax,%rcx,4)
-	addq	$1, %rcx
-	cmpq	%rcx, %r13
-	jne	.LBB4_28
-.LBB4_30:
-	testq	%r14, %r14
-	je	.LBB4_35
-	movq	8(%rsp), %rcx
-	movq	24(%rsp), %rdi
-	movq	80(%rsp), %rdx
-	leaq	(,%r12,4), %rsi
-	xorl	%eax, %eax
-	xorl	%ebx, %ebx
-	.p2align	4, 0x90
-.LBB4_32:
-	cmpq	%r13, %rax
-	jae	.LBB4_33
-	cmpq	%rbx, %rdi
-	je	.LBB4_46
-	movq	%rdx, (%rcx,%rbx,8)
-	addq	$1, %rbx
-	addq	%r12, %rax
-	addq	%rsi, %rdx
-	cmpq	%rbx, %r14
-	jne	.LBB4_32
-.LBB4_35:
-	testl	%r15d, %r15d
-	je	.LBB4_36
-	movq	176(%rsp), %rax
-	andl	$31, %r10d
-	movq	8(%rsp), %rdi
-	movq	24(%rsp), %rsi
-	xorl	%edx, %edx
-	movq	112(%rsp), %rbp
-	.p2align	4, 0x90
-.LBB4_48:
-	cmpq	%rdx, %r8
-	je	.LBB4_58
-	movl	(%r9,%rdx,4), %ebx
-	movl	%r10d, %ecx
-	shrq	%cl, %rbx
-	cmpq	%rbx, %rsi
-	jbe	.LBB4_50
-	cmpq	%rdx, %rax
-	je	.LBB4_59
-	movq	(%rdi,%rbx,8), %rcx
-	movl	(%rcx), %ecx
-	movl	%ecx, (%rbp,%rdx,4)
-	addq	$1, %rdx
-	addq	$4, (%rdi,%rbx,8)
-	cmpq	%rdx, %r13
-	jne	.LBB4_48
+	addq	$8, (%rax,%rbp,8)
+	cmpq	%rdx, %r12
+	jne	.LBB3_39
+	movq	%r11, %rbp
 	movq	16(%rsp), %rsi
 	testq	%rsi, %rsi
-	je	.LBB4_41
-.LBB4_38:
-	testq	%rdi, %rdi
-	je	.LBB4_41
+	je	.LBB3_47
+.LBB3_44:
+	testq	%rax, %rax
+	je	.LBB3_47
 	shlq	$3, %rsi
 	testq	%rsi, %rsi
-	je	.LBB4_41
+	je	.LBB3_47
 	movl	$8, %edx
+	movq	%rax, %rdi
 	callq	*__rust_dealloc@GOTPCREL(%rip)
-	testl	%r15d, %r15d
-	jne	.LBB4_42
-	jmp	.LBB4_44
-.LBB4_36:
-	movq	8(%rsp), %rdi
-	movq	16(%rsp), %rsi
-	testq	%rsi, %rsi
-	jne	.LBB4_38
-.LBB4_41:
-	testl	%r15d, %r15d
-	je	.LBB4_44
-.LBB4_42:
-	movq	80(%rsp), %rdi
+.LBB3_47:
+	testq	%rbp, %rbp
+	je	.LBB3_50
+	movq	32(%rsp), %rdi
 	testq	%rdi, %rdi
-	je	.LBB4_44
-	movl	$4, %edx
-	movq	40(%rsp), %rsi
+	je	.LBB3_50
+	movl	$8, %edx
+	movq	%rbp, %rsi
 	callq	*__rust_dealloc@GOTPCREL(%rip)
-.LBB4_44:
-	addq	$120, %rsp
+.LBB3_50:
+	addq	$104, %rsp
 	.cfi_def_cfa_offset 56
 	popq	%rbx
 	.cfi_def_cfa_offset 48
@@ -342,114 +328,118 @@ _ZN24composition_cooperman_ma24composition_cooperman_ma17h1e480e27682be846E:
 	popq	%rbp
 	.cfi_def_cfa_offset 8
 	retq
-.LBB4_16:
-	.cfi_def_cfa_offset 176
-.Ltmp0:
+.LBB3_42:
+	.cfi_def_cfa_offset 160
+	movq	8(%rsp), %rax
+	movq	16(%rsp), %rsi
+	testq	%rsi, %rsi
+	jne	.LBB3_44
+	jmp	.LBB3_47
+.LBB3_23:
+.Ltmp4:
 	leaq	.L__unnamed_1(%rip), %rdx
-	movq	%r13, %rsi
+	movq	%rax, %rdi
+	callq	*_ZN4core9panicking18panic_bounds_check17h111737a547b9c0f6E@GOTPCREL(%rip)
+.Ltmp5:
+	jmp	.LBB3_10
+.LBB3_57:
+.Ltmp18:
+	leaq	.L__unnamed_2(%rip), %rdx
+	movq	%r9, %rdi
+	movq	%r9, %rsi
+	callq	*_ZN4core9panicking18panic_bounds_check17h111737a547b9c0f6E@GOTPCREL(%rip)
+.Ltmp19:
+	jmp	.LBB3_10
+.LBB3_58:
+.Ltmp6:
+	leaq	.L__unnamed_3(%rip), %rdx
+	movq	%rax, %rdi
+	callq	*_ZN4core9panicking18panic_bounds_check17h111737a547b9c0f6E@GOTPCREL(%rip)
+.Ltmp7:
+	jmp	.LBB3_10
+.LBB3_41:
+.Ltmp12:
+	leaq	.L__unnamed_4(%rip), %rdx
+	movq	%rbp, %rdi
+	callq	*_ZN4core9panicking18panic_bounds_check17h111737a547b9c0f6E@GOTPCREL(%rip)
+.Ltmp13:
+	jmp	.LBB3_10
+.LBB3_59:
+.Ltmp16:
+	leaq	.L__unnamed_5(%rip), %rdx
+	movq	%r9, %rdi
+	movq	%r9, %rsi
+	callq	*_ZN4core9panicking18panic_bounds_check17h111737a547b9c0f6E@GOTPCREL(%rip)
+.Ltmp17:
+	jmp	.LBB3_10
+.LBB3_60:
+.Ltmp14:
+	leaq	.L__unnamed_6(%rip), %rdx
+	movq	%rdi, %rsi
+	callq	*_ZN4core9panicking18panic_bounds_check17h111737a547b9c0f6E@GOTPCREL(%rip)
+.Ltmp15:
+	jmp	.LBB3_10
+.LBB3_18:
+.Ltmp0:
+	leaq	.L__unnamed_7(%rip), %rdx
+	movq	%r12, %rsi
 	callq	*_ZN4core9panicking18panic_bounds_check17h111737a547b9c0f6E@GOTPCREL(%rip)
 .Ltmp1:
-	jmp	.LBB4_8
-.LBB4_24:
+	jmp	.LBB3_10
+.LBB3_25:
 .Ltmp2:
-	leaq	.L__unnamed_2(%rip), %rdx
+	leaq	.L__unnamed_8(%rip), %rdx
 	movq	%r14, %rdi
 	movq	%r14, %rsi
 	callq	*_ZN4core9panicking18panic_bounds_check17h111737a547b9c0f6E@GOTPCREL(%rip)
 .Ltmp3:
-	jmp	.LBB4_8
-.LBB4_22:
-	movl	%edi, %edi
-.Ltmp4:
-	leaq	.L__unnamed_3(%rip), %rdx
-	callq	*_ZN4core9panicking18panic_bounds_check17h111737a547b9c0f6E@GOTPCREL(%rip)
-.Ltmp5:
-	jmp	.LBB4_8
-.LBB4_56:
+	jmp	.LBB3_10
+.LBB3_34:
 .Ltmp8:
-	leaq	.L__unnamed_4(%rip), %rdx
-	movq	%r8, %rdi
-	movq	%r8, %rsi
+	leaq	.L__unnamed_9(%rip), %rdx
+	movq	%rax, %rdi
+	movq	%r12, %rsi
 	callq	*_ZN4core9panicking18panic_bounds_check17h111737a547b9c0f6E@GOTPCREL(%rip)
 .Ltmp9:
-	jmp	.LBB4_8
-.LBB4_33:
+	jmp	.LBB3_10
+.LBB3_36:
 .Ltmp10:
-	leaq	.L__unnamed_5(%rip), %rdx
-	movq	%rax, %rdi
-	movq	%r13, %rsi
-	callq	*_ZN4core9panicking18panic_bounds_check17h111737a547b9c0f6E@GOTPCREL(%rip)
-.Ltmp11:
-	jmp	.LBB4_8
-.LBB4_46:
-.Ltmp12:
-	leaq	.L__unnamed_6(%rip), %rdx
-	movq	%rdi, %rsi
-	callq	*_ZN4core9panicking18panic_bounds_check17h111737a547b9c0f6E@GOTPCREL(%rip)
-.Ltmp13:
-	jmp	.LBB4_8
-.LBB4_50:
-	movl	%ebx, %edi
-.Ltmp14:
-	leaq	.L__unnamed_7(%rip), %rdx
-	callq	*_ZN4core9panicking18panic_bounds_check17h111737a547b9c0f6E@GOTPCREL(%rip)
-.Ltmp15:
-	jmp	.LBB4_8
-.LBB4_59:
-.Ltmp16:
-	leaq	.L__unnamed_8(%rip), %rdx
-	movq	%rax, %rdi
-	movq	%rax, %rsi
-	callq	*_ZN4core9panicking18panic_bounds_check17h111737a547b9c0f6E@GOTPCREL(%rip)
-.Ltmp17:
-	jmp	.LBB4_8
-.LBB4_58:
-.Ltmp18:
-	leaq	.L__unnamed_9(%rip), %rdx
+	leaq	.L__unnamed_10(%rip), %rdx
 	movq	%r8, %rdi
 	movq	%r8, %rsi
 	callq	*_ZN4core9panicking18panic_bounds_check17h111737a547b9c0f6E@GOTPCREL(%rip)
-.Ltmp19:
-	jmp	.LBB4_8
-.LBB4_57:
-.Ltmp6:
-	leaq	.L__unnamed_10(%rip), %rdx
-	movq	%r11, %rsi
-	callq	*_ZN4core9panicking18panic_bounds_check17h111737a547b9c0f6E@GOTPCREL(%rip)
-.Ltmp7:
-.LBB4_8:
+.Ltmp11:
+.LBB3_10:
 	ud2
-.LBB4_7:
+.LBB3_61:
+	callq	_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h94c6334c7c183e4eE
+	ud2
+.LBB3_9:
 .Ltmp21:
-	callq	_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17he8440ce6627a33c0E
+	callq	_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h94c6334c7c183e4eE
 .Ltmp22:
-	jmp	.LBB4_8
-.LBB4_61:
-	movq	%rbp, %rdi
-	movq	%rbx, %rsi
-	callq	_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h80b9c8488d6893f8E
-	ud2
-.LBB4_53:
+	jmp	.LBB3_10
+.LBB3_54:
 .Ltmp23:
 	movq	%rax, %rbx
-	jmp	.LBB4_55
-.LBB4_54:
+	jmp	.LBB3_56
+.LBB3_55:
 .Ltmp20:
 	movq	%rax, %rbx
 	leaq	8(%rsp), %rdi
-	callq	_ZN4core3ptr13drop_in_place17hde34e209fddf0699E
-.LBB4_55:
-	leaq	80(%rsp), %rdi
-	callq	_ZN4core3ptr13drop_in_place17h4726e1a204ecd691E
+	callq	_ZN4core3ptr13drop_in_place17h1ab9af538ccbe371E
+.LBB3_56:
+	leaq	32(%rsp), %rdi
+	callq	_ZN4core3ptr13drop_in_place17h1ab9af538ccbe371E
 	movq	%rbx, %rdi
 	callq	_Unwind_Resume@PLT
 	ud2
-.Lfunc_end4:
-	.size	_ZN24composition_cooperman_ma24composition_cooperman_ma17h1e480e27682be846E, .Lfunc_end4-_ZN24composition_cooperman_ma24composition_cooperman_ma17h1e480e27682be846E
+.Lfunc_end3:
+	.size	_ZN24composition_cooperman_ma24composition_cooperman_ma17h72deead023bffe8bE, .Lfunc_end3-_ZN24composition_cooperman_ma24composition_cooperman_ma17h72deead023bffe8bE
 	.cfi_endproc
 	.section	.gcc_except_table,"a",@progbits
 	.p2align	2
-GCC_except_table4:
+GCC_except_table3:
 .Lexception0:
 	.byte	255
 	.byte	255
@@ -457,19 +447,23 @@ GCC_except_table4:
 	.uleb128 .Lcst_end0-.Lcst_begin0
 .Lcst_begin0:
 	.uleb128 .Lfunc_begin0-.Lfunc_begin0
-	.uleb128 .Ltmp0-.Lfunc_begin0
+	.uleb128 .Ltmp4-.Lfunc_begin0
 	.byte	0
 	.byte	0
-	.uleb128 .Ltmp0-.Lfunc_begin0
-	.uleb128 .Ltmp7-.Ltmp0
+	.uleb128 .Ltmp4-.Lfunc_begin0
+	.uleb128 .Ltmp11-.Ltmp4
 	.uleb128 .Ltmp20-.Lfunc_begin0
+	.byte	0
+	.uleb128 .Ltmp11-.Lfunc_begin0
+	.uleb128 .Ltmp21-.Ltmp11
+	.byte	0
 	.byte	0
 	.uleb128 .Ltmp21-.Lfunc_begin0
 	.uleb128 .Ltmp22-.Ltmp21
 	.uleb128 .Ltmp23-.Lfunc_begin0
 	.byte	0
 	.uleb128 .Ltmp22-.Lfunc_begin0
-	.uleb128 .Lfunc_end4-.Ltmp22
+	.uleb128 .Lfunc_end3-.Ltmp22
 	.byte	0
 	.byte	0
 .Lcst_end0:
@@ -489,76 +483,12 @@ _ZN24composition_cooperman_ma10CACHE_SIZE17h1f6e91545a796a82E:
 	.ascii	"../src/composition_cooperman_ma.rs"
 	.size	.L__unnamed_11, 34
 
-	.type	.L__unnamed_1,@object
-	.section	.data.rel.ro..L__unnamed_1,"aw",@progbits
-	.p2align	3
-.L__unnamed_1:
-	.quad	.L__unnamed_11
-	.asciz	"\"\000\000\000\000\000\000\000 \000\000\000!\000\000"
-	.size	.L__unnamed_1, 24
-
-	.type	.L__unnamed_2,@object
-	.section	.data.rel.ro..L__unnamed_2,"aw",@progbits
-	.p2align	3
-.L__unnamed_2:
-	.quad	.L__unnamed_11
-	.asciz	"\"\000\000\000\000\000\000\000 \000\000\000\t\000\000"
-	.size	.L__unnamed_2, 24
-
-	.type	.L__unnamed_4,@object
-	.section	.data.rel.ro..L__unnamed_4,"aw",@progbits
-	.p2align	3
-.L__unnamed_4:
-	.quad	.L__unnamed_11
-	.asciz	"\"\000\000\000\000\000\000\000#\000\000\000\032\000\000"
-	.size	.L__unnamed_4, 24
-
-	.type	.L__unnamed_3,@object
-	.section	.data.rel.ro..L__unnamed_3,"aw",@progbits
-	.p2align	3
-.L__unnamed_3:
-	.quad	.L__unnamed_11
-	.asciz	"\"\000\000\000\000\000\000\000$\000\000\000\023\000\000"
-	.size	.L__unnamed_3, 24
-
-	.type	.L__unnamed_10,@object
-	.section	.data.rel.ro..L__unnamed_10,"aw",@progbits
-	.p2align	3
-.L__unnamed_10:
-	.quad	.L__unnamed_11
-	.asciz	"\"\000\000\000\000\000\000\000+\000\000\000\020\000\000"
-	.size	.L__unnamed_10, 24
-
-	.type	.L__unnamed_5,@object
-	.section	.data.rel.ro..L__unnamed_5,"aw",@progbits
-	.p2align	3
-.L__unnamed_5:
-	.quad	.L__unnamed_11
-	.asciz	"\"\000\000\000\000\000\000\0000\000\000\000!\000\000"
-	.size	.L__unnamed_5, 24
-
-	.type	.L__unnamed_6,@object
-	.section	.data.rel.ro..L__unnamed_6,"aw",@progbits
-	.p2align	3
-.L__unnamed_6:
-	.quad	.L__unnamed_11
-	.asciz	"\"\000\000\000\000\000\000\0000\000\000\000\t\000\000"
-	.size	.L__unnamed_6, 24
-
-	.type	.L__unnamed_9,@object
-	.section	.data.rel.ro..L__unnamed_9,"aw",@progbits
-	.p2align	3
-.L__unnamed_9:
-	.quad	.L__unnamed_11
-	.asciz	"\"\000\000\000\000\000\000\0003\000\000\000\032\000\000"
-	.size	.L__unnamed_9, 24
-
 	.type	.L__unnamed_7,@object
 	.section	.data.rel.ro..L__unnamed_7,"aw",@progbits
 	.p2align	3
 .L__unnamed_7:
 	.quad	.L__unnamed_11
-	.asciz	"\"\000\000\000\000\000\000\0004\000\000\000\032\000\000"
+	.asciz	"\"\000\000\000\000\000\000\000 \000\000\000!\000\000"
 	.size	.L__unnamed_7, 24
 
 	.type	.L__unnamed_8,@object
@@ -566,8 +496,72 @@ _ZN24composition_cooperman_ma10CACHE_SIZE17h1f6e91545a796a82E:
 	.p2align	3
 .L__unnamed_8:
 	.quad	.L__unnamed_11
-	.asciz	"\"\000\000\000\000\000\000\0004\000\000\000\t\000\000"
+	.asciz	"\"\000\000\000\000\000\000\000 \000\000\000\t\000\000"
 	.size	.L__unnamed_8, 24
+
+	.type	.L__unnamed_2,@object
+	.section	.data.rel.ro..L__unnamed_2,"aw",@progbits
+	.p2align	3
+.L__unnamed_2:
+	.quad	.L__unnamed_11
+	.asciz	"\"\000\000\000\000\000\000\000$\000\000\000\031\000\000"
+	.size	.L__unnamed_2, 24
+
+	.type	.L__unnamed_1,@object
+	.section	.data.rel.ro..L__unnamed_1,"aw",@progbits
+	.p2align	3
+.L__unnamed_1:
+	.quad	.L__unnamed_11
+	.asciz	"\"\000\000\000\000\000\000\000%\000\000\000\023\000\000"
+	.size	.L__unnamed_1, 24
+
+	.type	.L__unnamed_3,@object
+	.section	.data.rel.ro..L__unnamed_3,"aw",@progbits
+	.p2align	3
+.L__unnamed_3:
+	.quad	.L__unnamed_11
+	.asciz	"\"\000\000\000\000\000\000\000,\000\000\000\020\000\000"
+	.size	.L__unnamed_3, 24
+
+	.type	.L__unnamed_9,@object
+	.section	.data.rel.ro..L__unnamed_9,"aw",@progbits
+	.p2align	3
+.L__unnamed_9:
+	.quad	.L__unnamed_11
+	.asciz	"\"\000\000\000\000\000\000\0001\000\000\000!\000\000"
+	.size	.L__unnamed_9, 24
+
+	.type	.L__unnamed_10,@object
+	.section	.data.rel.ro..L__unnamed_10,"aw",@progbits
+	.p2align	3
+.L__unnamed_10:
+	.quad	.L__unnamed_11
+	.asciz	"\"\000\000\000\000\000\000\0001\000\000\000\t\000\000"
+	.size	.L__unnamed_10, 24
+
+	.type	.L__unnamed_5,@object
+	.section	.data.rel.ro..L__unnamed_5,"aw",@progbits
+	.p2align	3
+.L__unnamed_5:
+	.quad	.L__unnamed_11
+	.asciz	"\"\000\000\000\000\000\000\0005\000\000\000\031\000\000"
+	.size	.L__unnamed_5, 24
+
+	.type	.L__unnamed_4,@object
+	.section	.data.rel.ro..L__unnamed_4,"aw",@progbits
+	.p2align	3
+.L__unnamed_4:
+	.quad	.L__unnamed_11
+	.asciz	"\"\000\000\000\000\000\000\0006\000\000\000\032\000\000"
+	.size	.L__unnamed_4, 24
+
+	.type	.L__unnamed_6,@object
+	.section	.data.rel.ro..L__unnamed_6,"aw",@progbits
+	.p2align	3
+.L__unnamed_6:
+	.quad	.L__unnamed_11
+	.asciz	"\"\000\000\000\000\000\000\0006\000\000\000\t\000\000"
+	.size	.L__unnamed_6, 24
 
 	.hidden	DW.ref.rust_eh_personality
 	.weak	DW.ref.rust_eh_personality
