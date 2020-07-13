@@ -67,7 +67,7 @@ composition_cooperman_ma:
 	.cfi_offset 15, -16
 # composition_cooperman_ma.c:16: 	char block_length_shift = (char) floor(log2(block_length));
 	pxor	%xmm0, %xmm0	# tmp141
-# composition_cooperman_ma.c:12: void composition_cooperman_ma(perm_t n, perm_t x[], perm_t y[], perm_t z[]) {
+# composition_cooperman_ma.c:12: void composition_cooperman_ma(size_t n, perm_t x[], perm_t y[], perm_t z[]) {
 	pushq	%r14	#
 	.cfi_def_cfa_offset 24
 	.cfi_offset 14, -24
