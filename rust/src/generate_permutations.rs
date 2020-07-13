@@ -12,7 +12,7 @@ use composition::PermT;
 fn generate_random_permutation(n: usize, rng: &mut ThreadRng) -> Vec<PermT> {
     let mut p: Vec<PermT> = vec![0; n];
     for i in 0..n {
-        p[i] = i;
+        p[i] = i as PermT;
     }
     for i in 0..n {
         let j = rng.gen_range(i, n);
@@ -47,7 +47,7 @@ fn main() -> io::Result<()> {
         eprintln!("Please enter n as a command line argument.");
         process::exit(1);
     }
-    let n = match args[1].parse::<PermT>() {
+    let n = match args[1].parse::<usize>() {
         Ok(num) => num,
         Err(e) => {
             eprintln!("Invalid n: {}", e);
@@ -58,7 +58,7 @@ fn main() -> io::Result<()> {
         eprintln!("Please enter n greater or equal to 1");
         process::exit(1);
     }
-    if n - 1 > PermT::MAX {
+    if n - 1 > PermT::MAX as usize {
         eprintln!("Please enter n less than {}\n", PermT::MAX as u128 + 1);
         process::exit(1);
     }

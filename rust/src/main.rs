@@ -91,7 +91,7 @@ fn main() -> io::Result<()> {
         eprintln!("Please enter n greater or equal to 1");
         process::exit(1);
     }
-    if n - 1 > PermT::MAX {
+    if n - 1 > PermT::MAX as usize {
         eprintln!("Please enter n less than {}\n", PermT::MAX as u128 + 1);
         process::exit(1);
     }

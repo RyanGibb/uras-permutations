@@ -33,7 +33,7 @@ pub fn composition_cooperman_ma(n: usize, x: &[PermT], y: &[PermT], z: &mut [Per
     }
     for i in 0..n {
 		// Equivalent to 'x[i] / block_length'
-        let block_num = x[i] >> block_length_shift;
+        let block_num = (x[i] >> block_length_shift) as usize;
         unsafe { *d_ptr[block_num] = x[i] };
         d_ptr[block_num] = unsafe { d_ptr[block_num].offset(1) };
     }
@@ -50,7 +50,7 @@ pub fn composition_cooperman_ma(n: usize, x: &[PermT], y: &[PermT], z: &mut [Per
     }
     for i in 0..n {
 		// Equivalent to 'x[i] / block_length'
-        let block_num = x[i] >> block_length_shift;
+        let block_num = (x[i] >> block_length_shift) as usize;
         z[i] = unsafe { *d_ptr[block_num] };
         d_ptr[block_num] = unsafe { d_ptr[block_num].offset(1) };
     }
