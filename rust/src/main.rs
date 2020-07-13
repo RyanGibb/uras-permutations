@@ -33,7 +33,7 @@ fn main() -> io::Result<()> {
         process::exit(1);
     }
     let mut i = 1;
-    type Composition = fn(PermT, &[PermT], &[PermT], &mut [PermT]);
+    type Composition = fn(usize, &[PermT], &[PermT], &mut [PermT]);
     let composition: Composition;
     match args[i].as_str() {
         "naive" => {
@@ -91,19 +91,18 @@ fn main() -> io::Result<()> {
         eprintln!("Please enter n greater or equal to 1");
         process::exit(1);
     }
-    if PermT::MAX <= n.try_into().unwrap() {
-        eprintln!("Please enter n less than {}\n", PermT::MAX);
+    if n - 1 > PermT::MAX {
+        eprintln!("Please enter n less than {}\n", PermT::MAX as u128 + 1);
         process::exit(1);
     }
-    let n = n as PermT;
     let cpu_time;
-    let mut z: Vec<PermT> = vec![0; n as usize];
+    let mut z: Vec<PermT> = vec![0; n];
     {
         // Vectors stored on the heap
-        let mut x: Vec<PermT> = vec![0; n as usize];
-        let mut y: Vec<PermT> = vec![0; n as usize];
+        let mut x: Vec<PermT> = vec![0; n];
+        let mut y: Vec<PermT> = vec![0; n];
         let mut buffer = [0; size_of::<PermT>()];
-        for i in 0..n as usize {
+        for i in 0..n {
             io::stdin().read_exact(&mut buffer)?;
             x[i] = PermT::from_le_bytes(buffer);
             if x[i] >= n.try_into().unwrap() {
@@ -111,7 +110,7 @@ fn main() -> io::Result<()> {
                 process::exit(1);
             }
         }
-        for i in 0..n as usize {
+        for i in 0..n {
             io::stdin().read_exact(&mut buffer)?;
             y[i] = PermT::from_le_bytes(buffer);
             if y[i] >= n.try_into().unwrap() {
@@ -133,7 +132,7 @@ fn main() -> io::Result<()> {
 
     // Print z=xy to stdout
     print!("{}", z[0]);
-    for i in 1..n as usize {
+    for i in 1..n {
         print!(" {}", z[i]);
     }
     println!();
