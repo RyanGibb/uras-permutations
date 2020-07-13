@@ -13,7 +13,7 @@ typedef size_t perm_t;
 
 extern size_t cache_size;
 
-void composition_naive(size_t n, perm_t x[], perm_t y[], perm_t z[]);
-void composition_cooperman_ma(size_t n, perm_t x[], perm_t y[], perm_t z[]);
+void composition_naive(perm_t n, perm_t x[], perm_t y[], perm_t z[]);
+void composition_cooperman_ma(perm_t n, perm_t x[], perm_t y[], perm_t z[]);
 
 #endif // COMPOSITION_H

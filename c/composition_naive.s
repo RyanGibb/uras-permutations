@@ -62,24 +62,25 @@
 composition_naive:
 .LFB5:
 	.cfi_startproc
-# composition_naive.c:7: void composition_naive(size_t n, perm_t x[], perm_t y[], perm_t z[]) {
-	movq	%rdx, %r8	# tmp95, y
-# composition_naive.c:8: 	for (int i = 0; i < n; i++) {
+# composition_naive.c:7: void composition_naive(perm_t n, perm_t x[], perm_t y[], perm_t z[]) {
+	movq	%rdx, %r8	# tmp94, y
+# composition_naive.c:8: 	for (size_t i = 0; i < n; i++) {
 	testq	%rdi, %rdi	# n
 	je	.L1	#,
-	salq	$3, %rdi	#, _28
-	xorl	%eax, %eax	# ivtmp.10
+# composition_naive.c:8: 	for (size_t i = 0; i < n; i++) {
+	xorl	%eax, %eax	# i
 	.p2align 4,,10
 	.p2align 3
 .L3:
 # composition_naive.c:9: 		z[i] = y[x[i]];
-	movq	(%rsi,%rax), %rdx	# MEM[base: x_13(D), index: ivtmp.10_24, offset: 0B], MEM[base: x_13(D), index: ivtmp.10_24, offset: 0B]
+	movq	(%rsi,%rax,8), %rdx	# MEM[base: x_12(D), index: i_19, step: 8, offset: 0B], MEM[base: x_12(D), index: i_19, step: 8, offset: 0B]
 	movq	(%r8,%rdx,8), %rdx	# *_5, _7
 # composition_naive.c:9: 		z[i] = y[x[i]];
-	movq	%rdx, (%rcx,%rax)	# _7, MEM[base: z_15(D), index: ivtmp.10_24, offset: 0B]
-# composition_naive.c:8: 	for (int i = 0; i < n; i++) {
-	addq	$8, %rax	#, ivtmp.10
-	cmpq	%rax, %rdi	# ivtmp.10, _28
+	movq	%rdx, (%rcx,%rax,8)	# _7, MEM[base: z_14(D), index: i_19, step: 8, offset: 0B]
+# composition_naive.c:8: 	for (size_t i = 0; i < n; i++) {
+	addq	$1, %rax	#, i
+# composition_naive.c:8: 	for (size_t i = 0; i < n; i++) {
+	cmpq	%rax, %rdi	# i, n
 	jne	.L3	#,
 .L1:
 # composition_naive.c:11: }

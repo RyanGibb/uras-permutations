@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
 	}
 	int i = 1;
 	char* algorithm = argv[i];
-	void (*composition)(size_t n, perm_t x[], perm_t y[], perm_t z[]);
+	void (*composition)(perm_t n, perm_t x[], perm_t y[], perm_t z[]);
 	if (strcmp(algorithm, "naive") == 0)  {
 		composition = &composition_naive;
 		i++;
@@ -77,23 +77,24 @@ int main(int argc, char *argv[]) {
 
 	// Parse permutations x & y from stdin
 	freopen(NULL, "rb", stdin);
-	size_t n;
+	size_t n_size_t;
    	clearerr(stdin);
 	size_t read;
-	read = fread(&n, 1, sizeof(size_t), stdin);
+	read = fread(&n_size_t, 1, sizeof(size_t), stdin);
 	if (ferror(stdin) || read != sizeof(size_t)) {
 		fprintf(stderr, "Error reading n\n");
 		return 1;
 	}
-	if (n < 1) {
+	if (n_size_t < 1) {
 		fprintf(stderr, "Please enter n greater or equal to 1\n");
 		return 1;
 	}
 	long double max_n = powl(2, sizeof(perm_t) * 8);
-	if (n >= max_n) {
+	if (n_size_t >= max_n) {
 		fprintf(stderr, "Please enter n less than %0.Lf\n", max_n);
 		return 1;
 	}
+	perm_t n = (perm_t) n_size_t;
 	// Dynamically allocated to avoid overflowing the stack for large n's
 	perm_t* x = malloc(n * sizeof(perm_t));
 	perm_t* y = malloc(n * sizeof(perm_t));
@@ -106,7 +107,7 @@ int main(int argc, char *argv[]) {
 			return 1;
 		}
 		if (x[i] >= n) {
-			fprintf(stderr, "Invalid input: x[%zu]=%"PERM_T_FORMAT" not less than n=%zu\n", i, x[i], n);
+			fprintf(stderr, "Invalid input: x[%zu]=%"PERM_T_FORMAT" not less than n=%"PERM_T_FORMAT"\n", i, x[i], n);
 			return 1;
 		}
 	}
@@ -118,7 +119,7 @@ int main(int argc, char *argv[]) {
 			return 1;
 		}
 		if (y[i] >= n) {
-			fprintf(stderr, "Invalid input: y[%zu]=%"PERM_T_FORMAT" not less than n=%zu\n", i, y[i], n);
+			fprintf(stderr, "Invalid input: y[%zu]=%"PERM_T_FORMAT" not less than n=%"PERM_T_FORMAT"\n", i, y[i], n);
 			return 1;
 		}
 	}
