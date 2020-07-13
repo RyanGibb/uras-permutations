@@ -1,11 +1,11 @@
 
 out_file=$(dirname "$0")/benchmarks.csv
-REPETITIONS=3
+REPETITIONS=5
 TARGET_TIME_NS=10000000 # 10 milliseconds
 PERMUTATION_FILES=$(ls -v /cs/scratch/rtg2/permutations/*.perm)
 
 if [ ! -f $out_file ]; then
-    echo "Timestamp, Repetition, n, Executable, Iterations, CPU Time (ns)" > $out_file
+    echo "Timestamp, Repetition, n, Executable, Iterations, CPU Time (ns), Host" > $out_file
 fi
 
 get_cpu_time () {
@@ -27,7 +27,7 @@ for ((rep=1; rep<=REPETITIONS; rep++)); do
 				cpu_time_ns=$(get_cpu_time)
 				new_iterations=$(($iterations * 2))
 			done
-			echo $timestamp, $rep, $(basename "$file" .perm), $(basename "$executable" .sh), $iterations, $cpu_time_ns >> $out_file
+			echo $timestamp, $rep, $(basename "$file" .perm), $(basename "$executable" .sh), $iterations, $cpu_time_ns, $HOSTNAME >> $out_file
 		done
 	done
 done
