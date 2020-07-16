@@ -101,7 +101,7 @@ int main(int argc, char *argv[]) {
 	for (size_t i = 0; i < n; i++) {
    		clearerr(stdin);
 		read = fread(&x[i], 1, sizeof(perm_t), stdin);
-		if (ferror(stdin) || read != sizeof(size_t)) {
+		if (ferror(stdin) || read != sizeof(perm_t)) {
 			fprintf(stderr, "Error reading x[%zu]\n", i);
 			return 1;
 		}
@@ -113,7 +113,7 @@ int main(int argc, char *argv[]) {
 	for (size_t i = 0; i < n; i++) {
 		clearerr(stdin);
 		read = fread(&y[i], 1, sizeof(perm_t), stdin);
-		if (ferror(stdin) || read != sizeof(size_t)) {
+		if (ferror(stdin) || read != sizeof(perm_t)) {
 			fprintf(stderr, "Error reading y[%zu]\n", i);
 			return 1;
 		}
