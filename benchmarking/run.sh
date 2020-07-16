@@ -25,6 +25,11 @@ for ((rep=1; rep<=REPETITIONS; rep++)); do
 				iterations=$new_iterations
 				timestamp=$(date)
 				cpu_time_ns=$(get_cpu_time)
+				if [ "$cpu_time_ns" = "" ]; then
+					echo "An error occured!"
+					cpu_time_ns="Error"
+					break
+				fi
 				new_iterations=$(($iterations * 2))
 			done
 			echo $timestamp, $rep, $(basename "$file" .perm), $(basename "$executable" .sh), $iterations, $cpu_time_ns, $HOSTNAME >> $out_file
