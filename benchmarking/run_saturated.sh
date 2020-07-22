@@ -43,8 +43,7 @@ for ((rep=1; rep<=REPETITIONS; rep++)); do
 				for ((i=0; i<num_procs; i++)); do
 					wait ${pids[$i]}
 					cpu_time_ns_background=$(<$TMP_DIR/$i)
-					rm $TMP_DIR/$i
-					if [ "$x_background" = "" ]; then
+					if [ "$cpu_time_ns_background" = "" ]; then
 						echo "An error occured in a saturation process i=$i!"
 					fi
 				done
