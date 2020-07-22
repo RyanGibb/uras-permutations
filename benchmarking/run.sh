@@ -18,7 +18,6 @@ cargo build --release --manifest-path $(dirname "$0")/../rust/Cargo.toml || exit
 for ((rep=1; rep<=REPETITIONS; rep++)); do
 	for file in $PERMUTATION_FILES; do
 		for executable in "$@"; do
-			echo $(date) $file $executable
 			cpu_time_ns=0
 			new_iterations=1
 			while [ $cpu_time_ns -le $TARGET_TIME_NS ]; do
