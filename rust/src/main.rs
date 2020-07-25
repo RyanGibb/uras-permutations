@@ -125,7 +125,7 @@ fn main() -> io::Result<()> {
         for element in x.iter_mut() {
             io::stdin().read_exact(&mut buffer)?;
             *element = PermT::from_le_bytes(buffer);
-            if n <= *element {
+            if n <= (*element).try_into().unwrap() {
                 eprintln!("Invalid input: x[{}]={} not less than n={}", i, *element, n);
                 process::exit(1);
             }
@@ -133,7 +133,7 @@ fn main() -> io::Result<()> {
         for element in y.iter_mut() {
             io::stdin().read_exact(&mut buffer)?;
             *element = PermT::from_le_bytes(buffer);
-            if n <= *element {
+            if n <= (*element).try_into().unwrap() {
                 eprintln!("Invalid input: y[{}]={} not less than n={}", i, *element, n);
                 process::exit(1);
             }
