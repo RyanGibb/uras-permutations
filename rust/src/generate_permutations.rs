@@ -36,8 +36,8 @@ fn main() -> io::Result<()> {
     // Don't print error message on broken pipe.
     unsafe {
         libc::signal(libc::SIGPIPE, libc::SIG_DFL);
-	}
-	
+    }
+
     let args: Vec<String> = env::args().collect();
     if args.len() < 2 {
         eprintln!("Please enter n as a command line argument.");

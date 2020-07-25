@@ -1,12 +1,10 @@
-#![allow(
-    clippy::many_single_char_names
-)]
+#![allow(clippy::many_single_char_names)]
 
 use std::env;
 use std::io::{self, Read};
+use std::mem::size_of;
 use std::process;
 use std::time::Duration;
-use std::{mem::size_of};
 
 use libc::{clock_gettime, timespec, CLOCK_PROCESS_CPUTIME_ID};
 
@@ -57,7 +55,7 @@ fn main() -> io::Result<()> {
                         }
                     };
                 }
-                if unsafe{ CACHE_SIZE } < 2 * size_of::<PermT>() {
+                if unsafe { CACHE_SIZE } < 2 * size_of::<PermT>() {
                     eprintln!("Cache size must be large enough to fit at least two indices.");
                     process::exit(1);
                 }
