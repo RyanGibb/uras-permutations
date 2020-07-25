@@ -5,6 +5,7 @@ use std::io::{self, Read};
 use std::mem::size_of;
 use std::process;
 use std::time::Duration;
+use std::convert::TryInto;
 
 use libc::{clock_gettime, timespec, CLOCK_PROCESS_CPUTIME_ID};
 
