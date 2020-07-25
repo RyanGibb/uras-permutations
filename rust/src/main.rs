@@ -1,8 +1,12 @@
+#![allow(
+    clippy::many_single_char_names
+)]
+
 use std::env;
 use std::io::{self, Read};
 use std::process;
 use std::time::Duration;
-use std::{convert::TryInto, mem::size_of};
+use std::{mem::size_of};
 
 use libc::{clock_gettime, timespec, CLOCK_PROCESS_CPUTIME_ID};
 
@@ -38,11 +42,11 @@ fn main() -> io::Result<()> {
     match args[i].as_str() {
         "naive" => {
             composition = composition_naive;
-            i = i + 1;
+            i += 1;
         }
         "cooperman_ma" => {
             composition = composition_cooperman_ma;
-            i = i + 1;
+            i += 1;
             if args.len() > i {
                 unsafe {
                     CACHE_SIZE = match args[i].parse::<usize>() {
@@ -62,7 +66,7 @@ fn main() -> io::Result<()> {
                     eprintln!("Cache size must be a power of 2.");
                     process::exit(1);
                 }
-                i = i + 1;
+                i += 1;
             }
         }
         _ => {
@@ -102,19 +106,19 @@ fn main() -> io::Result<()> {
         let mut x: Vec<PermT> = vec![0; n];
         let mut y: Vec<PermT> = vec![0; n];
         let mut buffer = [0; size_of::<PermT>()];
-        for i in 0..n {
+        for element in x.iter_mut() {
             io::stdin().read_exact(&mut buffer)?;
-            x[i] = PermT::from_le_bytes(buffer);
-            if n <= x[i].try_into().unwrap() {
-                eprintln!("Invalid input: x[{}]={} not less than n={}", i, x[i], n);
+            *element = PermT::from_le_bytes(buffer);
+            if n <= *element {
+                eprintln!("Invalid input: x[{}]={} not less than n={}", i, *element, n);
                 process::exit(1);
             }
         }
-        for i in 0..n {
+        for element in y.iter_mut() {
             io::stdin().read_exact(&mut buffer)?;
-            y[i] = PermT::from_le_bytes(buffer);
-            if n <= y[i].try_into().unwrap() {
-                eprintln!("Invalid input: y[{}]={} not less than n={}", i, y[i], n);
+            *element = PermT::from_le_bytes(buffer);
+            if n <= *element {
+                eprintln!("Invalid input: y[{}]={} not less than n={}", i, *element, n);
                 process::exit(1);
             }
         }
@@ -132,8 +136,8 @@ fn main() -> io::Result<()> {
 
     // Print z=xy to stdout
     print!("{}", z[0]);
-    for i in 1..n {
-        print!(" {}", z[i]);
+    for element in z.iter().take(n).skip(1) {
+        print!(" {}", *element);
     }
     println!();
     Ok(())

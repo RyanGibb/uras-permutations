@@ -31,10 +31,10 @@ pub fn composition_cooperman_ma(n: usize, x: &[PermT], y: &[PermT], z: &mut [Per
     for block_num in 0..number_of_blocks {
         d_ptr[block_num] = &mut d[block_num * block_length];
     }
-    for i in 0..n {
+    for element in x {
 		// Equivalent to 'x[i] / block_length'
-        let block_num = (x[i] >> block_length_shift) as usize;
-        unsafe { *d_ptr[block_num] = x[i] };
+        let block_num = (*element >> block_length_shift) as usize;
+        unsafe { *d_ptr[block_num] = *element };
         d_ptr[block_num] = unsafe { d_ptr[block_num].offset(1) };
     }
 

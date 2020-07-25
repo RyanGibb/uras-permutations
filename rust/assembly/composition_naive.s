@@ -14,9 +14,7 @@ _ZN17composition_naive17composition_naive17hdd4bd8b8950fc2fcE:
 	cmpq	$3, %rdx
 	jae	.LBB0_7
 	xorl	%edx, %edx
-	testq	%r8, %r8
-	jne	.LBB0_4
-	jmp	.LBB0_6
+	jmp	.LBB0_3
 .LBB0_7:
 	subq	%r8, %rdi
 	xorl	%edx, %edx
@@ -37,9 +35,9 @@ _ZN17composition_naive17composition_naive17hdd4bd8b8950fc2fcE:
 	addq	$4, %rdx
 	cmpq	%rdx, %rdi
 	jne	.LBB0_8
+.LBB0_3:
 	testq	%r8, %r8
 	je	.LBB0_6
-.LBB0_4:
 	leaq	(%r9,%rdx,8), %rdi
 	leaq	(%rsi,%rdx,8), %rdx
 	xorl	%esi, %esi
@@ -56,6 +54,5 @@ _ZN17composition_naive17composition_naive17hdd4bd8b8950fc2fcE:
 .Lfunc_end0:
 	.size	_ZN17composition_naive17composition_naive17hdd4bd8b8950fc2fcE, .Lfunc_end0-_ZN17composition_naive17composition_naive17hdd4bd8b8950fc2fcE
 	.cfi_endproc
-
 
 	.section	".note.GNU-stack","",@progbits

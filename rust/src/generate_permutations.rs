@@ -3,22 +3,18 @@ use std::env;
 use std::io::{self, Write};
 use std::process;
 
-use libc;
-
 mod composition;
 use composition::PermT;
 
 // Uses the Fisher–Yates shuffle to generate a random permutation of degree n
 fn generate_random_permutation(n: usize, rng: &mut ThreadRng) -> Vec<PermT> {
     let mut p: Vec<PermT> = vec![0; n];
-    for i in 0..n {
-        p[i] = i as PermT;
+    for (i, element) in p.iter_mut().enumerate() {
+        *element = i as PermT;
     }
     for i in 0..n {
         let j = rng.gen_range(i, n);
-        let temp = p[j];
-        p[j] = p[i];
-        p[i] = temp;
+        p.swap(i, j);
     }
     p
 }
@@ -26,12 +22,12 @@ fn generate_random_permutation(n: usize, rng: &mut ThreadRng) -> Vec<PermT> {
 fn generate_permutation_pair(n: usize, rng: &mut ThreadRng) -> io::Result<()> {
     io::stdout().write_all(&n.to_le_bytes())?;
     let x = generate_random_permutation(n, rng);
-    for i in 0..n {
-        io::stdout().write_all(&x[i].to_le_bytes())?;
+    for element in x {
+        io::stdout().write_all(&element.to_le_bytes())?;
     }
     let y = generate_random_permutation(n, rng);
-    for i in 0..n {
-        io::stdout().write_all(&y[i].to_le_bytes())?;
+    for element in y {
+        io::stdout().write_all(&element.to_le_bytes())?;
     }
     Ok(())
 }
