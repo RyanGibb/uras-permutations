@@ -14,6 +14,8 @@ mod composition_naive;
 use composition_naive::composition_naive;
 mod composition_cooperman_ma;
 use composition_cooperman_ma::{composition_cooperman_ma, CACHE_SIZE};
+mod composition_multithread;
+use composition_multithread::{composition_multithread, THREADS};
 
 static USAGE: &str = "Usage: ./permutation_composition <algorithm:naive/cooperman_ma> 
     cache_size if alrogithm=cooperman_ma) (iterations)";
@@ -63,6 +65,22 @@ fn main() -> io::Result<()> {
                 if unsafe { CACHE_SIZE & (CACHE_SIZE - 1) } != 0 {
                     eprintln!("Cache size must be a power of 2.");
                     process::exit(1);
+                }
+                i += 1;
+            }
+        }
+        "multithread" => {
+            composition = composition_multithread;
+            i += 1;
+            if args.len() > i {
+                unsafe {
+                    THREADS = match args[i].parse::<u32>() {
+                        Ok(num) => num,
+                        Err(e) => {
+                            eprintln!("Invalid number of threads: {}", e);
+                            process::exit(1);
+                        }
+                    };
                 }
                 i += 1;
             }
