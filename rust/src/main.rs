@@ -1,13 +1,15 @@
 #![allow(clippy::many_single_char_names)]
 
 use std::env;
-use std::io::{self, Read};
+use std::io::{self, Read, Write};
 use std::mem::size_of;
 use std::process;
 use std::time::Duration;
 use std::convert::TryInto;
 
-use libc::{clock_gettime, timespec, CLOCK_PROCESS_CPUTIME_ID};
+extern crate libc;
+
+use libc::{clock_gettime, timespec, CLOCK_REALTIME};
 
 mod composition;
 use composition::PermT;
@@ -141,11 +143,11 @@ fn main() -> io::Result<()> {
         }
 
         // Time permutation composition
-        let start_cpu_time = get_cpu_time().expect("Failed to get CPU start time");
+        let start_cpu_time = get_time().expect("Failed to get CPU start time");
         for _ in 0..iterations {
             composition(n, &x, &y, &mut z);
         }
-        let end_cpu_time = get_cpu_time().expect("Failed to get CPU end time");
+        let end_cpu_time = get_time().expect("Failed to get CPU end time");
         cpu_time = end_cpu_time.checked_sub(start_cpu_time).unwrap();
     }
     let cpu_time_ns = cpu_time.as_nanos();
@@ -158,12 +160,12 @@ fn main() -> io::Result<()> {
     Ok(())
 }
 
-fn get_cpu_time() -> io::Result<Duration> {
+fn get_time() -> io::Result<Duration> {
     let mut time = timespec {
         tv_sec: 0,  // seconds
         tv_nsec: 0, // nanoseconds
     };
-    if unsafe { clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &mut time) } == -1 {
+    if unsafe { clock_gettime(CLOCK_REALTIME, &mut time) } == -1 {
         return Err(io::Error::last_os_error());
     }
     Ok(Duration::new(time.tv_sec as u64, time.tv_nsec as u32))
