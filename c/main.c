@@ -146,11 +146,16 @@ int main(int argc, char *argv[]) {
     printf("%llu\n", cpu_time_ns);
 
 	// Print z=xy to stdout
-	printf("%"PERM_T_FORMAT, z[0]);
-	for (int i = 1; i < n; i++) {
-		printf(" %"PERM_T_FORMAT, z[i]);
+	freopen(NULL, "wb", stdout);
+   	clearerr(stdout);
+	size_t written;
+	for (int i = 0; i < n; i++) {
+		written = fwrite(&z[i], 1, sizeof(size_t), stdout);
+		if (ferror(stdout) || written != sizeof(size_t)) {
+			fprintf(stderr, "Error writting z\n");
+			return 1;
+		}
 	}
-	printf("\n");
 	free(z);
 	return 0;
 }

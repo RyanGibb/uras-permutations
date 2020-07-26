@@ -152,11 +152,9 @@ fn main() -> io::Result<()> {
     println!("{}", cpu_time_ns);
 
     // Print z=xy to stdout
-    print!("{}", z[0]);
-    for element in z.iter().take(n).skip(1) {
-        print!(" {}", *element);
+    for element in z {
+        io::stdout().write_all(&element.to_le_bytes())?;
     }
-    println!();
     Ok(())
 }
 
