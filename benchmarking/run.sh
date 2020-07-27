@@ -5,7 +5,7 @@ TARGET_TIME_NS=10000000 # 10 milliseconds
 PERMUTATION_FILES=$(ls -v /cs/scratch/rtg2/permutations/*.perm)
 
 if [ ! -f $out_file ]; then
-    echo "Timestamp, Repetition, n, Executable, Iterations, Time (ns), Host" > $out_file
+    echo "Timestamp, Repetition, n, Algorithm, Iterations, Time (ns), Host" > $out_file
 fi
 
 get_cpu_time () {
