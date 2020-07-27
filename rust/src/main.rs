@@ -1,11 +1,11 @@
 #![allow(clippy::many_single_char_names)]
 
+use std::convert::TryInto;
 use std::env;
 use std::io::{self, Read, Write};
 use std::mem::size_of;
 use std::process;
 use std::time::Duration;
-use std::convert::TryInto;
 
 extern crate libc;
 
@@ -17,8 +17,7 @@ mod composition_naive;
 use composition_naive::composition_naive;
 mod composition_cooperman_ma;
 use composition_cooperman_ma::{composition_cooperman_ma, CACHE_SIZE};
-mod composition_multithread;
-use composition_multithread::{composition_multithread, THREADS};
+mod composition_multithread_naive;
 
 static USAGE: &str = "Usage: ./permutation_composition <algorithm:naive/cooperman_ma> 
     cache_size if alrogithm=cooperman_ma) (iterations)";
@@ -72,12 +71,12 @@ fn main() -> io::Result<()> {
                 i += 1;
             }
         }
-        "multithread" => {
-            composition = composition_multithread;
+        "multithread_naive" => {
+            composition = composition_multithread_naive::composition_multithread_naive;
             i += 1;
             if args.len() > i {
                 unsafe {
-                    THREADS = match args[i].parse::<u32>() {
+                    composition_multithread_naive::THREADS = match args[i].parse::<u32>() {
                         Ok(num) => num,
                         Err(e) => {
                             eprintln!("Invalid number of threads: {}", e);

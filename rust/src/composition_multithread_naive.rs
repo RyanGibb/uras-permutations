@@ -11,7 +11,7 @@ pub static mut CACHE_LINE_BYTES: u32 = 64;
 
 // Calculates z = xy, overwriting z. All of x, y, and z must of size n,
 // with x and y containing values from 0 to n - 1.
-pub fn composition_multithread(n: usize, x: &[PermT], y: &[PermT], z: &mut [PermT]) {
+pub fn composition_multithread_naive(n: usize, x: &[PermT], y: &[PermT], z: &mut [PermT]) {
     let mut threads = unsafe { THREADS };
     let cache_line_bytes = unsafe { CACHE_LINE_BYTES } as f64;
     let cache_line_elements = cache_line_bytes / size_of::<PermT>() as f64;
@@ -41,7 +41,7 @@ pub fn composition_multithread(n: usize, x: &[PermT], y: &[PermT], z: &mut [Perm
             if thread_id != threads - 1 {
                 let index_cache_lines = index / cache_line_elements as f64;
                 rounded_index = index_cache_lines.round() * cache_line_elements as f64;
-            } else{
+            } else {
                 rounded_index = index;
             }
             let length: usize = (rounded_index as usize) - prev_index;
@@ -49,14 +49,19 @@ pub fn composition_multithread(n: usize, x: &[PermT], y: &[PermT], z: &mut [Perm
             x_tail = x_tail_temp;
             let (z_slice, z_tail_temp) = z_tail.split_at_mut(length as usize);
             z_tail = z_tail_temp;
-            scope.spawn(move |_| composition_multithread_naive(length, x_slice, y, z_slice));
+            scope.spawn(move |_| composition_multithread_naive_thread(length, x_slice, y, z_slice));
         }
         // crossbeam::scope ensures all threads join before returning.
     });
 }
 
-fn composition_multithread_naive(length: usize, x_slice: &[PermT], y: &[PermT], z: &mut [PermT]) {
-    for i in 0..length {
+fn composition_multithread_naive_thread(
+    slice_length: usize,
+    x_slice: &[PermT],
+    y: &[PermT],
+    z: &mut [PermT],
+) {
+    for i in 0..slice_length {
         unsafe {
             let j = *x_slice.get_unchecked(i);
             let k = *y.get_unchecked(j as usize);
