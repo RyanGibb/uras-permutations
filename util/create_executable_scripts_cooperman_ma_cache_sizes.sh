@@ -11,6 +11,6 @@ do
         }
         {sub(/^[0-9]+/, human($1)); print}')
 	script_path="$(dirname "$0")/../executable_scripts/composition rust cooperman_ma cache_size=2^""$i""B=""$h""B.sh"
-    echo 'exec $(dirname "$0")/../rust/target/release/composition rust cooperman_ma '"$n"' $1' > "$script_path"
+    echo 'exec $(dirname "$0")/../rust/target/release/composition_rust cooperman_ma '"$n"' $1' > "$script_path"
     chmod +x "$script_path"
 done

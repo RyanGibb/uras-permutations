@@ -9,7 +9,7 @@ if [ ! -f $out_file ]; then
 fi
 
 get_cpu_time () {
-	echo $(cat "$file" | ./$executable $iterations | head -n 1)
+	echo $(cat "$file" | ./"$executable" $iterations | head -n 1)
 }
 
 make -C $(dirname "$0")/../c || exit 1
