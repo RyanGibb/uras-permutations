@@ -22,36 +22,45 @@ pub fn composition_cooperman_ma(n: usize, x: &[PermT], y: &[PermT], z: &mut [Per
 
     let mut d: Vec<PermT> = vec![0; n];
     let mut d_ptr: Vec<*mut PermT> = Vec::with_capacity(number_of_blocks);
-    unsafe {
-        d_ptr.set_len(number_of_blocks);
-    };
-
+    
     //Phase I: distribute value, x[a], into d_ptr[block_num]
     // such that block_num == x[a] / block_length
-    for block_num in 0..number_of_blocks {
-        d_ptr[block_num] = &mut d[block_num * block_length];
+    unsafe {
+        for block_num in 0..number_of_blocks {
+            *d_ptr.get_unchecked_mut(block_num) = d.get_unchecked_mut(block_num * block_length);
+        }
+        d_ptr.set_len(number_of_blocks);
     }
-    for element in x {
-        // Equivalent to 'x[i] / block_length'
-        let block_num = (*element >> block_length_shift) as usize;
-        unsafe { *d_ptr[block_num] = *element };
-        d_ptr[block_num] = unsafe { d_ptr[block_num].offset(1) };
+    for i in 0..n {
+        unsafe {
+            // Equivalent to 'x[i] / block_length'
+            let block_num = (*x.get_unchecked(i) >> block_length_shift) as usize;
+            **d_ptr.get_unchecked_mut(block_num) = *x.get_unchecked(i);
+            *d_ptr.get_unchecked_mut(block_num) = (*d_ptr.get_unchecked(block_num)).add(1);
+        }
     }
 
     //Phase II: for d[i] == x[a], replace the value x[a] by y[x[a]]
     // Note that |i - d[i]| == |i - x[a]| and |i-x[a]| < block_length
     for i in 0..n {
-        d[i] = y[d[i] as usize];
+        unsafe {
+            let j = *d.get_unchecked(i);
+            *d.get_unchecked_mut(i) = *y.get_unchecked(j as usize);
+        }
     }
 
     //Phase III: copy value y[x[a]] from d_ptr[block_num] to z[a]
     for block_num in 0..number_of_blocks {
-        d_ptr[block_num] = &mut d[block_num * block_length];
+        unsafe {
+            *d_ptr.get_unchecked_mut(block_num) = d.get_unchecked_mut(block_num * block_length);
+        }
     }
     for i in 0..n {
-        // Equivalent to 'x[i] / block_length'
-        let block_num = (x[i] >> block_length_shift) as usize;
-        z[i] = unsafe { *d_ptr[block_num] };
-        d_ptr[block_num] = unsafe { d_ptr[block_num].offset(1) };
+        unsafe {
+            // Equivalent to 'x[i] / block_length'
+            let block_num = (*x.get_unchecked(i) >> block_length_shift) as usize;
+            *z.get_unchecked_mut(i) = **d_ptr.get_unchecked(block_num);
+            *d_ptr.get_unchecked_mut(block_num) = (*d_ptr.get_unchecked(block_num)).add(1);
+        }
     }
 }
