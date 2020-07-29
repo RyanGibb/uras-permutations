@@ -35,7 +35,7 @@ pub fn composition_multithread_naive(n: usize, x: &[PermT], y: &[PermT], z: &mut
             for thread_id in 0..threads-1 {
                 let l = (thread_id as f64 * cache_lines_per_thread) as PermT;
                 let h = ((thread_id + 1) as f64 * cache_lines_per_thread) as PermT;
-                let length: PermT = (h - l) * elements_per_cache_line;
+                let length: PermT = (h - l) * elements_per_cache_line as PermT;
 
                 let (x_slice, x_tail_temp) = x_tail.split_at(length as usize);
                 x_tail = x_tail_temp;
@@ -53,16 +53,16 @@ pub fn composition_multithread_naive(n: usize, x: &[PermT], y: &[PermT], z: &mut
 }
 
 fn composition_multithread_naive_thread(
-    slice_length: usize,
+    slice_length: PermT,
     x_slice: &[PermT],
     y: &[PermT],
-    z: &mut [PermT],
+    z_slice: &mut [PermT],
 ) {
     for i in 0..slice_length {
         unsafe {
             let j = *x_slice.get_unchecked(i);
             let k = *y.get_unchecked(j as usize);
-            *z.get_unchecked_mut(i) = k;
+            *z_slice.get_unchecked_mut(i) = k;
         }
     }
 }
