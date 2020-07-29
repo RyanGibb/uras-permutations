@@ -76,7 +76,7 @@ fn main() -> io::Result<()> {
             i += 1;
             if args.len() > i {
                 unsafe {
-                    composition_multithread_naive::THREADS = match args[i].parse::<u32>() {
+                    composition_multithread_naive::THREADS = match args[i].parse::<usize>() {
                         Ok(num) => num,
                         Err(e) => {
                             eprintln!("Invalid number of threads: {}", e);
