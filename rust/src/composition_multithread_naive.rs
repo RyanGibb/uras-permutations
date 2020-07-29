@@ -33,13 +33,13 @@ pub fn composition_multithread_naive(n: usize, x: &[PermT], y: &[PermT], z: &mut
             let mut z_tail: &mut [PermT] = z;
 
             for thread_id in 0..threads-1 {
-                let l = (thread_id as f64 * cache_lines_per_thread) as PermT;
-                let h = ((thread_id + 1) as f64 * cache_lines_per_thread) as PermT;
-                let length: PermT = (h - l) * elements_per_cache_line as PermT;
+                let l = (thread_id as f64 * cache_lines_per_thread) as usize;
+                let h = ((thread_id + 1) as f64 * cache_lines_per_thread) as usize;
+                let length = (h - l) * elements_per_cache_line;
 
-                let (x_slice, x_tail_temp) = x_tail.split_at(length as usize);
+                let (x_slice, x_tail_temp) = x_tail.split_at(length);
                 x_tail = x_tail_temp;
-                let (z_slice, z_tail_temp) = z_tail.split_at_mut(length as usize);
+                let (z_slice, z_tail_temp) = z_tail.split_at_mut(length);
                 z_tail = z_tail_temp;
 
                 scope.spawn(move |_| composition_multithread_naive_thread(length, x_slice, y, z_slice));
@@ -53,7 +53,7 @@ pub fn composition_multithread_naive(n: usize, x: &[PermT], y: &[PermT], z: &mut
 }
 
 fn composition_multithread_naive_thread(
-    slice_length: PermT,
+    slice_length: usize,
     x_slice: &[PermT],
     y: &[PermT],
     z_slice: &mut [PermT],
