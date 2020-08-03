@@ -3,3 +3,5 @@
 // and so can be shifted right to divide.
 // PermT's max value is the highest permutation degree supported.
 pub type PermT = usize;
+// For 4 bytes per index:
+	// pub type PermT = u32;

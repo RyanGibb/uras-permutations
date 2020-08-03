@@ -10,6 +10,9 @@
 // perm_t's max value is the highest permutation degree supported.
 typedef size_t perm_t;
 #define PERM_T_FORMAT "zu"
+// For 4 bytes per index:
+	// typedef unsigned int perm_t;
+	// #define PERM_T_FORMAT "u"
 
 extern size_t cache_size;
 
