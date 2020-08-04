@@ -18,6 +18,7 @@ use composition_naive::composition_naive;
 mod composition_cooperman_ma;
 use composition_cooperman_ma::{composition_cooperman_ma, CACHE_SIZE};
 mod composition_multithread_naive;
+mod composition_multithread_cooperman_ma;
 
 static USAGE: &str = "Usage: ./permutation_composition <algorithm:naive/cooperman_ma> 
     cache_size if alrogithm=cooperman_ma) (iterations)";
@@ -80,6 +81,42 @@ fn main() -> io::Result<()> {
                             process::exit(1);
                         }
                     };
+                }
+                i += 1;
+            }
+        }
+        "multithread_cooperman_ma" => {
+            composition = composition_multithread_cooperman_ma::composition_multithread_cooperman_ma;
+            if args.len() > i {
+                unsafe {
+                    composition_multithread_cooperman_ma::THREADS = match args[i].parse::<usize>() {
+                        Ok(num) => num,
+                        Err(e) => {
+                            eprintln!("Invalid number of threads: {}", e);
+                            process::exit(1);
+                        }
+                    };
+                }
+                i += 1;
+            }
+            if args.len() > i {
+                unsafe {
+                    composition_multithread_cooperman_ma::CACHE_SIZE = match args[i].parse::<usize>() {
+                        Ok(num) => num,
+                        Err(e) => {
+                            eprintln!("Invalid cache size: {}", e);
+                            process::exit(1);
+                        }
+                    };
+                }
+                if unsafe { composition_multithread_cooperman_ma::CACHE_SIZE } < 2 * size_of::<PermT>() {
+                    eprintln!("Cache size must be large enough to fit at least two indices.");
+                    process::exit(1);
+                }
+                // Checks if cache_size is a power of 2
+                if unsafe { composition_multithread_cooperman_ma::CACHE_SIZE & (composition_multithread_cooperman_ma::CACHE_SIZE - 1) } != 0 {
+                    eprintln!("Cache size must be a power of 2.");
+                    process::exit(1);
                 }
                 i += 1;
             }
