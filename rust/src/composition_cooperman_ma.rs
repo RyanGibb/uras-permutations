@@ -20,7 +20,7 @@ pub fn composition_cooperman_ma(n: usize, x: &[PermT], y: &[PermT], z: &mut [Per
     // Integer division rounding up
     let number_of_blocks = (n + block_length - 1) >> block_length_shift;
 
-    let mut d: Vec<PermT> = vec![0; n];
+    let mut d: Vec<PermT> = Vec::with_capacity(n);
     let mut d_ptr: Vec<*mut PermT> = Vec::with_capacity(number_of_blocks);
     
     //Phase I: distribute value, x[a], into d_ptr[block_num]
@@ -30,6 +30,7 @@ pub fn composition_cooperman_ma(n: usize, x: &[PermT], y: &[PermT], z: &mut [Per
             *d_ptr.get_unchecked_mut(block_num) = d.get_unchecked_mut(block_num * block_length);
         }
         d_ptr.set_len(number_of_blocks);
+        d.set_len(n);
     }
     for i in 0..n {
         unsafe {
