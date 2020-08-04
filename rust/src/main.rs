@@ -38,17 +38,15 @@ fn main() -> io::Result<()> {
         println!("{}", USAGE);
         process::exit(1);
     }
-    let mut i = 1;
     type Composition = fn(usize, &[PermT], &[PermT], &mut [PermT]);
     let composition: Composition;
-    match args[i].as_str() {
+    let mut i = 2;
+    match args[1].as_str() {
         "naive" => {
             composition = composition_naive;
-            i += 1;
         }
         "cooperman_ma" => {
             composition = composition_cooperman_ma;
-            i += 1;
             if args.len() > i {
                 unsafe {
                     CACHE_SIZE = match args[i].parse::<usize>() {
@@ -73,7 +71,6 @@ fn main() -> io::Result<()> {
         }
         "multithread_naive" => {
             composition = composition_multithread_naive::composition_multithread_naive;
-            i += 1;
             if args.len() > i {
                 unsafe {
                     composition_multithread_naive::THREADS = match args[i].parse::<usize>() {
