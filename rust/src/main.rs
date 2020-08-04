@@ -121,7 +121,7 @@ fn main() -> io::Result<()> {
         let mut x: Vec<PermT> = vec![0; n];
         let mut y: Vec<PermT> = vec![0; n];
         let mut buffer = [0; size_of::<PermT>()];
-        for element in x.iter_mut() {
+        for (i, element) in x.iter_mut().enumerate() {
             io::stdin().read_exact(&mut buffer)?;
             *element = PermT::from_le_bytes(buffer);
             if n <= (*element).try_into().unwrap() {
@@ -129,7 +129,7 @@ fn main() -> io::Result<()> {
                 process::exit(1);
             }
         }
-        for element in y.iter_mut() {
+        for (i, element) in y.iter_mut().enumerate() {
             io::stdin().read_exact(&mut buffer)?;
             *element = PermT::from_le_bytes(buffer);
             if n <= (*element).try_into().unwrap() {
