@@ -56,7 +56,7 @@ pub fn composition_multithread_cooperman_ma(n: usize, x: &[PermT], y: &[PermT], 
         }
     }
 
-    let mut block_mutexes: Vec<Mutex<&mut [usize]>> = Vec::with_capacity(number_of_blocks);
+    let mut block_mutexes: Vec<Mutex<&mut [PermT]>> = Vec::with_capacity(number_of_blocks);
     for block in d.chunks_mut(block_length) {
         block_mutexes.push(Mutex::new(block));
     }
@@ -64,7 +64,7 @@ pub fn composition_multithread_cooperman_ma(n: usize, x: &[PermT], y: &[PermT], 
     // Note that |i - d[i]| == |i - x[a]| and |i-x[a]| < block_length
     let phase2 = |from_block, to_block| {
         for block_index in from_block..to_block {
-            let mut block_guard: MutexGuard<&mut [usize]> = unsafe { block_mutexes.get_unchecked::<usize>(block_index) }.lock().unwrap();
+            let mut block_guard: MutexGuard<&mut [PermT]> = unsafe { block_mutexes.get_unchecked::<usize>(block_index) }.lock().unwrap();
             for i in 0..min(block_length, n - block_index*block_length) {
                 unsafe {
                     let j = *block_guard.get_unchecked(i);
