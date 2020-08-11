@@ -1,3 +1,6 @@
+name=$1     # e.g. "composition rust cooperman_ma"
+command=$2  # e.g. "composition_rust cooperman_ma"
+
 for ((i=14; i<=24; i+=1))
 do
 	n=$((2 ** i))
@@ -10,7 +13,7 @@ do
             return int(x+0.5) substr(s,1,1)
         }
         {sub(/^[0-9]+/, human($1)); print}')
-	script_path="$(dirname "$0")/../executable_scripts/composition rust cooperman_ma cache_size=2^""$i""B=""$h""B.sh"
-    echo 'exec $(dirname "$0")/../rust/target/release/composition_rust cooperman_ma '"$n"' $1' > "$script_path"
+	script_path="$(dirname "$0")/../executable_scripts/$name cache_size=2^""$i""B=""$h""B.sh"
+    echo 'exec $(dirname "$0")/../rust/target/release/'"$command" "$n" '$1' > "$script_path"
     chmod +x "$script_path"
 done
