@@ -14,10 +14,6 @@ Here they are represented by n space seperated positive integers. Every integer 
 
 Space seperated n, x, and y. Where n is a positive integer, and x & y are permutations of degree n.
 
-See files in permutaions directory with naming scheme 'n'_pair.txt
-
 ### Output Format
 
 A permutation z of degree n.
-
-See files in directories for each executable in bash_tests directory, with naming scheme 'n'_pair.out
