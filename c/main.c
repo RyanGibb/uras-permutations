@@ -25,7 +25,7 @@ const char* USAGE =
  */
 int main(int argc, char *argv[]) {
 	// Parse command line arguments
-	int i = 0;
+	int i = 1;
 	#ifdef COOPERMAN_AND_MA
 		if (argc > i) {
 			errno = 0;
@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
 			i++;
 		}
 	#endif
-	unsigned long long iterations;
+	unsigned long long iterations = 1;
 	if (argc > i) {
 		errno = 0;
 		iterations = strtoull(argv[i], NULL, 10);
@@ -55,8 +55,6 @@ int main(int argc, char *argv[]) {
 			return 1;
 		}
 		i++;
-	} else {
-		iterations = 1;
 	}
 
 	// Parse permutations x & y from stdin
@@ -132,13 +130,15 @@ int main(int argc, char *argv[]) {
 	// Print z=xy to stdout
 	freopen(NULL, "wb", stdout);
    	clearerr(stdout);
-	size_t written;
-	for (int i = 0; i < n; i++) {
-		written = fwrite(&z[i], 1, sizeof(size_t), stdout);
-		if (ferror(stdout) || written != sizeof(size_t)) {
-			fprintf(stderr, "Error writting z\n");
-			return 1;
-		}
+	// size_t written;
+	for (size_t i = 0; i < n; i++) {
+		// written = fwrite(&z[i], 1, sizeof(size_t), stdout);
+
+    	printf("%"PERM_T_FORMAT"\n", z[i]);
+		// if (ferror(stdout) || written != sizeof(size_t)) {
+		// 	fprintf(stderr, "Error writting z\n");
+		// 	return 1;
+		// }
 	}
 	free(z);
 	return 0;

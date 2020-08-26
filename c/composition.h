@@ -8,17 +8,17 @@
 // Should be unsigned for Cooperman & Ma so right divide can be used.
 // perm_t's max value is the highest permutation degree supported.
 #ifdef SIGNED
-	typedef long perm_t;
-	#define PERM_T_FORMAT "ld"
+	// typedef long perm_t;
+	// #define PERM_T_FORMAT "ld"
 	// For 4 bytes per index:
-		// typedef int perm_t;
-		// #define PERM_T_FORMAT "d"
+		typedef int perm_t;
+		#define PERM_T_FORMAT "d"
 #else
-	typedef size_t perm_t;
-	#define PERM_T_FORMAT "zu"
+	// typedef size_t perm_t;
+	// #define PERM_T_FORMAT "zu"
 	// For 4 bytes per index:
-		// typedef unsigned int perm_t;
-		// #define PERM_T_FORMAT "u"
+		typedef unsigned int perm_t;
+		#define PERM_T_FORMAT "u"
 #endif
 
 extern size_t cache_size;

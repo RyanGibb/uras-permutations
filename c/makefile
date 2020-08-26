@@ -10,28 +10,28 @@ clean:
 
 
 composition_c_naive: main.c composition.h composition_naive.c
-	$(CC) $(CFLAGS) -O3 -c main.c composition.h composition_naive.c
+	$(CC) $(CFLAGS) -O3 main.c composition.h composition_naive.c -o composition_c_naive
 
 composition_c_cooperman_ma: main.c composition.h composition_cooperman_ma.c
-	$(CC) $(CFLAGS) -O3 -c main.c composition.h composition_cooperman_ma.c -DCOOPERMAN_AND_MA
+	$(CC) $(CFLAGS) -O3 main.c composition.h composition_cooperman_ma.c -DCOOPERMAN_AND_MA -lm -o composition_c_cooperman_ma
 
 composition_c_naive_optimized: main.c composition.h composition_naive_optimized.c
-	$(CC) $(CFLAGS) -O3 -c main.c composition.h composition_naive_optimized.c -DSIGNED
+	$(CC) $(CFLAGS) -O3 main.c composition.h composition_naive_optimized.c -DSIGNED -o composition_c_naive_optimized
 
 composition_c_unrolled_2: main.c composition.h composition_naive_unrolled.c
-	$(CC) $(CFLAGS) -O3 -c main.c composition.h composition_naive_unrolled.c -DROLLS=2
+	$(CC) $(CFLAGS) -O3  main.c composition.h composition_naive_unrolled.c -DROLLS=2 -o composition_c_unrolled_2
 
 composition_c_unrolled_4: main.c composition.h composition_naive_unrolled.c
-	$(CC) $(CFLAGS) -O3 -c main.c composition.h composition_naive_unrolled.c -DROLLS=4
+	$(CC) $(CFLAGS) -O3 main.c composition.h composition_naive_unrolled.c -DROLLS=4 -o composition_c_unrolled_4
 
 composition_c_unrolled_8: main.c composition.h composition_naive_unrolled.c
-	$(CC) $(CFLAGS) -O3 -c main.c composition.h composition_naive_unrolled.c -DROLLS=8
+	$(CC) $(CFLAGS) -O3 main.c composition.h composition_naive_unrolled.c -DROLLS=8 -o composition_c_unrolled_8
 
 composition_c_unrolled_16: main.c composition.h composition_naive_unrolled.c
-	$(CC) $(CFLAGS) -O3 -c main.c composition.h composition_naive_unrolled.c -DROLLS=16
+	$(CC) $(CFLAGS) -O3 main.c composition.h composition_naive_unrolled.c -DROLLS=16 -o composition_c_unrolled_16
 
 composition_c_unrolled_32: main.c composition.h composition_naive_unrolled.c
-	$(CC) $(CFLAGS) -O3 -c main.c composition.h composition_naive_unrolled.c -DROLLS=32
+	$(CC) $(CFLAGS) -O3 main.c composition.h composition_naive_unrolled.c -DROLLS=32 -o composition_c_unrolled_32
 
 
 composition_naive.s: composition_naive.c composition.h

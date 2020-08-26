@@ -64,7 +64,7 @@ composition:
 .LFB5:
 	.cfi_startproc
 # composition_naive.c:7: void composition(size_t n, perm_t x[], perm_t y[], perm_t z[]) {
-	movq	%rdx, %r8	# tmp94, y
+	movq	%rdx, %r8	# tmp95, y
 # composition_naive.c:8: 	for (size_t i = 0; i < n; i++) {
 	testq	%rdi, %rdi	# n
 	je	.L1	#,
@@ -74,10 +74,11 @@ composition:
 	.p2align 3
 .L3:
 # composition_naive.c:9: 		z[i] = y[x[i]];
-	movq	(%rsi,%rax,8), %rdx	# MEM[base: x_12(D), index: i_19, step: 8, offset: 0B], MEM[base: x_12(D), index: i_19, step: 8, offset: 0B]
-	movq	(%r8,%rdx,8), %rdx	# *_5, _7
+	movl	(%rsi,%rax,4), %edx	# MEM[base: x_13(D), index: i_20, step: 4, offset: 0B], MEM[base: x_13(D), index: i_20, step: 4, offset: 0B]
 # composition_naive.c:9: 		z[i] = y[x[i]];
-	movq	%rdx, (%rcx,%rax,8)	# _7, MEM[base: z_14(D), index: i_19, step: 8, offset: 0B]
+	movl	(%r8,%rdx,4), %edx	# *_6, _8
+# composition_naive.c:9: 		z[i] = y[x[i]];
+	movl	%edx, (%rcx,%rax,4)	# _8, MEM[base: z_15(D), index: i_20, step: 4, offset: 0B]
 # composition_naive.c:8: 	for (size_t i = 0; i < n; i++) {
 	addq	$1, %rax	#, i
 # composition_naive.c:8: 	for (size_t i = 0; i < n; i++) {
