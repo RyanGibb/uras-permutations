@@ -23,3 +23,7 @@ path = "./src/main.rs"
 [[bin]]
 name = "generate_permutations"
 path = "./src/generate_permutations.rs"
+
+[[bin]]
+name = "permutation_binary_to_plaintext"
+path = "./src/permutation_binary_to_plaintext.rs"
