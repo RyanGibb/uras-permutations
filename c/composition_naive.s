@@ -1,6 +1,7 @@
 	.file	"composition_naive.c"
 # GNU C99 (GCC) version 10.1.1 20200507 (Red Hat 10.1.1-1) (x86_64-redhat-linux)
 #	compiled by GNU C version 10.1.1 20200507 (Red Hat 10.1.1-1), GMP version 6.1.2, MPFR version 4.0.2-p7, MPC version 1.1.0, isl version none
+# warning: MPFR header version 4.0.2-p7 differs from library version 4.0.2-p9.
 # GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
 # options passed:  composition_naive.c -mtune=generic -march=x86-64 -O3
 # -Wall -std=c99 -fverbose-asm
@@ -57,12 +58,12 @@
 
 	.text
 	.p2align 4
-	.globl	composition_naive
-	.type	composition_naive, @function
-composition_naive:
+	.globl	composition
+	.type	composition, @function
+composition:
 .LFB5:
 	.cfi_startproc
-# composition_naive.c:7: void composition_naive(size_t n, perm_t x[], perm_t y[], perm_t z[]) {
+# composition_naive.c:7: void composition(size_t n, perm_t x[], perm_t y[], perm_t z[]) {
 	movq	%rdx, %r8	# tmp94, y
 # composition_naive.c:8: 	for (size_t i = 0; i < n; i++) {
 	testq	%rdi, %rdi	# n
@@ -87,6 +88,6 @@ composition_naive:
 	ret	
 	.cfi_endproc
 .LFE5:
-	.size	composition_naive, .-composition_naive
+	.size	composition, .-composition
 	.ident	"GCC: (GNU) 10.1.1 20200507 (Red Hat 10.1.1-1)"
 	.section	.note.GNU-stack,"",@progbits

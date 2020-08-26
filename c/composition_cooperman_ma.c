@@ -9,7 +9,7 @@ size_t cache_size = 256;
  * Calculates z = xy, overwriting z. All of x, y, and z must of size n,
  * with x and y containing values from 0 to n - 1.
  */
-void composition_cooperman_ma(size_t n, perm_t x[], perm_t y[], perm_t z[]) {
+void composition(size_t n, perm_t x[], perm_t y[], perm_t z[]) {
 	// block_length, and therefor cache_size, should be a power of 2
 	size_t block_length = cache_size/2/sizeof(perm_t);
 	// Used for efficient right shift division by block_length

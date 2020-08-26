@@ -8,16 +8,16 @@
 
 #include "composition.h"
 
-extern size_t cache_size;
+#ifdef COOPERMAN_AND_MA
+	extern size_t cache_size;
+#endif
 
 unsigned long long get_elapsed_ns(struct timespec* start, struct timespec* end) {
 	return (end->tv_sec - start->tv_sec) * 1e+9 + (end->tv_nsec - start->tv_nsec);
 }
 
 const char* USAGE =
-	"Usage: ./permutation_composition <algorithm:naive/cooperman_ma> "\
-	"(cache_size if alrogithm=cooperman_ma) (iterations)\n";
-
+	"Usage: ./permutation_composition (cache_size if alrogithm=cooperman_ma) (iterations)\n";
 /*
  * From stdin inputs a positive number n, and two permutations x & y of size n.
  * The composition of these two permutations z=xy is printed to stdout.
@@ -25,20 +25,8 @@ const char* USAGE =
  */
 int main(int argc, char *argv[]) {
 	// Parse command line arguments
-	if (argc < 2) {
-		fprintf(stderr, "Please enter an algorithm to use.");
-		printf(USAGE);
-		return 1;
-	}
-	int i = 1;
-	char* algorithm = argv[i];
-	void (*composition)(size_t n, perm_t x[], perm_t y[], perm_t z[]);
-	if (strcmp(algorithm, "naive") == 0)  {
-		composition = &composition_naive;
-		i++;
-	} else if (strcmp(algorithm, "cooperman_ma") == 0) {
-		composition = &composition_cooperman_ma;
-		i++;
+	int i = 0;
+	#ifdef COOPERMAN_AND_MA
 		if (argc > i) {
 			errno = 0;
 			cache_size = (size_t) strtoul(argv[i], NULL, 10);
@@ -57,11 +45,7 @@ int main(int argc, char *argv[]) {
 			}
 			i++;
 		}
-	} else {
-		fprintf(stderr, "Invalid algorithm.\n");
-		printf(USAGE);
-		return 1;
-	}
+	#endif
 	unsigned long long iterations;
 	if (argc > i) {
 		errno = 0;
@@ -132,7 +116,7 @@ int main(int argc, char *argv[]) {
 		return 1;
 	}
 	for (int i = 0; i < iterations; i++) {
-		(*composition)(n, x, y, z);
+		composition(n, x, y, z);
 	}
 	struct timespec end_cpu_time;
 	rc = clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &end_cpu_time);

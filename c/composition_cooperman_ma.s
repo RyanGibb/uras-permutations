@@ -1,6 +1,7 @@
 	.file	"composition_cooperman_ma.c"
 # GNU C99 (GCC) version 10.1.1 20200507 (Red Hat 10.1.1-1) (x86_64-redhat-linux)
 #	compiled by GNU C version 10.1.1 20200507 (Red Hat 10.1.1-1), GMP version 6.1.2, MPFR version 4.0.2-p7, MPC version 1.1.0, isl version none
+# warning: MPFR header version 4.0.2-p7 differs from library version 4.0.2-p9.
 # GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
 # options passed:  composition_cooperman_ma.c -mtune=generic -march=x86-64
 # -O3 -Wall -std=c99 -fverbose-asm
@@ -57,9 +58,9 @@
 
 	.text
 	.p2align 4
-	.globl	composition_cooperman_ma
-	.type	composition_cooperman_ma, @function
-composition_cooperman_ma:
+	.globl	composition
+	.type	composition, @function
+composition:
 .LFB5:
 	.cfi_startproc
 	pushq	%r15	#
@@ -67,7 +68,7 @@ composition_cooperman_ma:
 	.cfi_offset 15, -16
 # composition_cooperman_ma.c:16: 	char block_length_shift = (char) floor(log2(block_length));
 	pxor	%xmm0, %xmm0	# tmp141
-# composition_cooperman_ma.c:12: void composition_cooperman_ma(size_t n, perm_t x[], perm_t y[], perm_t z[]) {
+# composition_cooperman_ma.c:12: void composition(size_t n, perm_t x[], perm_t y[], perm_t z[]) {
 	pushq	%r14	#
 	.cfi_def_cfa_offset 24
 	.cfi_offset 14, -24
@@ -296,7 +297,7 @@ composition_cooperman_ma:
 	jmp	.L1	#
 	.cfi_endproc
 .LFE5:
-	.size	composition_cooperman_ma, .-composition_cooperman_ma
+	.size	composition, .-composition
 	.globl	cache_size
 	.data
 	.align 8

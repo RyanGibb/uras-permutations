@@ -1,3 +1,5 @@
 /rust/target
 /c/composition_c
 /c/composition_c_debug
+/c/*.o
+/c/*.gch
