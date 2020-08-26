@@ -1,1 +1,1 @@
-exec $(dirname "$0")/../c/composition_c naive $1
+exec $(dirname "$0")/../c/composition_c_naive $1
