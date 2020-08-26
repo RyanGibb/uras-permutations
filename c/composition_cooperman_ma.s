@@ -67,74 +67,74 @@ composition:
 	.cfi_def_cfa_offset 16
 	.cfi_offset 15, -16
 # composition_cooperman_ma.c:16: 	char block_length_shift = (char) floor(log2(block_length));
-	pxor	%xmm0, %xmm0	# tmp144
+	pxor	%xmm0, %xmm0	# tmp141
 # composition_cooperman_ma.c:12: void composition(size_t n, perm_t x[], perm_t y[], perm_t z[]) {
 	pushq	%r14	#
 	.cfi_def_cfa_offset 24
 	.cfi_offset 14, -24
-	movq	%rcx, %r14	# tmp183, z
+	movq	%rcx, %r14	# tmp178, z
 	pushq	%r13	#
 	.cfi_def_cfa_offset 32
 	.cfi_offset 13, -32
-	movq	%rsi, %r13	# tmp181, x
+	movq	%rsi, %r13	# tmp176, x
 	pushq	%r12	#
 	.cfi_def_cfa_offset 40
 	.cfi_offset 12, -40
 	pushq	%rbp	#
 	.cfi_def_cfa_offset 48
 	.cfi_offset 6, -48
-	movq	%rdi, %rbp	# tmp180, n
+	movq	%rdi, %rbp	# tmp175, n
 	pushq	%rbx	#
 	.cfi_def_cfa_offset 56
 	.cfi_offset 3, -56
-	movq	%rdx, %rbx	# tmp182, y
+	movq	%rdx, %rbx	# tmp177, y
 	subq	$40, %rsp	#,
 	.cfi_def_cfa_offset 96
 # composition_cooperman_ma.c:14: 	size_t block_length = cache_size/2/sizeof(perm_t);
 	movq	cache_size(%rip), %rax	# cache_size, block_length
-	shrq	$3, %rax	#, block_length
+	shrq	$4, %rax	#, block_length
 # composition_cooperman_ma.c:16: 	char block_length_shift = (char) floor(log2(block_length));
-	cvtsi2sdq	%rax, %xmm0	# block_length, tmp144
+	cvtsi2sdq	%rax, %xmm0	# block_length, tmp141
 	call	log2	#
-	movsd	.LC1(%rip), %xmm2	#, tmp149
-	movsd	.LC0(%rip), %xmm4	#, tmp145
-	movapd	%xmm0, %xmm3	# _3, tmp147
-	andpd	%xmm2, %xmm3	# tmp149, tmp147
-	ucomisd	%xmm3, %xmm4	# tmp147, tmp145
+	movsd	.LC1(%rip), %xmm2	#, tmp146
+	movsd	.LC0(%rip), %xmm4	#, tmp142
+	movapd	%xmm0, %xmm3	# _3, tmp144
+	andpd	%xmm2, %xmm3	# tmp146, tmp144
+	ucomisd	%xmm3, %xmm4	# tmp144, tmp142
 	jbe	.L2	#,
-	cvttsd2siq	%xmm0, %rax	# _3, tmp150
-	pxor	%xmm3, %xmm3	# tmp147
-	movapd	%xmm0, %xmm1	# tmp184, _3
-	andnpd	%xmm1, %xmm2	# _3, tmp154
-	cvtsi2sdq	%rax, %xmm3	# tmp150, tmp147
-	movapd	%xmm3, %xmm4	# tmp147, tmp152
-	cmpnlesd	%xmm0, %xmm4	#, _3, tmp152
-	movsd	.LC2(%rip), %xmm0	#, tmp151
-	andpd	%xmm0, %xmm4	# tmp151, tmp152
-	subsd	%xmm4, %xmm3	# tmp152, tmp147
-	movapd	%xmm3, %xmm0	# tmp147, _3
-	orpd	%xmm2, %xmm0	# tmp154, _3
+	cvttsd2siq	%xmm0, %rax	# _3, tmp147
+	pxor	%xmm3, %xmm3	# tmp144
+	movapd	%xmm0, %xmm1	# tmp179, _3
+	andnpd	%xmm1, %xmm2	# _3, tmp151
+	cvtsi2sdq	%rax, %xmm3	# tmp147, tmp144
+	movapd	%xmm3, %xmm4	# tmp144, tmp149
+	cmpnlesd	%xmm0, %xmm4	#, _3, tmp149
+	movsd	.LC2(%rip), %xmm0	#, tmp148
+	andpd	%xmm0, %xmm4	# tmp148, tmp149
+	subsd	%xmm4, %xmm3	# tmp149, tmp144
+	movapd	%xmm3, %xmm0	# tmp144, _3
+	orpd	%xmm2, %xmm0	# tmp151, _3
 .L2:
 # composition_cooperman_ma.c:16: 	char block_length_shift = (char) floor(log2(block_length));
-	cvttsd2sil	%xmm0, %ecx	# _3, tmp155
+	cvttsd2sil	%xmm0, %ecx	# _3, tmp152
 # composition_cooperman_ma.c:18: 	block_length = (size_t) pow(2, block_length_shift);
 	pxor	%xmm1, %xmm1	#
 	movsd	.LC3(%rip), %xmm0	#,
-	movsbl	%cl, %ecx	# tmp155, _9
+	movsbl	%cl, %ecx	# tmp152, _9
 	cvtsi2sdl	%ecx, %xmm1	# _9,
 	movl	%ecx, (%rsp)	# _9, %sfp
 	call	pow	#
 # composition_cooperman_ma.c:18: 	block_length = (size_t) pow(2, block_length_shift);
-	movsd	.LC4(%rip), %xmm1	#, tmp159
+	movsd	.LC4(%rip), %xmm1	#, tmp156
 	movl	(%rsp), %ecx	# %sfp, _9
-	comisd	%xmm1, %xmm0	# tmp159, _6
+	comisd	%xmm1, %xmm0	# tmp156, _6
 	jnb	.L3	#,
 	cvttsd2siq	%xmm0, %r12	# _6, block_length
 .L4:
 # composition_cooperman_ma.c:22: 	perm_t* d = malloc(n * sizeof(perm_t));
-	leaq	0(,%rbp,4), %r8	#, _10
+	leaq	0(,%rbp,8), %r8	#, _10
 # composition_cooperman_ma.c:21: 	size_t number_of_blocks = (n + block_length - 1) >> block_length_shift;
-	leaq	-1(%r12,%rbp), %r15	#, tmp164
+	leaq	-1(%r12,%rbp), %r15	#, tmp161
 # composition_cooperman_ma.c:21: 	size_t number_of_blocks = (n + block_length - 1) >> block_length_shift;
 	movl	%ecx, 20(%rsp)	# _9, %sfp
 	shrq	%cl, %r15	# _9, number_of_blocks
@@ -155,70 +155,70 @@ composition:
 	movl	20(%rsp), %ecx	# %sfp, _9
 	movq	8(%rsp), %r8	# %sfp, _10
 # composition_cooperman_ma.c:23: 	perm_t** d_ptr = malloc(number_of_blocks * sizeof(perm_t*));
-	movq	%rax, %rsi	# tmp187, d_ptr
+	movq	%rax, %rsi	# tmp182, d_ptr
 # composition_cooperman_ma.c:28: 	for (block_num = 0; block_num < number_of_blocks; block_num++) {
 	je	.L5	#,
 	movq	24(%rsp), %rdi	# %sfp, _11
-	leaq	0(,%r12,4), %r10	#, _138
+	leaq	0(,%r12,8), %r10	#, _127
 	movq	%r9, %rdx	# d, ivtmp.32
-	addq	%rax, %rdi	# d_ptr, _130
+	addq	%rax, %rdi	# d_ptr, _119
 	.p2align 4,,10
 	.p2align 3
 .L6:
 # composition_cooperman_ma.c:29: 		d_ptr[block_num] = &d[block_num * block_length];
-	movq	%rdx, (%rax)	# ivtmp.32, MEM[base: _133, offset: 0B]
+	movq	%rdx, (%rax)	# ivtmp.32, MEM[base: _122, offset: 0B]
 # composition_cooperman_ma.c:28: 	for (block_num = 0; block_num < number_of_blocks; block_num++) {
 	addq	$8, %rax	#, ivtmp.33
-	addq	%r10, %rdx	# _138, ivtmp.32
-	cmpq	%rax, %rdi	# ivtmp.33, _130
+	addq	%r10, %rdx	# _127, ivtmp.32
+	cmpq	%rax, %rdi	# ivtmp.33, _119
 	jne	.L6	#,
 # composition_cooperman_ma.c:31: 	for (i = 0; i < n; i++) {
 	testq	%rbp, %rbp	# n
 	je	.L15	#,
 .L16:
 	movq	%r13, %rdx	# x, ivtmp.28
-	leaq	(%r8,%r13), %r10	#, _141
+	leaq	(%r8,%r13), %r10	#, _130
 	.p2align 4,,10
 	.p2align 3
 .L8:
 # composition_cooperman_ma.c:33: 		block_num = x[i] >> block_length_shift;
-	movl	(%rdx), %edi	# MEM[base: _153, offset: 0B], _19
+	movq	(%rdx), %rdi	# MEM[base: _139, offset: 0B], _19
 # composition_cooperman_ma.c:31: 	for (i = 0; i < n; i++) {
-	addq	$4, %rdx	#, ivtmp.28
+	addq	$8, %rdx	#, ivtmp.28
 # composition_cooperman_ma.c:33: 		block_num = x[i] >> block_length_shift;
-	movl	%edi, %eax	# _19, block_num
-	shrl	%cl, %eax	# _9, block_num
+	movq	%rdi, %rax	# _19, block_num
+	shrq	%cl, %rax	# _9, block_num
 # composition_cooperman_ma.c:34: 		*d_ptr[block_num] = x[i];
-	leaq	(%rsi,%rax,8), %r11	#, _22
-	movq	(%r11), %rax	# *_22, _23
+	leaq	(%rsi,%rax,8), %r11	#, _21
+	movq	(%r11), %rax	# *_21, _22
 # composition_cooperman_ma.c:34: 		*d_ptr[block_num] = x[i];
-	movl	%edi, (%rax)	# _19, *_23
+	movq	%rdi, (%rax)	# _19, *_22
 # composition_cooperman_ma.c:35: 		d_ptr[block_num]++;
-	addq	$4, %rax	#, tmp170
-	movq	%rax, (%r11)	# tmp170, *_22
+	addq	$8, %rax	#, tmp166
+	movq	%rax, (%r11)	# tmp166, *_21
 # composition_cooperman_ma.c:31: 	for (i = 0; i < n; i++) {
-	cmpq	%rdx, %r10	# ivtmp.28, _141
+	cmpq	%rdx, %r10	# ivtmp.28, _130
 	jne	.L8	#,
 	movq	%r9, %rax	# d, ivtmp.24
-	addq	%r9, %r8	# d, _160
+	addq	%r9, %r8	# d, _146
 	.p2align 4,,10
 	.p2align 3
 .L9:
 # composition_cooperman_ma.c:41: 		d[i] = y[d[i]];
-	movl	(%rax), %edx	# MEM[base: _164, offset: 0B], MEM[base: _164, offset: 0B]
+	movq	(%rax), %rdx	# MEM[base: _153, offset: 0B], MEM[base: _153, offset: 0B]
 # composition_cooperman_ma.c:40: 	for (i = 0; i < n; i++) {
-	addq	$4, %rax	#, ivtmp.24
+	addq	$8, %rax	#, ivtmp.24
 # composition_cooperman_ma.c:41: 		d[i] = y[d[i]];
-	movl	(%rbx,%rdx,4), %edx	# *_30, *_30
-	movl	%edx, -4(%rax)	# *_30, MEM[base: _164, offset: 0B]
+	movq	(%rbx,%rdx,8), %rdx	# *_28, *_28
+	movq	%rdx, -8(%rax)	# *_28, MEM[base: _153, offset: 0B]
 # composition_cooperman_ma.c:40: 	for (i = 0; i < n; i++) {
-	cmpq	%r8, %rax	# _160, ivtmp.24
+	cmpq	%r8, %rax	# _146, ivtmp.24
 	jne	.L9	#,
 # composition_cooperman_ma.c:45: 	for (block_num = 0; block_num < number_of_blocks; block_num++) {
 	testq	%r15, %r15	# number_of_blocks
 	je	.L12	#,
 .L15:
-	leaq	0(,%r12,4), %rax	#, _56
+	leaq	0(,%r12,8), %rax	#, _53
 	movq	%r9, %rbx	# d, ivtmp.19
 # composition_cooperman_ma.c:45: 	for (block_num = 0; block_num < number_of_blocks; block_num++) {
 	xorl	%edx, %edx	# block_num
@@ -226,11 +226,11 @@ composition:
 	.p2align 3
 .L11:
 # composition_cooperman_ma.c:46: 		d_ptr[block_num] = &d[block_num * block_length];
-	movq	%rbx, (%rsi,%rdx,8)	# ivtmp.19, MEM[base: d_ptr_70, index: block_num_100, step: 8, offset: 0B]
+	movq	%rbx, (%rsi,%rdx,8)	# ivtmp.19, MEM[base: d_ptr_67, index: block_num_97, step: 8, offset: 0B]
 # composition_cooperman_ma.c:45: 	for (block_num = 0; block_num < number_of_blocks; block_num++) {
 	addq	$1, %rdx	#, block_num
 # composition_cooperman_ma.c:45: 	for (block_num = 0; block_num < number_of_blocks; block_num++) {
-	addq	%rax, %rbx	# _56, ivtmp.19
+	addq	%rax, %rbx	# _53, ivtmp.19
 	cmpq	%rdx, %r15	# block_num, number_of_blocks
 	ja	.L11	#,
 # composition_cooperman_ma.c:48: 	for (i = 0; i < n; i++) {
@@ -238,25 +238,24 @@ composition:
 	je	.L1	#,
 .L12:
 # composition_cooperman_ma.c:50: 		block_num = x[i] >> block_length;
-	movl	%r12d, %ecx	# block_length, _174
+	movl	%r12d, %ecx	# block_length, _163
 	xorl	%eax, %eax	# i
 	.p2align 4,,10
 	.p2align 3
 .L13:
 # composition_cooperman_ma.c:50: 		block_num = x[i] >> block_length;
-	movl	0(%r13,%rax,4), %edx	# MEM[base: x_71(D), index: i_102, step: 4, offset: 0B], MEM[base: x_71(D), index: i_102, step: 4, offset: 0B]
-# composition_cooperman_ma.c:50: 		block_num = x[i] >> block_length;
-	shrl	%cl, %edx	# _174, block_num
+	movq	0(%r13,%rax,8), %rdx	# MEM[base: x_68(D), index: i_99, step: 8, offset: 0B], block_num
+	shrq	%cl, %rdx	# _163, block_num
 # composition_cooperman_ma.c:51: 		z[i] = *d_ptr[block_num];
-	leaq	(%rsi,%rdx,8), %rdi	#, _43
-	movq	(%rdi), %rdx	# *_43, _44
+	leaq	(%rsi,%rdx,8), %rdi	#, _40
+	movq	(%rdi), %rdx	# *_40, _41
 # composition_cooperman_ma.c:51: 		z[i] = *d_ptr[block_num];
-	movl	(%rdx), %r8d	# *_44, *_44
+	movq	(%rdx), %r8	# *_41, *_41
 # composition_cooperman_ma.c:52: 		d_ptr[block_num]++;
-	addq	$4, %rdx	#, tmp178
-	movq	%rdx, (%rdi)	# tmp178, *_43
+	addq	$8, %rdx	#, tmp173
+	movq	%rdx, (%rdi)	# tmp173, *_40
 # composition_cooperman_ma.c:51: 		z[i] = *d_ptr[block_num];
-	movl	%r8d, (%r14,%rax,4)	# *_44, MEM[base: z_73(D), index: i_102, step: 4, offset: 0B]
+	movq	%r8, (%r14,%rax,8)	# *_41, MEM[base: z_70(D), index: i_99, step: 8, offset: 0B]
 # composition_cooperman_ma.c:48: 	for (i = 0; i < n; i++) {
 	addq	$1, %rax	#, i
 # composition_cooperman_ma.c:48: 	for (i = 0; i < n; i++) {
@@ -285,8 +284,8 @@ composition:
 .L3:
 	.cfi_restore_state
 # composition_cooperman_ma.c:18: 	block_length = (size_t) pow(2, block_length_shift);
-	subsd	%xmm1, %xmm0	# tmp159, tmp160
-	cvttsd2siq	%xmm0, %r12	# tmp160, block_length
+	subsd	%xmm1, %xmm0	# tmp156, tmp157
+	cvttsd2siq	%xmm0, %r12	# tmp157, block_length
 	btcq	$63, %r12	#, block_length
 	jmp	.L4	#
 	.p2align 4,,10
