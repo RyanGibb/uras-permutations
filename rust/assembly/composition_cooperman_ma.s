@@ -129,7 +129,7 @@ _ZN24composition_cooperman_ma24composition_cooperman_ma17h72deead023bffe8bE:
 	movq	%rax, 8(%rsp)
 	movl	$8, %ecx
 	xorl	%ebp, %ebp
-	movq	%r15, %rbx
+	movq	%r15, 56(%rsp)
 	movq	%r15, %rax
 	mulq	%rcx
 	movq	%rax, %r15
@@ -139,15 +139,15 @@ _ZN24composition_cooperman_ma24composition_cooperman_ma17h72deead023bffe8bE:
 	movb	%al, %bpl
 	shlq	$3, %rbp
 	testq	%r15, %r15
-	je	.LBB3_6
+	je	.LBB3_5
 	movq	%r15, %rdi
 	movq	%rbp, %rsi
-	callq	*__rust_alloc_zeroed@GOTPCREL(%rip)
+	callq	*__rust_alloc@GOTPCREL(%rip)
 	movq	%rax, %rsi
-	movq	%r14, 56(%rsp)
 	testq	%rsi, %rsi
 	je	.LBB3_63
 .LBB3_8:
+	movq	%r14, %rbx
 	shrq	$3, %r15
 	movl	$8, %ecx
 	xorl	%r14d, %r14d
@@ -157,25 +157,25 @@ _ZN24composition_cooperman_ma24composition_cooperman_ma17h72deead023bffe8bE:
 	setno	%al
 	movq	%rsi, 16(%rsp)
 	movq	%r15, 24(%rsp)
-	movq	%rbx, 32(%rsp)
+	movq	$0, 32(%rsp)
 	jo	.LBB3_9
-	movq	%rbx, %r15
 	movb	%al, %r14b
 	shlq	$3, %r14
 	testq	%rdi, %rdi
+	movq	56(%rsp), %r15
 	movq	%rdi, 48(%rsp)
-	je	.LBB3_13
-	movq	%rsi, %rbx
+	je	.LBB3_12
+	movq	%rsi, %rbp
 	movq	%r14, %rsi
 	callq	*__rust_alloc@GOTPCREL(%rip)
-	movq	%rbx, %rsi
+	movq	%rbp, %rsi
 	movq	40(%rsp), %r10
 	testq	%rax, %rax
 	je	.LBB3_52
 .LBB3_15:
 	andl	$63, %r12d
 	cmpq	$0, 8(%rsp)
-	movq	56(%rsp), %r11
+	movq	%rbx, %r11
 	movq	64(%rsp), %r14
 	je	.LBB3_23
 	movq	%rsi, (%rax)
@@ -238,6 +238,7 @@ _ZN24composition_cooperman_ma24composition_cooperman_ma17h72deead023bffe8bE:
 	cmpq	%rdi, %r8
 	jne	.LBB3_22
 .LBB3_23:
+	movq	%r15, 32(%rsp)
 	testq	%r15, %r15
 	je	.LBB3_34
 	movl	%r15d, %edx
@@ -246,9 +247,8 @@ _ZN24composition_cooperman_ma24composition_cooperman_ma17h72deead023bffe8bE:
 	jne	.LBB3_54
 	xorl	%esi, %esi
 	jmp	.LBB3_26
-.LBB3_6:
+.LBB3_5:
 	movq	%rbp, %rsi
-	movq	%r14, 56(%rsp)
 	testq	%rsi, %rsi
 	jne	.LBB3_8
 .LBB3_63:
@@ -256,7 +256,7 @@ _ZN24composition_cooperman_ma24composition_cooperman_ma17h72deead023bffe8bE:
 	movq	%rbp, %rsi
 	callq	_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h2c217ee49dee44b6E
 	ud2
-.LBB3_13:
+.LBB3_12:
 	movq	%r14, %rax
 	movq	40(%rsp), %r10
 	testq	%rax, %rax
