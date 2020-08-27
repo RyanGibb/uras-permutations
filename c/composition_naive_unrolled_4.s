@@ -64,122 +64,85 @@
 composition:
 .LFB5:
 	.cfi_startproc
-	pushq	%r13	#
-	.cfi_def_cfa_offset 16
-	.cfi_offset 13, -16
-	movq	%rdi, %r10	# tmp165, n
-	movq	%rsi, %r11	# tmp166, x
-	pushq	%r12	#
-	.cfi_def_cfa_offset 24
-	.cfi_offset 12, -24
-	movq	%rcx, %r12	# tmp168, z
-	pushq	%rbp	#
-	.cfi_def_cfa_offset 32
-	.cfi_offset 6, -32
 # composition_naive_unrolled.c:10: 	for (size_t i = 0; i < n_rounded; i += ROLLS) {
-	movq	%rdi, %rbp	# n, n_rounded
+	movq	%rdi, %r10	# n, n_rounded
 # composition_naive_unrolled.c:7: void composition(size_t n, perm_t x[], perm_t y[], perm_t z[]) {
-	pushq	%rbx	#
-	.cfi_def_cfa_offset 40
-	.cfi_offset 3, -40
-	movq	%rdx, %rbx	# tmp167, y
 	subq	$40, %rsp	#,
-	.cfi_def_cfa_offset 80
+	.cfi_def_cfa_offset 48
+# composition_naive_unrolled.c:7: void composition(size_t n, perm_t x[], perm_t y[], perm_t z[]) {
+	movq	%rdi, %r9	# tmp165, n
 # composition_naive_unrolled.c:10: 	for (size_t i = 0; i < n_rounded; i += ROLLS) {
-	andq	$-4, %rbp	#, n_rounded
+	andq	$-4, %r10	#, n_rounded
 	je	.L2	#,
-	movq	%rsi, %rax	# x, ivtmp.17
-	movq	%rcx, %rdx	# z, ivtmp.18
-	leaq	(%rsi,%rbp,8), %r13	#, _11
+# composition_naive_unrolled.c:10: 	for (size_t i = 0; i < n_rounded; i += ROLLS) {
+	xorl	%eax, %eax	# i
 	.p2align 4,,10
 	.p2align 3
 .L3:
-# composition_naive_unrolled.c:12: 			rolls[j] = x[i + j];
-	movq	(%rax), %rsi	# MEM[base: _77, offset: 0B], _99
-	movq	8(%rax), %r8	# MEM[base: _77, offset: 8B], _107
+# composition_naive_unrolled.c:12: 			rolls[j] = y[x[i + j]];
+	movq	16(%rsi,%rax,8), %r8	# MEM[base: x_41(D), index: i_59, step: 8, offset: 16B], MEM[base: x_41(D), index: i_59, step: 8, offset: 16B]
+	movq	24(%rsi,%rax,8), %rdi	# MEM[base: x_41(D), index: i_59, step: 8, offset: 24B], MEM[base: x_41(D), index: i_59, step: 8, offset: 24B]
+	movq	(%rdx,%r8,8), %xmm0	# *_111, *_111
+	movq	(%rsi,%rax,8), %r8	# MEM[base: x_41(D), index: i_59, step: 8, offset: 0B], MEM[base: x_41(D), index: i_59, step: 8, offset: 0B]
+	movhps	(%rdx,%rdi,8), %xmm0	# *_122, tmp136
+	movq	(%rdx,%r8,8), %xmm1	# *_89, *_89
+	movq	8(%rsi,%rax,8), %rdi	# MEM[base: x_41(D), index: i_59, step: 8, offset: 8B], MEM[base: x_41(D), index: i_59, step: 8, offset: 8B]
+	movhps	(%rdx,%rdi,8), %xmm1	# *_100, tmp141
+# composition_naive_unrolled.c:15: 			z[i + j] = rolls[j];
+	movups	%xmm0, 16(%rcx,%rax,8)	# tmp136, MEM[base: z_38(D), index: i_59, step: 8, offset: 16B]
+	movups	%xmm1, (%rcx,%rax,8)	# tmp141, MEM[base: z_38(D), index: i_59, step: 8, offset: 0B]
 # composition_naive_unrolled.c:10: 	for (size_t i = 0; i < n_rounded; i += ROLLS) {
-	addq	$32, %rax	#, ivtmp.17
-	addq	$32, %rdx	#, ivtmp.18
-# composition_naive_unrolled.c:12: 			rolls[j] = x[i + j];
-	movq	-16(%rax), %rcx	# MEM[base: _77, offset: 16B], _115
-	movq	-8(%rax), %rdi	# MEM[base: _77, offset: 24B], _123
-# composition_naive_unrolled.c:15: 			z[i + j] = y[rolls[j]];
-	movq	(%rbx,%rsi,8), %r9	# *_54, _58
-# composition_naive_unrolled.c:15: 			z[i + j] = y[rolls[j]];
-	movq	%r9, -32(%rdx)	# _58, MEM[base: _103, offset: 0B]
-# composition_naive_unrolled.c:15: 			z[i + j] = y[rolls[j]];
-	movq	(%rbx,%r8,8), %r9	# *_65, _69
-# composition_naive_unrolled.c:15: 			z[i + j] = y[rolls[j]];
-	movq	%r9, -24(%rdx)	# _69, MEM[base: _103, offset: 8B]
-# composition_naive_unrolled.c:15: 			z[i + j] = y[rolls[j]];
-	movq	(%rbx,%rcx,8), %r9	# *_76, _80
-# composition_naive_unrolled.c:15: 			z[i + j] = y[rolls[j]];
-	movq	%r9, -16(%rdx)	# _80, MEM[base: _103, offset: 16B]
-# composition_naive_unrolled.c:15: 			z[i + j] = y[rolls[j]];
-	movq	(%rbx,%rdi,8), %r9	# *_87, _91
-# composition_naive_unrolled.c:15: 			z[i + j] = y[rolls[j]];
-	movq	%r9, -8(%rdx)	# _91, MEM[base: _103, offset: 24B]
+	addq	$4, %rax	#, i
 # composition_naive_unrolled.c:10: 	for (size_t i = 0; i < n_rounded; i += ROLLS) {
-	cmpq	%rax, %r13	# ivtmp.17, _11
-	jne	.L3	#,
-	movq	%rsi, %xmm0	# _99, tmp148
-	movq	%r8, %xmm1	# _107, _107
-	movq	%rdi, %xmm2	# _123, _123
-	punpcklqdq	%xmm1, %xmm0	# _107, tmp148
-	movaps	%xmm0, (%rsp)	# tmp148, MEM <vector(2) long unsigned int> [(long unsigned int *)&rolls]
-	movq	%rcx, %xmm0	# _115, tmp149
-	punpcklqdq	%xmm2, %xmm0	# _123, tmp149
-	movaps	%xmm0, 16(%rsp)	# tmp149, MEM <vector(2) long unsigned int> [(long unsigned int *)&rolls + 16B]
+	cmpq	%rax, %r10	# i, n_rounded
+	ja	.L3	#,
+	movaps	%xmm1, (%rsp)	# tmp141, MEM <vector(2) long unsigned int> [(long unsigned int *)&rolls]
+	movaps	%xmm0, 16(%rsp)	# tmp136, MEM <vector(2) long unsigned int> [(long unsigned int *)&rolls + 16B]
 .L2:
 # composition_naive_unrolled.c:20: 	for (size_t j = 0; j < leftover_n; j++) {
-	subq	%rbp, %r10	# n_rounded, n
-	movq	%r10, %r13	# n, leftover_n
+	movq	%r9, %rax	# n, n
+	subq	%r10, %rax	# n_rounded, n
 	je	.L1	#,
-# composition_naive_unrolled.c:21: 		rolls[j] = x[i + j];
-	leaq	0(,%r10,8), %rdx	#, tmp151
-	leaq	(%r11,%rbp,8), %rsi	#, tmp152
-	movq	%rsp, %rdi	#,
+# composition_naive_unrolled.c:21: 		rolls[j] = y[x[i + j]];
+	movq	(%rsi,%r10,8), %r8	# *_21, *_21
+# composition_naive_unrolled.c:21: 		rolls[j] = y[x[i + j]];
+	leaq	0(,%r10,8), %rdi	#, _20
+# composition_naive_unrolled.c:21: 		rolls[j] = y[x[i + j]];
+	movq	(%rdx,%r8,8), %r8	# *_40, *_40
+	movq	%r8, (%rsp)	# *_40, rolls
+# composition_naive_unrolled.c:20: 	for (size_t j = 0; j < leftover_n; j++) {
+	cmpq	$1, %rax	#, leftover_n
+	je	.L5	#,
+# composition_naive_unrolled.c:21: 		rolls[j] = y[x[i + j]];
+	movq	8(%rsi,%r10,8), %r8	# *_146, *_146
+# composition_naive_unrolled.c:21: 		rolls[j] = y[x[i + j]];
+	movq	(%rdx,%r8,8), %r8	# *_133, *_133
+	movq	%r8, 8(%rsp)	# *_133, rolls
+# composition_naive_unrolled.c:20: 	for (size_t j = 0; j < leftover_n; j++) {
+	cmpq	$2, %rax	#, leftover_n
+	je	.L5	#,
+# composition_naive_unrolled.c:21: 		rolls[j] = y[x[i + j]];
+	movq	16(%rsi,%r10,8), %r8	# *_125, *_125
+# composition_naive_unrolled.c:21: 		rolls[j] = y[x[i + j]];
+	movq	(%rdx,%r8,8), %r8	# *_114, *_114
+	movq	%r8, 16(%rsp)	# *_114, rolls
+# composition_naive_unrolled.c:20: 	for (size_t j = 0; j < leftover_n; j++) {
+	cmpq	$3, %rax	#, leftover_n
+	je	.L5	#,
+# composition_naive_unrolled.c:21: 		rolls[j] = y[x[i + j]];
+	movq	24(%rsi,%r10,8), %rsi	# *_14, *_14
+# composition_naive_unrolled.c:21: 		rolls[j] = y[x[i + j]];
+	movq	(%rdx,%rsi,8), %rdx	# *_17, *_17
+	movq	%rdx, 24(%rsp)	# *_17, rolls
+.L5:
+# composition_naive_unrolled.c:24: 		z[i + j] = rolls[j];
+	addq	%rcx, %rdi	# z, tmp157
+	leaq	0(,%rax,8), %rdx	#, tmp158
+	movq	%rsp, %rsi	#,
 	call	memcpy	#
-# composition_naive_unrolled.c:24: 		z[i + j] = y[rolls[j]];
-	movq	(%rsp), %rax	# rolls, rolls
-	movq	(%rbx,%rax,8), %rax	# *_14, _145
-# composition_naive_unrolled.c:24: 		z[i + j] = y[rolls[j]];
-	movq	%rax, (%r12,%rbp,8)	# _145, *_44
-# composition_naive_unrolled.c:23: 	for (size_t j = 0; j < leftover_n; j++) {
-	cmpq	$1, %r13	#, leftover_n
-	je	.L1	#,
-# composition_naive_unrolled.c:24: 		z[i + j] = y[rolls[j]];
-	movq	8(%rsp), %rax	# rolls, rolls
-	movq	(%rbx,%rax,8), %rax	# *_126, _117
-# composition_naive_unrolled.c:24: 		z[i + j] = y[rolls[j]];
-	movq	%rax, 8(%r12,%rbp,8)	# _117, *_118
-# composition_naive_unrolled.c:23: 	for (size_t j = 0; j < leftover_n; j++) {
-	cmpq	$2, %r13	#, leftover_n
-	je	.L1	#,
-# composition_naive_unrolled.c:24: 		z[i + j] = y[rolls[j]];
-	movq	16(%rsp), %rax	# rolls, rolls
-	movq	(%rbx,%rax,8), %rax	# *_100, _89
-# composition_naive_unrolled.c:24: 		z[i + j] = y[rolls[j]];
-	movq	%rax, 16(%r12,%rbp,8)	# _89, *_93
-# composition_naive_unrolled.c:23: 	for (size_t j = 0; j < leftover_n; j++) {
-	cmpq	$3, %r13	#, leftover_n
-	je	.L1	#,
-# composition_naive_unrolled.c:24: 		z[i + j] = y[rolls[j]];
-	movq	24(%rsp), %rax	# rolls, rolls
-	movq	(%rbx,%rax,8), %rax	# *_18, _22
-# composition_naive_unrolled.c:24: 		z[i + j] = y[rolls[j]];
-	movq	%rax, 24(%r12,%rbp,8)	# _22, *_21
 .L1:
 # composition_naive_unrolled.c:26: }
 	addq	$40, %rsp	#,
-	.cfi_def_cfa_offset 40
-	popq	%rbx	#
-	.cfi_def_cfa_offset 32
-	popq	%rbp	#
-	.cfi_def_cfa_offset 24
-	popq	%r12	#
-	.cfi_def_cfa_offset 16
-	popq	%r13	#
 	.cfi_def_cfa_offset 8
 	ret	
 	.cfi_endproc
