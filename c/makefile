@@ -41,7 +41,7 @@ composition_cooperman_ma.s: composition_cooperman_ma.c composition.h
 	$(CC) $(CFLAGS) -O3 -S -fverbose-asm composition_cooperman_ma.c
 
 composition_naive_optimized.s: composition_naive_optimized.c composition.h
-	$(CC) $(CFLAGS) -O3 -S -fverbose-asm composition_naive_optimized.c -march=native
+	$(CC) $(CFLAGS) -O3 -S -fverbose-asm composition_naive_optimized.c -DSIGNED -march=native
 
 composition_naive_unrolled_4.s: composition_naive_unrolled.c composition.h
 	$(CC) $(CFLAGS) -O3 -S -fverbose-asm composition_naive_unrolled.c -o composition_naive_unrolled_4.s -DROLLS=4

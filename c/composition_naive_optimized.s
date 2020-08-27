@@ -3,13 +3,13 @@
 #	compiled by GNU C version 10.1.1 20200507 (Red Hat 10.1.1-1), GMP version 6.1.2, MPFR version 4.0.2-p7, MPC version 1.1.0, isl version none
 # warning: MPFR header version 4.0.2-p7 differs from library version 4.0.2-p9.
 # GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
-# options passed:  composition_naive_optimized.c -march=haswell -mmmx
-# -mno-3dnow -msse -msse2 -msse3 -mssse3 -mno-sse4a -mcx16 -msahf -mmovbe
-# -maes -mno-sha -mpclmul -mpopcnt -mabm -mno-lwp -mfma -mno-fma4 -mno-xop
-# -mbmi -mno-sgx -mbmi2 -mno-pconfig -mno-wbnoinvd -mno-tbm -mavx -mavx2
-# -msse4.2 -msse4.1 -mlzcnt -mno-rtm -mno-hle -mrdrnd -mf16c -mfsgsbase
-# -mno-rdseed -mno-prfchw -mno-adx -mfxsr -mxsave -mxsaveopt -mno-avx512f
-# -mno-avx512er -mno-avx512cd -mno-avx512pf -mno-prefetchwt1
+# options passed:  -D SIGNED composition_naive_optimized.c -march=haswell
+# -mmmx -mno-3dnow -msse -msse2 -msse3 -mssse3 -mno-sse4a -mcx16 -msahf
+# -mmovbe -maes -mno-sha -mpclmul -mpopcnt -mabm -mno-lwp -mfma -mno-fma4
+# -mno-xop -mbmi -mno-sgx -mbmi2 -mno-pconfig -mno-wbnoinvd -mno-tbm -mavx
+# -mavx2 -msse4.2 -msse4.1 -mlzcnt -mno-rtm -mno-hle -mrdrnd -mf16c
+# -mfsgsbase -mno-rdseed -mno-prfchw -mno-adx -mfxsr -mxsave -mxsaveopt
+# -mno-avx512f -mno-avx512er -mno-avx512cd -mno-avx512pf -mno-prefetchwt1
 # -mno-clflushopt -mno-xsavec -mno-xsaves -mno-avx512dq -mno-avx512bw
 # -mno-avx512vl -mno-avx512ifma -mno-avx512vbmi -mno-avx5124fmaps
 # -mno-avx5124vnniw -mno-clwb -mno-mwaitx -mno-clzero -mno-pku -mno-rdpid
@@ -78,90 +78,75 @@
 composition:
 .LFB5:
 	.cfi_startproc
-# composition_naive_optimized.c:12: 	for (size_t i = 0; i < n; i++) {
+# composition_naive_optimized.c:10: void composition(size_t n, perm_t* restrict x, perm_t* restrict y, perm_t* restrict z) {
+	movq	%rsi, %r8	# tmp131, x
+	movq	%rdx, %rsi	# tmp132, y
+# composition_naive_optimized.c:11: 	for (size_t i = 0; i < n; i++) {
 	testq	%rdi, %rdi	# n
-	je	.L14	#,
-	leaq	-1(%rdi), %r9	#, _31
-	cmpq	$6, %r9	#, _31
-	jbe	.L8	#,
-	movq	%rdi, %r8	# n, bnd.5
-	xorl	%eax, %eax	# ivtmp.27
-# composition_naive_optimized.c:13: 		z[i] = y[x[i]];
-	vpcmpeqd	%ymm1, %ymm1, %ymm1	# tmp130
-	shrq	$3, %r8	#, bnd.5
-	salq	$5, %r8	#, _92
+	je	.L12	#,
+	leaq	-1(%rdi), %rax	#, tmp119
+	cmpq	$2, %rax	#, tmp119
+	jbe	.L6	#,
+	movq	%rdi, %rdx	# n, bnd.5
+	xorl	%eax, %eax	# ivtmp.17
+# composition_naive_optimized.c:12: 		z[i] = y[x[i]];
+	vpcmpeqd	%ymm1, %ymm1, %ymm1	# tmp123
+	shrq	$2, %rdx	#, bnd.5
+	salq	$5, %rdx	#, _61
 	.p2align 4,,10
 	.p2align 3
 .L4:
-# composition_naive_optimized.c:13: 		z[i] = y[x[i]];
-	vmovdqu	(%rsi,%rax), %ymm3	# MEM[base: x_13(D), index: ivtmp.27_1, offset: 0B], tmp152
-	vmovdqa	%ymm1, %ymm2	# tmp130, tmp148
-	vpgatherdd	%ymm2, (%rdx,%ymm3,4), %ymm0	# y, tmp148,, vect__8.11
-# composition_naive_optimized.c:13: 		z[i] = y[x[i]];
-	vmovdqu	%ymm0, (%rcx,%rax)	# vect__8.11, MEM[base: z_15(D), index: ivtmp.27_1, offset: 0B]
-	addq	$32, %rax	#, ivtmp.27
-	cmpq	%r8, %rax	# _92, ivtmp.27
+# composition_naive_optimized.c:12: 		z[i] = y[x[i]];
+	vmovdqu	(%r8,%rax), %ymm3	# MEM[base: x_13(D), index: ivtmp.17_1, offset: 0B], tmp137
+	vmovdqa	%ymm1, %ymm2	# tmp123, tmp134
+	vpgatherqq	%ymm2, (%rsi,%ymm3,8), %ymm0	# y, tmp134,, vect__8.11
+# composition_naive_optimized.c:12: 		z[i] = y[x[i]];
+	vmovdqu	%ymm0, (%rcx,%rax)	# vect__8.11, MEM[base: z_15(D), index: ivtmp.17_1, offset: 0B]
+	addq	$32, %rax	#, ivtmp.17
+	cmpq	%rdx, %rax	# _61, ivtmp.17
 	jne	.L4	#,
-	movq	%rdi, %rax	# n, tmp.17
-	andq	$-8, %rax	#, tmp.17
-	testb	$7, %dil	#, n
-	je	.L16	#,
+	movq	%rdi, %rax	# n, niters_vector_mult_vf.6
+	andq	$-4, %rax	#, niters_vector_mult_vf.6
+	testb	$3, %dil	#, n
+	je	.L14	#,
 	vzeroupper
 .L3:
-	movq	%rdi, %r10	# n, niters.14
-	subq	%rax, %r9	# tmp.17, tmp131
-	subq	%rax, %r10	# tmp.17, niters.14
-	cmpq	$2, %r9	#, tmp131
-	jbe	.L6	#,
-# composition_naive_optimized.c:13: 		z[i] = y[x[i]];
-	vmovdqu	(%rsi,%rax,4), %xmm5	# MEM <vector(4) int> [(s_perm_t *)vectp_x.19_79], tmp156
-	vpcmpeqd	%xmm0, %xmm0, %xmm0	# tmp134
-	movq	%r10, %r8	# niters.14, niters_vector_mult_vf.16
-	vmovdqa	%xmm0, %xmm4	# tmp134, tmp149
-	andq	$-4, %r8	#, niters_vector_mult_vf.16
-	vpgatherdd	%xmm4, (%rdx,%xmm5,4), %xmm0	# y, tmp149,, vect__10.21
-# composition_naive_optimized.c:13: 		z[i] = y[x[i]];
-	vmovdqu	%xmm0, (%rcx,%rax,4)	# vect__10.21, MEM <vector(4) int> [(s_perm_t *)vectp_z.23_87]
-	addq	%r8, %rax	# niters_vector_mult_vf.16, tmp.17
-	cmpq	%r8, %r10	# niters_vector_mult_vf.16, niters.14
-	je	.L14	#,
-.L6:
-# composition_naive_optimized.c:13: 		z[i] = y[x[i]];
-	movslq	(%rsi,%rax,4), %r8	# *_3, *_3
-# composition_naive_optimized.c:13: 		z[i] = y[x[i]];
-	movl	(%rdx,%r8,4), %r8d	# *_7, *_7
-	movl	%r8d, (%rcx,%rax,4)	# *_7, *_8
-# composition_naive_optimized.c:12: 	for (size_t i = 0; i < n; i++) {
-	leaq	1(%rax), %r8	#, i
-# composition_naive_optimized.c:12: 	for (size_t i = 0; i < n; i++) {
-	cmpq	%r8, %rdi	# i, n
-	jbe	.L14	#,
-# composition_naive_optimized.c:13: 		z[i] = y[x[i]];
-	movslq	(%rsi,%r8,4), %r9	# *_23, *_23
-# composition_naive_optimized.c:12: 	for (size_t i = 0; i < n; i++) {
+# composition_naive_optimized.c:12: 		z[i] = y[x[i]];
+	movq	(%r8,%rax,8), %rdx	# *_3, *_3
+# composition_naive_optimized.c:12: 		z[i] = y[x[i]];
+	movq	(%rsi,%rdx,8), %rdx	# *_7, *_7
+	movq	%rdx, (%rcx,%rax,8)	# *_7, *_8
+# composition_naive_optimized.c:11: 	for (size_t i = 0; i < n; i++) {
+	leaq	1(%rax), %rdx	#, i
+# composition_naive_optimized.c:11: 	for (size_t i = 0; i < n; i++) {
+	cmpq	%rdx, %rdi	# i, n
+	jbe	.L12	#,
+# composition_naive_optimized.c:12: 		z[i] = y[x[i]];
+	movq	(%r8,%rdx,8), %r9	# *_52, *_52
+# composition_naive_optimized.c:11: 	for (size_t i = 0; i < n; i++) {
 	addq	$2, %rax	#, i
-# composition_naive_optimized.c:13: 		z[i] = y[x[i]];
-	movl	(%rdx,%r9,4), %r9d	# *_32, *_32
-	movl	%r9d, (%rcx,%r8,4)	# *_32, *_29
-# composition_naive_optimized.c:12: 	for (size_t i = 0; i < n; i++) {
+# composition_naive_optimized.c:12: 		z[i] = y[x[i]];
+	movq	(%rsi,%r9,8), %r9	# *_56, *_56
+	movq	%r9, (%rcx,%rdx,8)	# *_56, *_57
+# composition_naive_optimized.c:11: 	for (size_t i = 0; i < n; i++) {
 	cmpq	%rax, %rdi	# i, n
-	jbe	.L14	#,
-# composition_naive_optimized.c:13: 		z[i] = y[x[i]];
-	movslq	(%rsi,%rax,4), %rsi	# *_61, *_61
-# composition_naive_optimized.c:13: 		z[i] = y[x[i]];
-	movl	(%rdx,%rsi,4), %edx	# *_65, *_65
-	movl	%edx, (%rcx,%rax,4)	# *_65, *_66
-.L14:
-# composition_naive_optimized.c:15: }
+	jbe	.L12	#,
+# composition_naive_optimized.c:12: 		z[i] = y[x[i]];
+	movq	(%r8,%rax,8), %rdx	# *_34, *_34
+# composition_naive_optimized.c:12: 		z[i] = y[x[i]];
+	movq	(%rsi,%rdx,8), %rdx	# *_26, *_26
+	movq	%rdx, (%rcx,%rax,8)	# *_26, *_25
+.L12:
+# composition_naive_optimized.c:14: }
 	ret	
 	.p2align 4,,10
 	.p2align 3
-.L16:
+.L14:
 	vzeroupper
 	ret	
-.L8:
-# composition_naive_optimized.c:12: 	for (size_t i = 0; i < n; i++) {
-	xorl	%eax, %eax	# tmp.17
+.L6:
+# composition_naive_optimized.c:11: 	for (size_t i = 0; i < n; i++) {
+	xorl	%eax, %eax	# niters_vector_mult_vf.6
 	jmp	.L3	#
 	.cfi_endproc
 .LFE5:
